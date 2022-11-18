@@ -1,0 +1,14 @@
+dependencies {
+    api libs.get('guava')
+    api libs.get('hutool')
+    api libs.get('httpmime')
+    api libs.get('okhttp')
+    api libs.get('fastjson')
+    api libs.get('fastjson-ext')
+    api libs.get('jackson')
+    api libs.get('commons-text')
+    api libs.get('commons-io')
+    api libs.get('commons-fileupload')
+    api libs.get('netty')
+    api libs.get('ttl')
+}
