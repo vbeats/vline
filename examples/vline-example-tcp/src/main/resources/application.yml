@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: example-tcp
+
+# tcp 一进 2出
+# tcp 一进 1出
+vline:
+  enabled: true
+  devices:
+    - type: tcp
+      name: t1
+      host: 127.0.0.1
+      port: 10001
+      out:
+        - name: t3
+          type: tcp
+          host: 127.0.0.1
+          port: 10010
+        - name: t4
+          type: tcp
+          host: 127.0.0.1
+          port: 10011
+    - type: tcp
+      name: t2
+      host: 127.0.0.1
+      port: 10086
+      out:
+        - name: t5
+          type: tcp
+          host: 127.0.0.1
+          port: 10012

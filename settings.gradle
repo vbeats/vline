@@ -11,5 +11,27 @@ pluginManagement {
 
 rootProject.name = 'vline'
 
-include 'core'
-include 'app'
+include 'vline-core'
+include 'vline-database'
+include 'vline-redis'
+include 'vline-nacos'
+include 'vline-etcd'
+include 'vline-http'
+include 'vline-tcp'
+include 'vline-grpc'
+include 'vline-mqtt'
+include 'vline-serial-port'
+
+include 'vline-spring-boot-starter'
+
+// include examples 下所有模块
+Arrays.asList(rootDir.listFiles()).forEach(e -> {
+    if (e.isDirectory()) {
+        def dirName = e.getAbsolutePath().substring(e.getAbsolutePath().lastIndexOf("\\") + 1)
+        if ("examples" == dirName) {
+            Arrays.asList(e.listFiles()).forEach(ex -> {
+                include 'examples:' + ex.getAbsolutePath().substring(ex.getAbsolutePath().lastIndexOf("\\") + 1)
+            })
+        }
+    }
+})

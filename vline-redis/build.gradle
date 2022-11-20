@@ -1,0 +1,10 @@
+dependencies {
+    api(project(":vline-core"))
+
+    api libs.get('redisson')
+    api libs.get('caffeine')
+    api libs.get('commons-pool2')
+
+    api 'org.springframework.boot:spring-boot-starter-data-redis'
+    api 'org.springframework.boot:spring-boot-starter-cache'
+}

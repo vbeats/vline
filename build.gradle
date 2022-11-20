@@ -4,15 +4,13 @@ plugins {
     id 'java-library'
     id 'org.springframework.boot' version "${SpringBootVersion}"
     id 'io.spring.dependency-management' version "${DependencyManagement}"
-    id 'org.springframework.experimental.aot' version "${AOT}" apply false
-    id 'org.graalvm.buildtools.native' version "${BuildTools}" apply false
 }
 
 apply from: 'version.gradle'
 
 allprojects {
-    group 'com.codestepfish'
-    version "${AppVersion}"
+    group "${group}"
+    version "${version}"
 
     repositories {
         maven {
@@ -25,27 +23,16 @@ allprojects {
     }
 }
 
-def ANSI_CYAN = "\u001B[36m"
-def ANSI_RESET = "\u001B[0m"
-def profile = System.getProperty('profile') ? System.getProperty('profile') : 'dev'
-def enableNacos = System.getProperty('nacos') ? Boolean.valueOf(System.getProperty('nacos')) : false
-def enableMysql = System.getProperty('mysql') ? Boolean.valueOf(System.getProperty('mysql')) : false
-def enableRedis = System.getProperty('redis') ? Boolean.valueOf(System.getProperty('redis')) : false
-
-println("Current Profile: ${ANSI_CYAN}" + profile + "${ANSI_RESET}")
-println("enable nacos: ${ANSI_CYAN}" + enableNacos + "${ANSI_RESET}")
-println("enable mysql: ${ANSI_CYAN}" + enableMysql + "${ANSI_RESET}")
-println("enable redis: ${ANSI_CYAN}" + enableRedis + "${ANSI_RESET}")
-
 subprojects {
+
     apply plugin: 'java-library'
     apply plugin: 'io.spring.dependency-management'
 
     dependencyManagement {
         imports {
             mavenBom SpringBootPlugin.BOM_COORDINATES
-            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${SpringCloudVersion}"
-            mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${SpringCloudAlibabaVersion}"
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+            mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}"
         }
     }
 
@@ -56,14 +43,6 @@ subprojects {
 
     compileJava.options.compilerArgs.addAll(['-parameters'])
 
-    jar {
-        enabled = true
-    }
-
-    bootJar {
-        enabled = false
-    }
-
     configurations {
         compileOnly {
             extendsFrom annotationProcessor
@@ -71,85 +50,14 @@ subprojects {
     }
 
     dependencies {
-        implementation 'org.springframework.cloud:spring-cloud-starter'
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
-        annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
-        testImplementation 'org.springframework.boot:spring-boot-starter-test'
         testCompileOnly 'org.projectlombok:lombok'
         testAnnotationProcessor 'org.projectlombok:lombok'
-        testAnnotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
     }
 
     tasks.named('test') {
         useJUnitPlatform()
     }
-
-    // **************************** 模块自定义配置****************************
-    def baseModules = ['core']
-    if (baseModules.contains(project.name)) {
-        return
-    }
-
-    apply plugin: 'org.springframework.boot'
-    apply plugin: 'org.graalvm.buildtools.native'
-    apply plugin: 'org.springframework.experimental.aot'
-
-    bootJar {
-        enabled = true
-        // springboot application 命名规范: group.项目名(首字母大写)Application
-        mainClass.set(rootProject.group + "." + project.name.substring(0, 1).toUpperCase() + project.name.substring(1) + "Application")
-        destinationDirectory = file(getRootProject().getBuildDir())
-        archiveFileName = project.name + '.jar'
-    }
-
-    dependencies {
-        implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
-        implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
-
-        implementation 'org.springframework.boot:spring-boot-starter-web'
-        implementation 'org.springframework.boot:spring-boot-starter-validation'
-
-        if (enableNacos) {
-            implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config'
-            implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'
-        }
-    }
-
-    switch (project.name) {
-        case 'app':
-            dependencies {
-                if (enableMysql) {
-                    implementation libs.get('mysql')
-                    implementation libs.get('mybatis')
-                    implementation libs.get('mybatis-plus')
-                    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-                }
-                if (enableRedis) {
-                    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-                    implementation 'org.springframework.boot:spring-boot-starter-cache'
-                    implementation(libs.get('redisson'))
-                }
-            }
-            break
-        default:
-            dependencies {
-            }
-    }
-
-    task copyResources(type: Copy) {
-
-        from "${project(':core').projectDir}/src/main/resources"
-
-        into "${project.buildDir}/resources/main"
-        exclude '**/rebel.xml'
-        includeEmptyDirs = true
-    }
-
-    tasks.named('bootBuildImage') {
-        builder = 'paketobuildpacks/builder:tiny'
-        environment = ['BP_NATIVE_IMAGE': 'true']
-    }
-
 }

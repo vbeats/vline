@@ -1,0 +1,68 @@
+java {
+    registerFeature("databaseSupport") {
+        usingSourceSet(sourceSets[SourceSet.MAIN_SOURCE_SET_NAME])
+        capability(group.toString(), "database-support", version.toString())
+    }
+
+    registerFeature("redisSupport") {
+        usingSourceSet(sourceSets[SourceSet.MAIN_SOURCE_SET_NAME])
+        capability(group.toString(), "redis-support", version.toString())
+    }
+
+    registerFeature("nacosSupport") {
+        usingSourceSet(sourceSets[SourceSet.MAIN_SOURCE_SET_NAME])
+        capability(group.toString(), "nacos-support", version.toString())
+    }
+
+    registerFeature("etcdSupport") {
+        usingSourceSet(sourceSets[SourceSet.MAIN_SOURCE_SET_NAME])
+        capability(group.toString(), "etcd-support", version.toString())
+    }
+
+    registerFeature("httpSupport") {
+        usingSourceSet(sourceSets[SourceSet.MAIN_SOURCE_SET_NAME])
+        capability(group.toString(), "http-support", version.toString())
+    }
+
+    registerFeature("tcpSupport") {
+        usingSourceSet(sourceSets[SourceSet.MAIN_SOURCE_SET_NAME])
+        capability(group.toString(), "tcp-support", version.toString())
+    }
+
+    registerFeature("grpcSupport") {
+        usingSourceSet(sourceSets[SourceSet.MAIN_SOURCE_SET_NAME])
+        capability(group.toString(), "grpc-support", version.toString())
+    }
+
+    registerFeature("mqttSupport") {
+        usingSourceSet(sourceSets[SourceSet.MAIN_SOURCE_SET_NAME])
+        capability(group.toString(), "mqtt-support", version.toString())
+    }
+
+    registerFeature("serialPortSupport") {
+        usingSourceSet(sourceSets[SourceSet.MAIN_SOURCE_SET_NAME])
+        capability(group.toString(), "serial-port-support", version.toString())
+    }
+
+}
+
+dependencies {
+    api(project(":vline-core"))
+
+    databaseSupportApi project(":vline-database")
+    redisSupportApi project(":vline-redis")
+    nacosSupportApi project(":vline-nacos")
+    etcdSupportApi project(":vline-etcd")
+    httpSupportApi project(":vline-http")
+    tcpSupportApi project(":vline-tcp")
+    grpcSupportApi project(":vline-grpc")
+    mqttSupportApi project(":vline-mqtt")
+    serialPortSupportApi project(":vline-serial-port")
+
+    api 'org.springframework.boot:spring-boot-starter'
+
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testAnnotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+}
