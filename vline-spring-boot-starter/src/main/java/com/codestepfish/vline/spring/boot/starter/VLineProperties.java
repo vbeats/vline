@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -17,4 +18,5 @@ public class VLineProperties {
 
     private List<Device> devices;
 
+    private Map<String, List<String>> topo; // 拓扑结构
 }

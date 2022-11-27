@@ -5,6 +5,7 @@ plugins {
     id 'org.springframework.boot' version "${SpringBootVersion}"
     id 'io.spring.dependency-management' version "${DependencyManagement}"
     id 'org.springframework.experimental.aot' version '0.12.1'
+    id 'org.graalvm.buildtools.native' version '0.9.18'
 }
 
 group = "${group}"
@@ -36,14 +37,13 @@ repositories {
 dependencyManagement {
     imports {
         mavenBom SpringBootPlugin.BOM_COORDINATES
-        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-        mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}"
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${SpringCloudVersion}"
+        mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${SpringCloudAlibabaVersion}"
     }
 }
 
 dependencies {
-    implementation project(":vline-http")
-//    implementation project(":vline-redis")
+    implementation project(":vline-tcp")
     implementation project(":vline-spring-boot-starter")
 }
 

@@ -11,14 +11,4 @@ public interface IDevice {
      * 设备通信资源销毁
      */
     void destroy();
-
-    /**
-     * 接收数据
-     */
-    void receive();
-
-    /**
-     * send data
-     */
-    void send();
 }

@@ -5,6 +5,7 @@ import com.codestepfish.vline.core.codec.VLineCodec;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,9 +13,12 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@Accessors(chain = true)
 public class Device implements IDevice, Serializable {
 
     String name;
+
+    List<String> tags;
 
     /**
      * 设备通信类型
@@ -33,11 +37,6 @@ public class Device implements IDevice, Serializable {
 
     VLineCodec codec;
 
-    /**
-     * 出口
-     */
-    List<Device> out;
-
     @Override
     public void init() {
 
@@ -48,22 +47,11 @@ public class Device implements IDevice, Serializable {
 
     }
 
-    @Override
-    public void receive() {
-
-    }
-
-    @Override
-    public void send() {
-
-    }
-
     public enum DeviceType {
         TCP,
         HTTP,
         ETCD,
         GRPC,
-        NACOS,
         REDIS,
         MQTT,
         DATABASE,
