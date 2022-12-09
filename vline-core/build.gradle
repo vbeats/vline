@@ -3,9 +3,11 @@ dependencies {
     api libs.get('hutool')
     api libs.get('fastjson')
     api libs.get('fastjson-ext')
+    api libs.get('jackson-core')
+    api libs.get('jackson-annotations')
     api libs.get('commons-io')
-    api libs.get('netty')
     api libs.get('ttl')
 
+    api 'org.springframework:spring-core'
     api 'org.springframework.boot:spring-boot-starter-logging'
 }

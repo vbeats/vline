@@ -1,2 +1,10 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.codestepfish.vline.spring.boot.starter.VLineAutoConfiguration
+  com.codestepfish.vline.spring.boot.starter.VLineAutoConfiguration,\
+  com.codestepfish.vline.spring.boot.starter.tcp.TcpNodeAutoConfiguration,\
+  com.codestepfish.vline.spring.boot.starter.http.HttpNodeAutoConfiguration,\
+  com.codestepfish.vline.spring.boot.starter.etcd.EtcdNodeAutoConfiguration,\
+  com.codestepfish.vline.spring.boot.starter.grpc.GrpcNodeAutoConfiguration,\
+  com.codestepfish.vline.spring.boot.starter.mqtt.MqttNodeAutoConfiguration,\
+  com.codestepfish.vline.spring.boot.starter.redis.RedisNodeAutoConfiguration,\
+  com.codestepfish.vline.spring.boot.starter.database.DatabaseNodeAutoConfiguration,\
+  com.codestepfish.vline.spring.boot.starter.serial_port.SerialPortNodeAutoConfiguration

@@ -6,27 +6,36 @@ spring:
 # tcp 一进 1出
 vline:
   enabled: true
-  devices:
-    - type: tcp
-      name: t1
+  nodes:
+    - name: t1
+      type: tcp
       tags:
         - xx
         - oo
-      host: 127.0.0.1
-      port: 10001
+      tcp:
+        mode: server
+        host: 127.0.0.1
+        port: 10001
+        child-handler: com.codestepfish.vline.example.server.T1ServerChannelHandler
     - name: t2
-      type: tcp
-      host: 127.0.0.1
-      port: 10010
+      tcp:
+        mode: client
+        host: 127.0.0.1
+        port: 10010
+        reconnect-delay: 10s
+        child-handler: com.codestepfish.vline.example.client.T2ClientChannelHandler
     - name: t3
-      type: tcp
-      host: 127.0.0.1
-      port: 10011
-    - type: tcp
-      name: t4
-      host: 127.0.0.1
-      port: 10086
-  topo:
+      tcp:
+        mode: client
+        host: 127.0.0.1
+        port: 10011
+        reconnect-delay: 8s
+    - name: t4
+      tcp:
+        mode: server
+        host: 127.0.0.1
+        port: 10086
+  struct:
     t1:
       - t2
       - t3
