@@ -14,5 +14,6 @@ public class T2ClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         log.error("t2 exception: ", cause);
+        ctx.close();
     }
 }

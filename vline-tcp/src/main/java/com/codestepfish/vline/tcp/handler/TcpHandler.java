@@ -35,7 +35,7 @@ public class TcpHandler {
     private static void startServer(TcpNode node) {
         TcpProperties tp = node.getTcp();
         if (!StringUtils.hasText(tp.getChildHandler())) {
-            log.warn("tcp node not config childHandler.....: {}", node.getName());
+            log.warn("tcp node : {} not config childHandler.....", node.getName());
             return;
         }
 
@@ -86,16 +86,23 @@ public class TcpHandler {
             ChannelFuture future = bootstrap.connect(tp.getHost(), tp.getPort());
             CHANNEL_FUTURES.put(node.getName(), future);
 
+
             future.addListener(f -> {
                 if (f.isSuccess()) {
-                    log.info("tcp client connct to {}:{} success...", tp.getHost(), tp.getPort());
+                    log.info("tcp client : {} connect to {}:{} success...", node.getName(), tp.getHost(), tp.getPort());
+
+                    // 成功建立连接的channel future add 断开连接监听
+                    future.channel().closeFuture().addListener(f2 -> {
+                        log.warn("tcp client : {} disconnect with {}:{} reconnect after {} ...", node.getName(), tp.getHost(), tp.getPort(), tp.getReconnectDelay().toString());
+                        future.channel().eventLoop().schedule(() -> startClient(node), tp.getReconnectDelay().getSeconds(), TimeUnit.SECONDS);
+                    });
                 } else {
-                    log.warn("tcp client disconnect with {}:{} reconnect after {} ...", tp.getHost(), tp.getPort(), tp.getReconnectDelay().toString());
+                    log.warn("tcp client : {} disconnect with {}:{} reconnect after {} ...", node.getName(), tp.getHost(), tp.getPort(), tp.getReconnectDelay().toString());
                     future.channel().eventLoop().schedule(() -> startClient(node), tp.getReconnectDelay().getSeconds(), TimeUnit.SECONDS);
                 }
             });
         } catch (Exception e) {
-            log.error("tcp client connect failed : ", e);
+            log.error("tcp client : {} connect failed : ", node.getName(), e);
             throw new RuntimeException(e);
         }
     }
