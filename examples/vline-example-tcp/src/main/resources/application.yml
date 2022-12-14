@@ -35,9 +35,15 @@ vline:
         mode: server
         host: 127.0.0.1
         port: 10086
+    - name: t5
+      http:
+        method: post
+        url: http://localhost:8080/test
   struct:
     t1:
       - t2
       - t3
+      - t5
     t4:
       - t3
+      - t5

@@ -93,11 +93,11 @@ public class TcpHandler {
 
                     // 成功建立连接的channel future add 断开连接监听
                     future.channel().closeFuture().addListener(f2 -> {
-                        log.warn("tcp client : {} disconnect with {}:{} reconnect after {} ...", node.getName(), tp.getHost(), tp.getPort(), tp.getReconnectDelay().toString());
+                        log.warn("tcp client : {} disconnect with {}:{} reconnect after {}s ...", node.getName(), tp.getHost(), tp.getPort(), tp.getReconnectDelay().toSeconds());
                         future.channel().eventLoop().schedule(() -> startClient(node), tp.getReconnectDelay().getSeconds(), TimeUnit.SECONDS);
                     });
                 } else {
-                    log.warn("tcp client : {} disconnect with {}:{} reconnect after {} ...", node.getName(), tp.getHost(), tp.getPort(), tp.getReconnectDelay().toString());
+                    log.warn("tcp client : {} disconnect with {}:{} reconnect after {}s ...", node.getName(), tp.getHost(), tp.getPort(), tp.getReconnectDelay().toSeconds());
                     future.channel().eventLoop().schedule(() -> startClient(node), tp.getReconnectDelay().getSeconds(), TimeUnit.SECONDS);
                 }
             });
