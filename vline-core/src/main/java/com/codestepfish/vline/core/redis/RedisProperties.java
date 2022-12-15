@@ -13,4 +13,14 @@ import lombok.extern.slf4j.Slf4j;
 @Accessors(chain = true)
 public class RedisProperties {
 
+    RedisSingleServerConfig singleServerConfig;
+
+    RedisClusterServersConfig clusterServersConfig;
+
+    RedisSentinelServersConfig sentinelServersConfig;
+
+    RedisReplicatedServersConfig redisReplicatedServersConfig;
+
+    RedisMasterSlaveServersConfig masterSlaveServersConfig;
+
 }
