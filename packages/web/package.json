@@ -1,0 +1,31 @@
+{
+  "name": "@vline/web",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@types/node": "18.16.0",
+    "@vueuse/core": "^10.1.0",
+    "@vueuse/nuxt": "^10.1.0",
+    "autoprefixer": "^10.4.14",
+    "nuxt": "^3.4.2",
+    "postcss": "^8.4.23",
+    "stylus": "^0.59.0",
+    "tailwindcss": "^3.3.1"
+  },
+  "dependencies": {
+    "@css-render/vue3-ssr": "^0.15.12",
+    "@pinia/nuxt": "^0.4.9",
+    "naive-ui": "^2.34.3",
+    "pinia": "^2.0.35"
+  },
+  "overrides": {
+    "vue": "latest"
+  }
+}
