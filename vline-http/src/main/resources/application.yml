@@ -1,0 +1,16 @@
+forest:
+  backend: okhttp3
+  max-connections: 1000
+  max-route-connections: 500
+  max-request-queue-size: 100
+  max-async-thread-size: 300
+  max-async-queue-size: 16
+  connect-timeout: 3000
+  read-timeout: 3000
+  max-retry-count: 0
+  ssl-protocol: TLS
+  log-enabled: true
+  log-request: true
+  log-response-status: true
+  log-response-content: true
+  async-mode: platform

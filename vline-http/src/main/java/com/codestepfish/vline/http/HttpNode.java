@@ -23,6 +23,8 @@ public class HttpNode<T> extends Node<T> {
     @Override
     public void init() {
         super.init();
+
+        // 初始化client
     }
 
     @Override

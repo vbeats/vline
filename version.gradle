@@ -13,7 +13,8 @@ ext {
             caffeine   : '3.1.8',
             redisson   : '3.42.0',
             netty      : '4.1.116.Final',
-            ttl        : '2.14.5'
+            ttl        : '2.14.5',
+            forest     : '1.6.3'
     ]
 
     libs = [
@@ -32,6 +33,8 @@ ext {
             'caffeine'           : "com.github.ben-manes.caffeine:caffeine:${versions.caffeine}",
             'redisson'           : "org.redisson:redisson-spring-boot-starter:${versions.redisson}",
             'netty'              : "io.netty:netty-all:${versions.netty}",
-            'ttl'                : "com.alibaba:transmittable-thread-local:${versions.ttl}"
+            'ttl'                : "com.alibaba:transmittable-thread-local:${versions.ttl}",
+            'forest'             : "com.dtflys.forest:forest-spring-boot3-starter:${versions.forest}",
+            'forest-xml'         : "com.dtflys.forest:forest-jakarta-xml:${versions.forest}"
     ]
 }
