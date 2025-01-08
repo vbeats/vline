@@ -13,7 +13,7 @@ public interface INode<T> {
     void destroy();
 
     /**
-     * 推送msg
+     * 推送data
      */
-    void sendMsg(T msg);
+    void sendData(T data);
 }

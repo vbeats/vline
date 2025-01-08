@@ -50,12 +50,11 @@ public class Node<T> implements INode<T>, Serializable {
 
     @Override
     public void destroy() {
-        log.info("node : {}", this.getName());
+        log.info("node destroy: {}", this.getName());
     }
 
     @Override
-    public void sendMsg(T msg) {
-
+    public void sendData(T data) {
     }
 
     public void setTcp(TcpProperties tcp) {

@@ -29,13 +29,13 @@ public class TcpNode<T> extends Node<T> {
     }
 
     @Override
-    public void sendMsg(T msg) {
+    public void sendData(T data) {
         ChannelFuture future = TcpHandler.CHANNEL_FUTURES.get(this.getName());
         if (ObjectUtils.isEmpty(future)) {
-            log.warn("tcp node offline ... : {}  msg not send: {} ", this.getName(), msg);
+            log.warn("tcp node offline ... : {}  data not send: {} ", this.getName(), data);
             return;
         }
 
-        future.channel().writeAndFlush(msg);  // send 失败不处理...
+        future.channel().writeAndFlush(data);  // send 失败不处理...
     }
 }
