@@ -1,0 +1,4 @@
+com.codestepfish.vline.spring.boot.starter.VLineAutoConfiguration
+com.codestepfish.vline.spring.boot.starter.tcp.TcpNodeAutoConfiguration
+com.codestepfish.vline.spring.boot.starter.http.HttpNodeAutoConfiguration
+com.codestepfish.vline.spring.boot.starter.redis.RedisNodeAutoConfiguration

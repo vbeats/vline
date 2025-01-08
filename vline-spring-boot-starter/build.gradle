@@ -1,0 +1,33 @@
+java {
+    registerFeature("redisSupport") {
+        usingSourceSet(sourceSets[SourceSet.MAIN_SOURCE_SET_NAME])
+        capability(group.toString(), "redis-support", version.toString())
+    }
+
+    registerFeature("httpSupport") {
+        usingSourceSet(sourceSets[SourceSet.MAIN_SOURCE_SET_NAME])
+        capability(group.toString(), "http-support", version.toString())
+    }
+
+    registerFeature("tcpSupport") {
+        usingSourceSet(sourceSets[SourceSet.MAIN_SOURCE_SET_NAME])
+        capability(group.toString(), "tcp-support", version.toString())
+    }
+
+}
+
+dependencies {
+    api(project(":vline-core"))
+
+    redisSupportApi project(":vline-redis")
+    httpSupportApi project(":vline-http")
+    tcpSupportApi project(":vline-tcp")
+
+    api 'org.springframework.boot:spring-boot-starter'
+    api 'org.springframework.boot:spring-boot-starter-actuator'
+
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testAnnotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+}

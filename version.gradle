@@ -1,0 +1,37 @@
+ext {
+    versions = [
+            fastjson   : '2.0.53',
+            jackson    : '2.18.2',
+            mysql      : '9.1.0',
+            mybatisPlus: '3.5.9',
+            httpmime   : '5.4.1',
+            hutool     : '5.8.35',
+            commonsPool: '2.12.0',
+            commonsIo  : '2.18.0',
+            okhttp     : '4.12.0',
+            guava      : '33.4.0-jre',
+            caffeine   : '3.1.8',
+            redisson   : '3.42.0',
+            netty      : '4.1.116.Final',
+            ttl        : '2.14.5'
+    ]
+
+    libs = [
+            'fastjson'           : "com.alibaba.fastjson2:fastjson2:${versions.fastjson}",
+            'jackson-core'       : "com.fasterxml.jackson.core:jackson-core:${versions.jackson}",
+            'jackson-annotations': "com.fasterxml.jackson.core:jackson-annotations:${versions.jackson}",
+            'fastjson-ext'       : "com.alibaba.fastjson2:fastjson2-extension-spring6:${versions.fastjson}",
+            'mysql'              : "com.mysql:mysql-connector-j:${versions.mysql}",
+            'mybatis-plus'       : "com.baomidou:mybatis-plus-boot-starter:${versions.mybatisPlus}",
+            'httpmime'           : "org.apache.httpcomponents.client5:httpclient5:${versions.httpmime}",
+            'hutool'             : "cn.hutool:hutool-all:${versions.hutool}",
+            'commons-pool2'      : "org.apache.commons:commons-pool2:${versions.commonsPool}",
+            'okhttp'             : "com.squareup.okhttp3:okhttp:${versions.okhttp}",
+            'commons-io'         : "commons-io:commons-io:${versions.commonsIo}",
+            'guava'              : "com.google.guava:guava:${versions.guava}",
+            'caffeine'           : "com.github.ben-manes.caffeine:caffeine:${versions.caffeine}",
+            'redisson'           : "org.redisson:redisson-spring-boot-starter:${versions.redisson}",
+            'netty'              : "io.netty:netty-all:${versions.netty}",
+            'ttl'                : "com.alibaba:transmittable-thread-local:${versions.ttl}"
+    ]
+}

@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: example-tcp
+
+
+# tcp 一 进 N 出
+vline:
+  nodes:
+    - name: t1
+      type: tcp
+      tags:
+        - xx
+        - oo
+      tcp:
+        mode: server
+        host: 127.0.0.1
+        port: 10001
+        child-handler: com.codestepfish.vline.example.server.T1ServerChannelHandler
+    - name: t2
+      tcp:
+        mode: client
+        host: 127.0.0.1
+        port: 10010
+        reconnect-delay: 10s
+        child-handler: com.codestepfish.vline.example.client.T2ClientChannelHandler
+    - name: t3
+      tcp:
+        mode: client
+        host: 127.0.0.1
+        port: 10011
+        reconnect-delay: 8s
+    - name: t4
+      tcp:
+        mode: server
+        host: 127.0.0.1
+        port: 10086
+    - name: t5
+      http:
+        method: post
+        url: http://localhost:8080/test
+  struct:
+    t1:
+      - t2
+      - t3
+      - t5
+    t4:
+      - t3
+      - t5

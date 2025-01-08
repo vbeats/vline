@@ -1,0 +1,32 @@
+pluginManagement {
+    repositories {
+        maven {
+            url 'https://maven.aliyun.com/repository/public/'
+        }
+        maven { url 'https://repo.spring.io/release' }
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+rootProject.name = 'vline'
+
+include 'vline-core'
+include 'vline-redis'
+include 'vline-http'
+include 'vline-tcp'
+
+
+include 'vline-spring-boot-starter'
+
+// include examples 下所有模块
+Arrays.asList(rootDir.listFiles()).forEach(e -> {
+    if (e.isDirectory()) {
+        def dirName = e.getAbsolutePath().substring(e.getAbsolutePath().lastIndexOf("\\") + 1)
+        if ("examples" == dirName) {
+            Arrays.asList(e.listFiles()).forEach(ex -> {
+                include 'examples:' + ex.getAbsolutePath().substring(ex.getAbsolutePath().lastIndexOf("\\") + 1)
+            })
+        }
+    }
+})
