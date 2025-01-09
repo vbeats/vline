@@ -10,7 +10,7 @@ public interface INode<T> {
     /**
      * 节点通信资源销毁
      */
-    void destroy();
+    void destroy() throws Exception;
 
     /**
      * 推送data

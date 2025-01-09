@@ -1,8 +1,8 @@
 package com.codestepfish.vline.core.http;
 
-import cn.hutool.http.Method;
 import com.alibaba.fastjson2.JSONWriter;
 import com.alibaba.fastjson2.annotation.JSONField;
+import com.codestepfish.vline.core.enums.HttpMethod;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,7 +14,7 @@ public class HttpProperties {
     private String url;
 
     @JSONField(serializeFeatures = JSONWriter.Feature.WriteEnumsUsingName)
-    private Method method = Method.POST;
+    private HttpMethod method = HttpMethod.POST;
 
     private Integer maxRetryCount = 0;  // 最大重试次数 0 不重试
 

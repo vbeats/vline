@@ -1,9 +1,10 @@
 package com.codestepfish.vline.core;
 
-import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONWriter;
 import com.alibaba.fastjson2.annotation.JSONField;
+import com.codestepfish.vline.core.enums.NodeType;
 import com.codestepfish.vline.core.http.HttpProperties;
+import com.codestepfish.vline.core.mssql.MssqlProperties;
 import com.codestepfish.vline.core.redis.RedisProperties;
 import com.codestepfish.vline.core.tcp.TcpProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -24,7 +25,7 @@ import java.util.List;
 @ToString
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @Accessors(chain = true)
-public class Node<T> implements INode<T>, Serializable {
+public abstract class Node<T> implements INode<T>, Serializable {
 
     @Serial
     private static final long serialVersionUID = 7681638777205375687L;
@@ -43,19 +44,16 @@ public class Node<T> implements INode<T>, Serializable {
 
     RedisProperties redis;
 
-    @Override
-    public void init() {
-        log.info("node: {}", JSON.toJSONString(this));
-    }
+    MssqlProperties mssql;
 
     @Override
-    public void destroy() {
-        log.info("node destroy: {}", this.getName());
-    }
+    public abstract void init();
 
     @Override
-    public void sendData(T data) {
-    }
+    public abstract void destroy() throws Exception;
+
+    @Override
+    public abstract void sendData(T data);
 
     public void setTcp(TcpProperties tcp) {
         this.tcp = tcp;
@@ -75,6 +73,13 @@ public class Node<T> implements INode<T>, Serializable {
         this.redis = redis;
         if (!ObjectUtils.isEmpty(redis)) {
             this.type = NodeType.REDIS;
+        }
+    }
+
+    public void setMssql(MssqlProperties mssql) {
+        this.mssql = mssql;
+        if (!ObjectUtils.isEmpty(mssql)) {
+            this.type = NodeType.MSSQL;
         }
     }
 }

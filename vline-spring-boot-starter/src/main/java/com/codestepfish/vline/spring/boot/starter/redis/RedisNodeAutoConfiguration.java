@@ -2,7 +2,7 @@ package com.codestepfish.vline.spring.boot.starter.redis;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.codestepfish.vline.core.Node;
-import com.codestepfish.vline.core.NodeType;
+import com.codestepfish.vline.core.enums.NodeType;
 import com.codestepfish.vline.redis.RedisNode;
 import com.codestepfish.vline.spring.boot.starter.VLineContext;
 import com.codestepfish.vline.spring.boot.starter.VLineProperties;

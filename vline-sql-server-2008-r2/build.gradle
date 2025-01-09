@@ -1,0 +1,8 @@
+dependencies {
+    api(project(":vline-core"))
+
+    api libs.get('anyline-mvc')
+    api libs.get('anyline-environment')
+    api libs.get('anyline-data-jdbc-mssql')
+    api libs.get('jdbc-mssql-2008-r2')
+}

@@ -12,9 +12,10 @@ pluginManagement {
 rootProject.name = 'vline'
 
 include 'vline-core'
-include 'vline-redis'
-include 'vline-http'
 include 'vline-tcp'
+include 'vline-http'
+include 'vline-redis'
+include 'vline-sql-server-2008-r2'
 
 
 include 'vline-spring-boot-starter'

@@ -25,7 +25,7 @@ public class TcpHandler {
     // key node name
     public static final Map<String, ChannelFuture> CHANNEL_FUTURES = new ConcurrentHashMap<>(10);
 
-    public static void start(TcpNode node) {
+    public static void init(TcpNode node) {
         switch (node.getTcp().getMode()) {
             case SERVER -> startServer(node);
             case CLIENT -> startClient(node);

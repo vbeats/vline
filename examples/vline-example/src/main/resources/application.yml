@@ -38,6 +38,7 @@ vline:
       http:
         method: post
         url: http://localhost:8080/test
+        handler: com.codestepfish.vline.example.http.HttpExampleHandler
   struct:
     t1:
       - t2
