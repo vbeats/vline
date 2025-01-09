@@ -113,3 +113,19 @@ vline:
 ### mssql 🛰️
 
 > com.codestepfish.vline.core.mssql.MssqlProperties
+
+node节点上层必须实现 `com.codestepfish.vline.mssql2008r2.handler.MssqlReadHandler/MssqlWriteHandler` 接口
+
+| key                    | 必填 | desc                                                                                         |
+|:-----------------------|----|----------------------------------------------------------------------------------------------|
+| mode                   | N  | read/write                                                                                   |
+| host                   | N  | 默认127.0.0.1                                                                                  |
+| port                   | N  | 默认1433                                                                                       |
+| databaseName           | Y  | 数据库                                                                                          |
+| username               | Y  | 账号                                                                                           |
+| password               | Y  | 密码                                                                                           |
+| encrypt                | N  | 默认false                                                                                      |
+| trustServerCertificate | N  | 默认true                                                                                       |
+| driverClassName        | N  | 默认com.microsoft.sqlserver.jdbc.SQLServerDriver                                               |
+| jdbcUrl                | N  | 完整jdbc url                                                                                   |
+| dataHandler            | Y  | 数据处理具体实现 实现 com.codestepfish.vline.mssql2008r2.handler.MssqlReadHandler/MssqlWriteHandler 接口 |

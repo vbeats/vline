@@ -14,7 +14,7 @@ public class MssqlProperties {
     @JSONField(serializeFeatures = JSONWriter.Feature.WriteEnumsUsingName)
     private Mode mode = Mode.READ;  // read or write
 
-    private String host = "0.0.0.0";
+    private String host = "127.0.0.1";
 
     private Integer port = 1433;
 
@@ -28,7 +28,7 @@ public class MssqlProperties {
 
     private Boolean trustServerCertificate = true;
 
-    private String driverClassName;
+    private String driverClassName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 
     private String jdbcUrl;  // 完整jdbc url
 

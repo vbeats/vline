@@ -30,20 +30,32 @@ vline:
         port: 10011
         reconnect-delay: 8s
     - name: t4
-      tcp:
-        mode: server
+      mssql:
+        mode: read
         host: 127.0.0.1
-        port: 10086
+        port: 1443
+        database-name: test
+        username: sa
+        password:
+        data-handler: com.codestepfish.vline.example.mssql.MssqlReadExampleHandler
     - name: t5
       http:
         method: post
         url: http://localhost:8080/test
         handler: com.codestepfish.vline.example.http.HttpExampleHandler
+    - name: t6
+      mssql:
+        mode: write
+        host: 127.0.0.1
+        port: 1443
+        database-name: test
+        username: sa
+        password:
+        data-handler: com.codestepfish.vline.example.mssql.MssqlWriteExampleHandler
   struct:
     t1:
       - t2
       - t3
       - t5
     t4:
-      - t3
-      - t5
+      - t6

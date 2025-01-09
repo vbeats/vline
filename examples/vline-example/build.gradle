@@ -41,6 +41,7 @@ dependencyManagement {
 dependencies {
     implementation project(":vline-tcp")
     implementation project(":vline-http")
+    implementation project(":vline-sql-server-2008-r2")
     implementation project(":vline-spring-boot-starter")
 }
 

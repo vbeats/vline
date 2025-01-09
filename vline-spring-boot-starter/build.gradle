@@ -14,6 +14,10 @@ java {
         capability(group.toString(), "tcp-support", version.toString())
     }
 
+    registerFeature("mssql2008r2Support") {
+        usingSourceSet(sourceSets[SourceSet.MAIN_SOURCE_SET_NAME])
+        capability(group.toString(), "mssql2008r2-support", version.toString())
+    }
 }
 
 dependencies {
@@ -22,6 +26,7 @@ dependencies {
     redisSupportApi project(":vline-redis")
     httpSupportApi project(":vline-http")
     tcpSupportApi project(":vline-tcp")
+    mssql2008r2SupportApi project(":vline-sql-server-2008-r2")
 
     api 'org.springframework.boot:spring-boot-starter'
     api 'org.springframework.boot:spring-boot-starter-actuator'
