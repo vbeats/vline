@@ -21,4 +21,14 @@ public class RedisNode<T> extends Node<T> {
 
 
     }
+
+    @Override
+    public void destroy() throws Exception {
+        super.destroy();
+    }
+
+    @Override
+    public void sendData(T data) {
+
+    }
 }

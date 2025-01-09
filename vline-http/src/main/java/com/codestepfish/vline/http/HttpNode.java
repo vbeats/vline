@@ -1,7 +1,6 @@
 package com.codestepfish.vline.http;
 
 import cn.hutool.core.thread.ThreadUtil;
-import com.alibaba.fastjson2.JSON;
 import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.core.http.HttpProperties;
 import com.codestepfish.vline.http.client.ForestHandler;
@@ -83,7 +82,7 @@ public class HttpNode<T> extends Node<T> {
 
     @Override
     public void init() {
-        log.info("node init: {}", JSON.toJSONString(this));
+        super.init();
         // 初始化forest client
         ThreadUtil.execute(() -> init(this));
     }

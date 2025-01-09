@@ -1,5 +1,6 @@
 package com.codestepfish.vline.core;
 
+import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONWriter;
 import com.alibaba.fastjson2.annotation.JSONField;
 import com.codestepfish.vline.core.enums.NodeType;
@@ -25,7 +26,7 @@ import java.util.List;
 @ToString
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @Accessors(chain = true)
-public abstract class Node<T> implements INode<T>, Serializable {
+public class Node<T> implements INode<T>, Serializable {
 
     @Serial
     private static final long serialVersionUID = 7681638777205375687L;
@@ -47,13 +48,18 @@ public abstract class Node<T> implements INode<T>, Serializable {
     MssqlProperties mssql;
 
     @Override
-    public abstract void init();
+    public void init() {
+        log.info("node init: {}", JSON.toJSONString(this));
+    }
 
     @Override
-    public abstract void destroy() throws Exception;
+    public void destroy() throws Exception {
+        log.info("node destroy: {}", this.getName());
+    }
 
     @Override
-    public abstract void sendData(T data);
+    public void sendData(T data) {
+    }
 
     public void setTcp(TcpProperties tcp) {
         this.tcp = tcp;

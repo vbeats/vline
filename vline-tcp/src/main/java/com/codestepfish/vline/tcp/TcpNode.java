@@ -1,7 +1,6 @@
 package com.codestepfish.vline.tcp;
 
 import cn.hutool.core.thread.ThreadUtil;
-import com.alibaba.fastjson2.JSON;
 import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.tcp.handler.TcpHandler;
 import io.netty.channel.ChannelFuture;
@@ -20,8 +19,7 @@ import org.springframework.util.ObjectUtils;
 public class TcpNode<T> extends Node<T> {
     @Override
     public void init() {
-        log.info("node init: {}", JSON.toJSONString(this));
-
+        super.init();
         ThreadUtil.execute(() -> TcpHandler.init(this));
     }
 

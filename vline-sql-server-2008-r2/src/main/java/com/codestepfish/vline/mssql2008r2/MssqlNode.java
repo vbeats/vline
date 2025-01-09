@@ -1,6 +1,5 @@
 package com.codestepfish.vline.mssql2008r2;
 
-import com.alibaba.fastjson2.JSON;
 import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.core.mssql.MssqlProperties;
 import com.codestepfish.vline.mssql2008r2.handler.MssqlReadHandler;
@@ -32,8 +31,7 @@ public class MssqlNode<T> extends Node<T> {
 
     @Override
     public void init() {
-        log.info("node init: {}", JSON.toJSONString(this));
-
+        super.init();
         try {
             initDs(this);  // 数据源初始化
 
@@ -63,6 +61,8 @@ public class MssqlNode<T> extends Node<T> {
         }
 
         Map<String, Object> params = new HashMap();
+        params.put("url", properties.getJdbcUrl());
+        params.put("type", "com.zaxxer.hikari.HikariDataSource");
         params.put("driver-class-name", properties.getDriverClassName());
         params.put("username", properties.getUsername());
         params.put("password", properties.getPassword());
@@ -72,7 +72,7 @@ public class MssqlNode<T> extends Node<T> {
 
     @Override
     public void destroy() throws Exception {
-        log.info("node destroy: {}", this.getName());
+        super.destroy();
         DataSourceHolder.destroy(this.getName());
     }
 
