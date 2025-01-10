@@ -6,13 +6,15 @@ import com.codestepfish.vline.core.enums.NodeType;
 import com.codestepfish.vline.mssql2008r2.MssqlNode;
 import com.codestepfish.vline.spring.boot.starter.VLineContext;
 import com.codestepfish.vline.spring.boot.starter.VLineProperties;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
@@ -24,11 +26,10 @@ import java.util.concurrent.CountDownLatch;
 @ConditionalOnClass(MssqlNode.class)
 @EnableConfigurationProperties({VLineProperties.class})
 @ConfigurationPropertiesScan(basePackages = "com.codestepfish.vline.spring.boot.starter")
-public class MssqlNodeAutoConfiguration {
+public class MssqlNodeAutoConfiguration implements ApplicationListener {
 
     private final VLineProperties vLineProperties;
 
-    @PostConstruct
     @ConditionalOnClass(MssqlNode.class)
     public void mssqlNodeInit() throws InterruptedException {
         // init node
@@ -48,5 +49,16 @@ public class MssqlNodeAutoConfiguration {
         });
 
         countDownLatch.await();
+    }
+
+    @Override
+    public void onApplicationEvent(ApplicationEvent event) {
+        if (event instanceof ApplicationReadyEvent) {
+            try {
+                mssqlNodeInit();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }

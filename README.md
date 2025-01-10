@@ -114,7 +114,9 @@ vline:
 
 > com.codestepfish.vline.core.mssql.MssqlProperties
 
-node节点上层必须实现 `com.codestepfish.vline.mssql2008r2.handler.MssqlReadHandler/MssqlWriteHandler` 接口
+1. node节点上层必须实现 `com.codestepfish.vline.mssql2008r2.handler.MssqlReadHandler/MssqlWriteHandler` 接口
+2. 模块依赖了 `spring-boot-starter-jdbc` , 如果不需要springboot自动配置数据源 , 上层应用应当排除
+   `DataSourceAutoConfiguration`
 
 | key                    | 必填 | desc                                                                                         |
 |:-----------------------|----|----------------------------------------------------------------------------------------------|

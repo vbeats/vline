@@ -10,4 +10,5 @@ dependencies {
 
     api 'org.springframework:spring-core'
     api 'org.springframework.boot:spring-boot-starter-logging'
+    api 'org.springframework.retry:spring-retry'
 }

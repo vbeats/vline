@@ -32,11 +32,11 @@ vline:
     - name: t4
       mssql:
         mode: read
-        host: 127.0.0.1
-        port: 1443
+        host: 192.168.100.80
+        port: 1433
         database-name: test
         username: sa
-        password:
+        password: sa123456
         data-handler: com.codestepfish.vline.example.mssql.MssqlReadExampleHandler
     - name: t5
       http:
@@ -46,11 +46,11 @@ vline:
     - name: t6
       mssql:
         mode: write
-        host: 127.0.0.1
-        port: 1443
+        host: 192.168.100.80
+        port: 1433
         database-name: test
         username: sa
-        password:
+        password: sa123456
         data-handler: com.codestepfish.vline.example.mssql.MssqlWriteExampleHandler
   struct:
     t1:

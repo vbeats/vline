@@ -16,7 +16,8 @@ ext {
             ttl        : '2.14.5',
             forest     : '1.6.3',
             anyline    : '8.7.2-jdk21-20250102',
-            mssql2008R2: '7.2.2.jre11'
+            mssql2008R2: '7.2.2.jre11',
+            druid      : '1.2.24'
     ]
 
     libs = [
@@ -41,6 +42,7 @@ ext {
             'anyline-mvc'            : "org.anyline:anyline-mvc:${versions.anyline}",
             'anyline-environment'    : "org.anyline:anyline-environment-spring-data-jdbc:${versions.anyline}",
             'anyline-data-jdbc-mssql': "org.anyline:anyline-data-jdbc-mssql:${versions.anyline}",
-            'jdbc-mssql-2008-r2'     : "com.microsoft.sqlserver:mssql-jdbc:${versions.mssql2008R2}"
+            'jdbc-mssql-2008-r2'     : "com.microsoft.sqlserver:mssql-jdbc:${versions.mssql2008R2}",
+            'druid'                  : "com.alibaba:druid:${versions.druid}"
     ]
 }
