@@ -39,11 +39,15 @@ Not ETL
 
 ## module
 
+`database` 数据库相关操作 基于`anyline`
+
 | module                    | desc                                           |
 |---------------------------|------------------------------------------------|
 | vline-core                | 定义Node基本信息、属性, Node可以理解为入口/出口对应的数据源            |
 | vline-tcp                 | netty tcp                                      |
 | vline-http                | forest 实现                                      |
+| vline-mysql               | mysql8 其它未测试                                   |
+| vline-sql-server-2008-r2  | sql server2008 R2                              |
 | vline-spring-boot-starter | spring boot starter : yml解析 初始化  event bus事件监听 |
 | examples                  | 示例                                             |
 
