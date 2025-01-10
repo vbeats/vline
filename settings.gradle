@@ -1,9 +1,5 @@
 pluginManagement {
     repositories {
-        maven {
-            url 'https://maven.aliyun.com/repository/public/'
-        }
-        maven { url 'https://repo.spring.io/release' }
         mavenCentral()
         gradlePluginPortal()
     }
@@ -15,6 +11,7 @@ include 'vline-core'
 include 'vline-tcp'
 include 'vline-http'
 include 'vline-redis'
+include 'vline-mysql'
 include 'vline-sql-server-2008-r2'
 
 

@@ -2,6 +2,7 @@ package com.codestepfish.vline.mssql2008r2;
 
 import cn.hutool.core.thread.ThreadUtil;
 import com.codestepfish.vline.core.Node;
+import com.codestepfish.vline.core.mssql.MssqlProperties;
 import com.codestepfish.vline.mssql2008r2.handler.MssqlReadHandler;
 import com.codestepfish.vline.mssql2008r2.handler.MssqlWriteHandler;
 import lombok.Getter;
@@ -31,16 +32,18 @@ public class MssqlNode<T> extends Node<T> {
         try {
             DataSourceInitializer.initDataSource(this);  // 数据源初始化
 
-            Assert.hasText(this.getMssql().getDataHandler(), "mssql dataHandler is null");
+            MssqlProperties properties = this.getMssql();
 
-            switch (this.getMssql().getMode()) {
+            Assert.hasText(properties.getDataHandler(), "mssql dataHandler is null");
+
+            switch (properties.getMode()) {
                 case READ -> {
-                    Class<MssqlReadHandler> readHandlerClazz = (Class<MssqlReadHandler>) Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(this.getMssql().getDataHandler());
+                    Class<MssqlReadHandler> readHandlerClazz = (Class<MssqlReadHandler>) Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler());
                     mssqlReadHandler = readHandlerClazz.getDeclaredConstructor().newInstance();
                     ThreadUtil.execute(() -> mssqlReadHandler.read(this));
                 }
                 case WRITE -> {
-                    Class<MssqlWriteHandler> writeHandlerClazz = (Class<MssqlWriteHandler>) Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(this.getMssql().getDataHandler());
+                    Class<MssqlWriteHandler> writeHandlerClazz = (Class<MssqlWriteHandler>) Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler());
                     mssqlWriteHandler = writeHandlerClazz.getDeclaredConstructor().newInstance();
                 }
             }

@@ -21,17 +21,17 @@ Not ETL
 
 ## ToDo
 
-| module             | progress |
-|--------------------|----------|
-| tcp                | ✅        |
-| http               | ☑️待完善    |
-| redis              | ➖        |
-| mysql              | ➖        |
-| postgresql         | ➖        |
-| sql-server-2008-r2 | ➖        |
-| sql-server-2000    | ➖        |
-| serial-port        | ➖        |
-| 独立文档               | ⭕        |
+| module             | remark | progress |
+|--------------------|--------|----------|
+| tcp                |        | ✅        |
+| http               | 待完善    | ☑️       |
+| redis              |        | ➖        |
+| mysql              |        | ✅        |
+| postgresql         |        | ➖        |
+| sql-server-2008-r2 |        | ✅        |
+| sql-server-2000    |        | ➖        |
+| serial-port        |        | ➖        |
+| 独立文档               |        | ⭕        |
 
 ## desc
 
@@ -131,3 +131,23 @@ vline:
 | driverClassName        | N  | 默认com.microsoft.sqlserver.jdbc.SQLServerDriver                                               |
 | jdbcUrl                | N  | 完整jdbc url                                                                                   |
 | dataHandler            | Y  | 数据处理具体实现 实现 com.codestepfish.vline.mssql2008r2.handler.MssqlReadHandler/MssqlWriteHandler 接口 |
+
+### mysql 🛰️
+
+> com.codestepfish.vline.core.mysql.MysqlProperties
+
+1. node节点上层必须实现 `com.codestepfish.vline.mysql.handler.MysqlReadHandler/MysqlWriteHandler` 接口
+2. 模块依赖了 `spring-boot-starter-jdbc` , 如果不需要springboot自动配置数据源 , 上层应用应当排除
+   `DataSourceAutoConfiguration`
+
+| key             | 必填 | desc                                                                                   |
+|:----------------|----|----------------------------------------------------------------------------------------|
+| mode            | N  | read/write                                                                             |
+| host            | N  | 默认127.0.0.1                                                                            |
+| port            | N  | 默认3306                                                                                 |
+| databaseName    | Y  | 数据库                                                                                    |
+| username        | Y  | 账号                                                                                     |
+| password        | Y  | 密码                                                                                     |
+| driverClassName | N  | 默认com.mysql.cj.jdbc.Driver                                                             |
+| jdbcUrl         | N  | 完整jdbc url                                                                             |
+| dataHandler     | Y  | 数据处理具体实现 实现 com.codestepfish.vline.mysql.handler.MysqlReadHandler/MysqlWriteHandler 接口 |

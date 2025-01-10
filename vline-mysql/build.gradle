@@ -1,0 +1,11 @@
+dependencies {
+    api(project(":vline-core"))
+
+    api libs.get('druid')
+    api libs.get('mysql')
+    api libs.get('anyline-mvc')
+    api libs.get('anyline-environment')
+    api libs.get('anyline-data-jdbc-mysql')
+
+    api 'org.springframework.boot:spring-boot-starter-jdbc'
+}

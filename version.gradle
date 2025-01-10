@@ -15,7 +15,7 @@ ext {
             netty      : '4.1.116.Final',
             ttl        : '2.14.5',
             forest     : '1.6.3',
-            anyline    : '8.7.2-jdk21-20250102',
+            anyline    : '8.7.2-jdk21-20250108',
             mssql2008R2: '7.2.2.jre11',
             druid      : '1.2.24'
     ]
@@ -42,6 +42,7 @@ ext {
             'anyline-mvc'            : "org.anyline:anyline-mvc:${versions.anyline}",
             'anyline-environment'    : "org.anyline:anyline-environment-spring-data-jdbc:${versions.anyline}",
             'anyline-data-jdbc-mssql': "org.anyline:anyline-data-jdbc-mssql:${versions.anyline}",
+            'anyline-data-jdbc-mysql': "org.anyline:anyline-data-jdbc-mysql:${versions.anyline}",
             'jdbc-mssql-2008-r2'     : "com.microsoft.sqlserver:mssql-jdbc:${versions.mssql2008R2}",
             'druid'                  : "com.alibaba:druid:${versions.druid}"
     ]

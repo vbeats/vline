@@ -52,10 +52,21 @@ vline:
         username: sa
         password: sa123456
         data-handler: com.codestepfish.vline.example.mssql.MssqlWriteExampleHandler
+    - name: t7
+      mysql:
+        mode: read
+        host: 192.168.100.80
+        port: 3306
+        database-name: test
+        username: root
+        password: root
+        data-handler: com.codestepfish.vline.example.mysql.MysqlReadExampleHandler
   struct:
     t1:
       - t2
       - t3
       - t5
     t4:
+      - t6
+    t7:
       - t6

@@ -6,6 +6,7 @@ import com.alibaba.fastjson2.annotation.JSONField;
 import com.codestepfish.vline.core.enums.NodeType;
 import com.codestepfish.vline.core.http.HttpProperties;
 import com.codestepfish.vline.core.mssql.MssqlProperties;
+import com.codestepfish.vline.core.mysql.MysqlProperties;
 import com.codestepfish.vline.core.redis.RedisProperties;
 import com.codestepfish.vline.core.tcp.TcpProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -47,6 +48,8 @@ public class Node<T> implements INode<T>, Serializable {
 
     MssqlProperties mssql;
 
+    MysqlProperties mysql;
+
     @Override
     public void init() {
         log.info("node init: {}", JSON.toJSONString(this));
@@ -86,6 +89,13 @@ public class Node<T> implements INode<T>, Serializable {
         this.mssql = mssql;
         if (!ObjectUtils.isEmpty(mssql)) {
             this.type = NodeType.MSSQL;
+        }
+    }
+
+    public void setMysql(MysqlProperties mysql) {
+        this.mysql = mysql;
+        if (!ObjectUtils.isEmpty(mysql)) {
+            this.type = NodeType.MYSQL;
         }
     }
 }
