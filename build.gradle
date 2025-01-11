@@ -3,10 +3,8 @@ import org.springframework.boot.gradle.plugin.SpringBootPlugin
 plugins {
     id 'java-library'
     id 'maven-publish'
-    id 'signing'
     id 'org.springframework.boot' version "${SpringBootVersion}"
     id 'io.spring.dependency-management' version "${DependencyManagement}"
-    id "io.github.gradle-nexus.publish-plugin" version "${PublishPlugin}"
 }
 
 apply from: 'version.gradle'
@@ -58,56 +56,6 @@ subprojects {
     if (project.name.indexOf('example') >= 0) {
         return
     }
-
-    apply plugin: 'maven-publish'
-    apply plugin: 'signing'
-    publishing {
-        publications {
-            mavenJava(MavenPublication) {
-                from(components.java)
-
-                pom {
-                    name = "vline"
-                    description = "edge data transfer"
-                    url = "https://github.com/vbeats/vline"
-                    licenses {
-                        license {
-                            name = "MIT"
-                            url = "https://raw.githubusercontent.com/vbeats/vline/refs/heads/dev/LICENSE"
-                        }
-                    }
-                    developers {
-                        developer {
-                            id = "bootvue"
-                            name = "bootvue"
-                            email = "bootvue@gmail.com"
-                        }
-                    }
-                    scm {
-                        connection = "https://github.com/vbeats"
-                        developerConnection = "https://github.com/vbeats"
-                        url = "https://github.com/vbeats"
-                    }
-                }
-            }
-        }
-    }
-
-    signing {
-        def keyId = System.getenv('SIGNING_KEYID')
-        def secretKey = new File(System.getenv('SIGNING_SECRETKEY'))
-        def password = System.getenv('SIGNING_PASSWORD')
-
-        useInMemoryPgpKeys(keyId, secretKey.text, password ? password : '')
-        sign publishing.publications.mavenJava
-    }
+    // todo jreleaser maven publish
 }
 
-nexusPublishing {
-    repositories {
-        sonatype {
-            username = System.getenv('SONATYPE_USERNAME')
-            password = System.getenv('SONATYPE_PASSWORD')
-        }
-    }
-}
