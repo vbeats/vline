@@ -14,7 +14,6 @@ ext {
             redisson   : '3.42.0',
             netty      : '4.1.116.Final',
             ttl        : '2.14.5',
-            forest     : '1.6.3',
             anyline    : '8.7.2-jdk21-20250108',
             mssql2008R2: '7.2.2.jre11',
             druid      : '1.2.24'
@@ -37,8 +36,6 @@ ext {
             'redisson'               : "org.redisson:redisson-spring-boot-starter:${versions.redisson}",
             'netty'                  : "io.netty:netty-all:${versions.netty}",
             'ttl'                    : "com.alibaba:transmittable-thread-local:${versions.ttl}",
-            'forest'                 : "com.dtflys.forest:forest-spring-boot3-starter:${versions.forest}",
-            'forest-xml'             : "com.dtflys.forest:forest-jakarta-xml:${versions.forest}",
             'anyline-mvc'            : "org.anyline:anyline-mvc:${versions.anyline}",
             'anyline-environment'    : "org.anyline:anyline-environment-spring-data-jdbc:${versions.anyline}",
             'anyline-data-jdbc-mssql': "org.anyline:anyline-data-jdbc-mssql:${versions.anyline}",

@@ -1,14 +1,16 @@
 package com.codestepfish.vline.example.http;
 
-import com.codestepfish.vline.core.http.HttpProperties;
-import com.codestepfish.vline.http.client.ForestHandler;
-import com.dtflys.forest.http.ForestRequest;
+import com.codestepfish.vline.http.HttpHandler;
+import com.codestepfish.vline.http.HttpNode;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 @Slf4j
-public class HttpExampleHandler<T> extends ForestHandler<T> {
+@Service
+public class HttpExampleHandler<T> implements HttpHandler<T> {
+
     @Override
-    public void handle(ForestRequest request, HttpProperties properties, T data) {
-        log.info("custom http handle: {} {} {}", request, properties, data);
+    public void handle(HttpNode node, T data) {
+        log.info("custom http handle: {} {} ", node, data);
     }
 }

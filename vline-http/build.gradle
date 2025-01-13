@@ -3,8 +3,6 @@ dependencies {
 
     api libs.get('httpmime')
     api libs.get('okhttp')
-    api libs.get('forest')
-    api libs.get('forest-xml')
 
     api 'org.springframework.boot:spring-boot-starter-web'
 }

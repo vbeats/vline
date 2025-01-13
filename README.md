@@ -24,7 +24,7 @@ Not ETL
 | module             | remark | progress |
 |--------------------|--------|----------|
 | tcp                |        | ✅        |
-| http               | 待完善    | ☑️       |
+| http               | 待完善    | ✅        |
 | redis              |        | ➖        |
 | mysql              |        | ✅        |
 | postgresql         |        | ➖        |
@@ -45,7 +45,7 @@ Not ETL
 |---------------------------|------------------------------------------------|
 | vline-core                | 定义Node基本信息、属性, Node可以理解为入口/出口对应的数据源            |
 | vline-tcp                 | netty tcp                                      |
-| vline-http                | forest 实现                                      |
+| vline-http                | 自定义实现                                          |
 | vline-mysql               | mysql8 其它未测试                                   |
 | vline-sql-server-2008-r2  | sql server2008 R2                              |
 | vline-spring-boot-starter | spring boot starter : yml解析 初始化  event bus事件监听 |
@@ -96,23 +96,15 @@ vline:
 
 ### http 🛰️
 
-上层http请求具体处理逻辑 重写 `com.codestepfish.vline.http.client.ForestHandler.handle`方法
+上层http请求具体处理逻辑 实现 `com.codestepfish.vline.http.HttpHandler`, 并加入`Spring IOC`
 
 > com.codestepfish.vline.core.http.HttpProperties
 
 1. 目前http只支持作为 `out node`
-2. 数据 `data` 目前只支持 `json string`
 
-| key                | 必填 | desc                                                  |
-|:-------------------|----|-------------------------------------------------------|
-| url                | Y  | 完整url                                                 |
-| method             | N  | 默认 POST, com.codestepfish.vline.core.enums.HttpMethod |
-| max-retry-count    | N  | 默认0 最大重试次数                                            |
-| max-retry-interval | N  | 默认0 毫秒 最大重试间隔 ,maxRetryCount>0时有效                     |
-| retry-when         | N  | 重试条件 实现 RetryWhen 接口                                  |
-| success-when       | N  | 请求成功条件 实现 SuccessWhen 接口                              |
-| on-error           | N  | 请求失败处理 实现 OnError 接口                                  |
-| handler            | N  | 自定义http请求处理逻辑 重写ForestHandler.handle方法                |
+| key     | 必填 | desc                                                    |
+|:--------|----|---------------------------------------------------------|
+| handler | Y  | 自定义http请求处理逻辑 实现com.codestepfish.vline.http.HttpHandler |
 
 ### mssql 🛰️
 
