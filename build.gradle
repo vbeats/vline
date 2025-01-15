@@ -5,6 +5,7 @@ plugins {
     id 'maven-publish'
     id 'org.springframework.boot' version "${SpringBootVersion}"
     id 'io.spring.dependency-management' version "${DependencyManagement}"
+    id 'org.jreleaser' version '1.16.0'
 }
 
 apply from: 'version.gradle'
@@ -28,8 +29,12 @@ subprojects {
         }
     }
 
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    java {
+        withJavadocJar()
+        withSourcesJar()
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+    }
 
     [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
 
@@ -56,6 +61,77 @@ subprojects {
     if (project.name.indexOf('example') >= 0) {
         return
     }
-    // todo jreleaser maven publish
+
+    apply plugin: 'maven-publish'
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                groupId = "${group}"
+                artifactId = 'vline'
+                version = "${version}"
+
+                from(components.java)
+
+                pom {
+                    name = "vline"
+                    description = "edge data transfer"
+                    url = "https://github.com/vbeats/vline-j"
+                    licenses {
+                        license {
+                            name = "MIT"
+                            url = "https://raw.githubusercontent.com/vbeats/vline-j/refs/heads/dev/LICENSE"
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = "bootvue"
+                            name = "bootvue"
+                            email = "bootvue@gmail.com"
+                        }
+                    }
+                    scm {
+                        connection = "https://github.com/vbeats"
+                        developerConnection = "https://github.com/vbeats"
+                        url = "https://github.com/vbeats"
+                    }
+                }
+            }
+        }
+
+        repositories {
+            maven {
+                url = layout.buildDirectory.dir('publish')
+            }
+        }
+    }
+
+    jreleaser {
+        environment {
+            variables = '.jreleaser/config.toml'
+        }
+
+        project {
+            inceptionYear = "2025"
+            description = "edge data transfer"
+            copyright = "vbeats"
+        }
+
+        signing {
+            active = 'ALWAYS'
+            armored = true
+        }
+        deploy {
+            maven {
+                mavenCentral {
+                    sonatype {
+                        active = 'ALWAYS'
+                        url = 'https://central.sonatype.com/api/v1/publisher'
+                        stagingRepository('build/publish')
+                    }
+                }
+            }
+        }
+    }
 }
 
