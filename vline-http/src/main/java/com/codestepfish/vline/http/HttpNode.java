@@ -10,6 +10,9 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
+import org.springframework.util.ClassUtils;
+
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -30,7 +33,8 @@ public class HttpNode<T> extends Node<T> {
             try {
                 Assert.hasText(hp.getHandler(), "http handler is null");
 
-                this.httpHandler = SpringUtil.getBean(hp.getHandler());
+                Class<HttpHandler> clazz = (Class<HttpHandler>) Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(hp.getHandler());
+                this.httpHandler = SpringUtil.getBean(clazz);
 
             } catch (Exception e) {
                 log.error("http forest init failed : ", e);

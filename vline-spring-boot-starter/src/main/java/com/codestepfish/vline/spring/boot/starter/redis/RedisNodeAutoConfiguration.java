@@ -9,7 +9,6 @@ import com.codestepfish.vline.spring.boot.starter.VLineProperties;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
@@ -22,7 +21,7 @@ import java.util.concurrent.CountDownLatch;
 
 @Slf4j
 @Configuration
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 @ConditionalOnClass(RedisNode.class)
 @AutoConfigureBefore(value = {RedisAutoConfiguration.class})
 @EnableConfigurationProperties({VLineProperties.class})

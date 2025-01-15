@@ -5,7 +5,7 @@ plugins {
     id 'maven-publish'
     id 'org.springframework.boot' version "${SpringBootVersion}"
     id 'io.spring.dependency-management' version "${DependencyManagement}"
-    id 'org.jreleaser' version '1.16.0'
+    id 'org.jreleaser' version "${Jreleaser}"
 }
 
 apply from: 'version.gradle'
@@ -68,19 +68,19 @@ subprojects {
         publications {
             mavenJava(MavenPublication) {
                 groupId = "${group}"
-                artifactId = 'vline'
+                artifactId = project.name
                 version = "${version}"
 
                 from(components.java)
 
                 pom {
-                    name = "vline"
-                    description = "edge data transfer"
+                    name = project.name
+                    description = "lightweight edge data acquisition"
                     url = "https://github.com/vbeats/vline-j"
                     licenses {
                         license {
                             name = "MIT"
-                            url = "https://raw.githubusercontent.com/vbeats/vline-j/refs/heads/dev/LICENSE"
+                            url = "https://github.com/vbeats/vline-j/blob/main/LICENSE"
                         }
                     }
                     developers {
@@ -101,19 +101,15 @@ subprojects {
 
         repositories {
             maven {
-                url = layout.buildDirectory.dir('publish')
+                url = rootProject.layout.buildDirectory.dir('publish')
             }
         }
     }
 
     jreleaser {
-        environment {
-            variables = '.jreleaser/config.toml'
-        }
-
         project {
             inceptionYear = "2025"
-            description = "edge data transfer"
+            description = "lightweight edge data acquisition"
             copyright = "vbeats"
         }
 
@@ -121,11 +117,24 @@ subprojects {
             active = 'ALWAYS'
             armored = true
         }
+
+        release {
+            github {
+                skipRelease = true
+                skipTag = true
+            }
+        }
+
         deploy {
             maven {
                 mavenCentral {
                     sonatype {
                         active = 'ALWAYS'
+                        sign = true
+                        sourceJar = true
+                        javadocJar = true
+                        verifyPom = true
+                        applyMavenCentralRules = false
                         url = 'https://central.sonatype.com/api/v1/publisher'
                         stagingRepository('build/publish')
                     }
@@ -135,3 +144,9 @@ subprojects {
     }
 }
 
+clean {
+    doLast {
+        mkdir 'build/publish'
+        mkdir 'build/jreleaser'
+    }
+}

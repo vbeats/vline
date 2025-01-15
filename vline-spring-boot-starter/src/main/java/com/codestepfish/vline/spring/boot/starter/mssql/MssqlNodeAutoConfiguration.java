@@ -8,7 +8,6 @@ import com.codestepfish.vline.spring.boot.starter.VLineContext;
 import com.codestepfish.vline.spring.boot.starter.VLineProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
@@ -22,7 +21,7 @@ import java.util.concurrent.CountDownLatch;
 
 @Slf4j
 @Configuration
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 @ConditionalOnClass(MssqlNode.class)
 @EnableConfigurationProperties({VLineProperties.class})
 @ConfigurationPropertiesScan(basePackages = "com.codestepfish.vline.spring.boot.starter")

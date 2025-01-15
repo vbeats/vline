@@ -40,8 +40,6 @@ vline:
         data-handler: com.codestepfish.vline.example.mssql.MssqlReadExampleHandler
     - name: t5
       http:
-        method: post
-        url: http://localhost:8080/test
         handler: com.codestepfish.vline.example.http.HttpExampleHandler
     - name: t6
       mssql:
