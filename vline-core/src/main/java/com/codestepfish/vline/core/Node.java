@@ -48,6 +48,8 @@ public class Node<T> implements INode<T>, Serializable {
 
     MssqlProperties mssql;
 
+    MssqlProperties mssql2000;
+
     MysqlProperties mysql;
 
     @Override
@@ -96,6 +98,13 @@ public class Node<T> implements INode<T>, Serializable {
         this.mysql = mysql;
         if (!ObjectUtils.isEmpty(mysql)) {
             this.type = NodeType.MYSQL;
+        }
+    }
+
+    public void setMssql2000(MssqlProperties mssql2000) {
+        this.mssql2000 = mssql2000;
+        if (!ObjectUtils.isEmpty(mssql2000)) {
+            this.type = NodeType.MSSQL2000;
         }
     }
 }

@@ -6,6 +6,6 @@ public enum NodeType {
     HTTP,
     REDIS,
     MYSQL,
-    MSSQL // sql server
-    ;
+    MSSQL, // sql server
+    MSSQL2000;
 }

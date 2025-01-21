@@ -8,7 +8,7 @@ Not ETL
 
 ## dependency
 
-> JDK21 springboot3.4.1 其它版本未测试 repository尚未推送
+> JDK21 springboot3.4.1 其它版本未测试
 
 ```gradle
     implementation project("com.codestepfish.vline:vline-spring-boot-starter:${version}")
@@ -24,14 +24,15 @@ Not ETL
 | module             | remark | progress |
 |--------------------|--------|----------|
 | tcp                |        | ✅        |
-| http               | 待完善    | ✅        |
+| http               |        | ✅        |
 | redis              |        | ➖        |
 | mysql              |        | ✅        |
 | postgresql         |        | ➖        |
 | sql-server-2008-r2 |        | ✅        |
-| sql-server-2000    |        | ➖        |
+| sql-server-2000    |        | ✅        |
 | serial-port        |        | ➖        |
 | 独立文档               |        | ⭕        |
+| 冗余模块处理             |        | ⭕        |
 
 ## desc
 
@@ -124,7 +125,7 @@ vline:
 | password               | Y  | 密码                                                                                           |
 | encrypt                | N  | 默认false                                                                                      |
 | trustServerCertificate | N  | 默认true                                                                                       |
-| driverClassName        | N  | 默认com.microsoft.sqlserver.jdbc.SQLServerDriver                                               |
+| driverClassName        | N  | 默认com.microsoft.sqlserver.jdbc.SQLServerDriver(2000默认net.sourceforge.jtds.jdbc.Driver)       |
 | jdbcUrl                | N  | 完整jdbc url                                                                                   |
 | dataHandler            | Y  | 数据处理具体实现 实现 com.codestepfish.vline.mssql2008r2.handler.MssqlReadHandler/MssqlWriteHandler 接口 |
 

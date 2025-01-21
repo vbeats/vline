@@ -3,4 +3,5 @@ com.codestepfish.vline.spring.boot.starter.tcp.TcpNodeAutoConfiguration
 com.codestepfish.vline.spring.boot.starter.http.HttpNodeAutoConfiguration
 com.codestepfish.vline.spring.boot.starter.redis.RedisNodeAutoConfiguration
 com.codestepfish.vline.spring.boot.starter.mssql.MssqlNodeAutoConfiguration
+com.codestepfish.vline.spring.boot.starter.mssql.Mssql2000NodeAutoConfiguration
 com.codestepfish.vline.spring.boot.starter.mysql.MysqlNodeAutoConfiguration

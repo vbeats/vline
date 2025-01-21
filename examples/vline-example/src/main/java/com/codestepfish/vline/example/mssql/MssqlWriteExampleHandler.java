@@ -1,7 +1,7 @@
 package com.codestepfish.vline.example.mssql;
 
-import com.codestepfish.vline.mssql2008r2.MssqlNode;
-import com.codestepfish.vline.mssql2008r2.handler.MssqlWriteHandler;
+import com.codestepfish.vline.mssql2000.MssqlNode;
+import com.codestepfish.vline.mssql2000.handler.MssqlWriteHandler;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

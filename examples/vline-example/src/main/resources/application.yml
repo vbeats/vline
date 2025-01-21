@@ -30,9 +30,9 @@ vline:
         port: 10011
         reconnect-delay: 8s
     - name: t4
-      mssql:
+      mssql2000:
         mode: read
-        host: 192.168.100.80
+        host: 192.168.100.82
         port: 1433
         database-name: test
         username: sa
@@ -42,29 +42,29 @@ vline:
       http:
         handler: com.codestepfish.vline.example.http.HttpExampleHandler
     - name: t6
-      mssql:
+      mssql2000:
         mode: write
-        host: 192.168.100.80
+        host: 192.168.100.82
         port: 1433
         database-name: test
         username: sa
         password: sa123456
         data-handler: com.codestepfish.vline.example.mssql.MssqlWriteExampleHandler
-    - name: t7
-      mysql:
-        mode: read
-        host: 192.168.100.80
-        port: 3306
-        database-name: test
-        username: root
-        password: root
-        data-handler: com.codestepfish.vline.example.mysql.MysqlReadExampleHandler
+#    - name: t7
+#      mysql:
+#        mode: read
+#        host: 192.168.100.80
+#        port: 3306
+#        database-name: test
+#        username: root
+#        password: root
+#        data-handler: com.codestepfish.vline.example.mysql.MysqlReadExampleHandler
   struct:
-    t1:
-      - t2
-      - t3
-      - t5
+#    t1:
+#      - t2
+#      - t3
+#      - t5
     t4:
       - t6
-    t7:
-      - t6
+#    t7:
+#      - t6

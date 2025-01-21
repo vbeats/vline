@@ -76,11 +76,11 @@ subprojects {
                 pom {
                     name = project.name
                     description = "lightweight edge data acquisition"
-                    url = "https://github.com/vbeats/vline-j"
+                    url = "https://github.com/vbeats/vline"
                     licenses {
                         license {
                             name = "MIT"
-                            url = "https://github.com/vbeats/vline-j/blob/main/LICENSE"
+                            url = "https://github.com/vbeats/vline/blob/main/LICENSE"
                         }
                     }
                     developers {
