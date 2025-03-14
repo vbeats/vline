@@ -8,6 +8,7 @@ import com.codestepfish.vline.core.http.HttpProperties;
 import com.codestepfish.vline.core.mssql.MssqlProperties;
 import com.codestepfish.vline.core.mysql.MysqlProperties;
 import com.codestepfish.vline.core.redis.RedisProperties;
+import com.codestepfish.vline.core.serialport.SerialPortProperties;
 import com.codestepfish.vline.core.tcp.TcpProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
@@ -51,6 +52,8 @@ public class Node<T> implements INode<T>, Serializable {
     MssqlProperties mssql2000;
 
     MysqlProperties mysql;
+
+    SerialPortProperties serialPort;
 
     @Override
     public void init() {

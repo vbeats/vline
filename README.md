@@ -30,7 +30,7 @@ Not ETL
 | postgresql         |        | ➖        |
 | sql-server-2008-r2 |        | ✅        |
 | sql-server-2000    |        | ✅        |
-| serial-port        |        | ➖        |
+| serial-port        |        | ✅        |
 | 独立文档               |        | ⭕        |
 | 冗余模块处理             |        | ⭕        |
 
@@ -148,3 +148,15 @@ vline:
 | driverClassName | N  | 默认com.mysql.cj.jdbc.Driver                                                             |
 | jdbcUrl         | N  | 完整jdbc url                                                                             |
 | dataHandler     | Y  | 数据处理具体实现 实现 com.codestepfish.vline.mysql.handler.MysqlReadHandler/MysqlWriteHandler 接口 |
+
+### serial port 🛰️
+
+> com.codestepfish.vline.core.serialport.SerialPortProperties
+
+1. node节点上层必须实现 `com.codestepfish.vline.serialport.handler.SerialPortDataHandler` 接口
+
+| key         | 必填 | desc                                                                           |
+|:------------|----|--------------------------------------------------------------------------------|
+| device      | Y  | read/write                                                                     |
+| ignored     | N  | 是否忽略其它业务处理  只转发数据                                                              |
+| dataHandler | Y  | 数据处理具体实现 实现 com.codestepfish.vline.serialport.handler.SerialPortDataHandler 接口 |

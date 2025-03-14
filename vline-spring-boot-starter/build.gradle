@@ -28,6 +28,11 @@ java {
         usingSourceSet(sourceSets[SourceSet.MAIN_SOURCE_SET_NAME])
         capability(group.toString(), "mssql2008r2-support", version.toString())
     }
+
+    registerFeature("serialPortSupport") {
+        usingSourceSet(sourceSets[SourceSet.MAIN_SOURCE_SET_NAME])
+        capability(group.toString(), "serialPort-support", version.toString())
+    }
 }
 
 dependencies {
@@ -39,6 +44,7 @@ dependencies {
     mysqlSupportApi project(":vline-mysql")
     mssql2000SupportApi project(":vline-sql-server-2000")
     mssql2008r2SupportApi project(":vline-sql-server-2008-r2")
+    serialPortSupportApi project(":vline-serial-port")
 
     api 'org.springframework.boot:spring-boot-starter'
     api 'org.springframework.boot:spring-boot-starter-actuator'

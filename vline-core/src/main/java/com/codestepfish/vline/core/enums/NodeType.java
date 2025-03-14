@@ -7,5 +7,6 @@ public enum NodeType {
     REDIS,
     MYSQL,
     MSSQL, // sql server
-    MSSQL2000;
+    MSSQL2000,
+    SERIAL_PORT;
 }
