@@ -5,8 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
-public class TcpExampleApplication {
+public class ExampleApplication {
     public static void main(String[] args) {
-        SpringApplication.run(TcpExampleApplication.class, args);
+        SpringApplication.run(ExampleApplication.class, args);
     }
 }

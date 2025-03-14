@@ -20,7 +20,7 @@ public class SerialPortExampleDataHandler implements SerialPortDataHandler {
             while (serialPort.bytesAvailable() > 0) {
                 byte[] readBuffer = new byte[serialPort.bytesAvailable()];
                 int numRead = serialPort.readBytes(readBuffer, readBuffer.length);
-                log.info("=======> receive data> {}", bytesToHex(readBuffer));
+                log.info("=======> {}【{}】 receive data: {}", node.getName(), node.getSerialPort().getDevice(), bytesToHex(readBuffer));
 
                 VLineContext.posMsg(node.getName(), readBuffer);
             }

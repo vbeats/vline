@@ -17,7 +17,7 @@ public class VLineEventListener implements SubscriberExceptionHandler { // event
 
     @Subscribe
     public void msgHandler(VLineEvent event) {
-        log.info("event bus received : {}", event);
+        log.info("event bus received event: {}", event);
         List<String> nextNodes = SpringUtil.getBean(VLineProperties.class).nextNodes(event.getKey());
         nextNodes.parallelStream().forEach(node -> VLineContext.NODES.get(node).sendData(event.getMsg()));
     }
