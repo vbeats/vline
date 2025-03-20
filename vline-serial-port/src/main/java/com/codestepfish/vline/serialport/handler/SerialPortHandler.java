@@ -21,7 +21,8 @@ public class SerialPortHandler {
         boolean opened = serialPort.openPort();
         log.info("===========> 串口: {} 打开结果: {}", node.getSerialPort().getDevice(), opened);
         if (!opened) {
-            throw new RuntimeException("串口: " + node.getSerialPort().getDevice() + " 打开失败");
+            log.error("串口: {} 打开失败", node.getSerialPort().getDevice());
+            return;
         }
 
         SERIAL_PORTS.put(node.getName(), serialPort);
