@@ -63,9 +63,8 @@ vline:
   nodes:
     - name: t1
       type: tcp
-      tags:
-        - xx
-        - oo
+      extra:
+        - xx: oo
       # protocol:
       #  - property:
       #  - property:
@@ -79,7 +78,7 @@ vline:
 | nodes       | Y  | 节点定义 com.codestepfish.vline.core.Node                                        |
 | -name       | Y  | 节点名称 全局唯一                                                                    |
 | -type       | Y  | 节点类型 com.codestepfish.vline.core.enums.NodeType                              |
-| -tags       | N  | 节点标签                                                                         |
+| -extra      | N  | 节点扩展属性 key: value                                                            |
 | -properties | Y  | com.codestepfish.vline.core.Node 节点属性Properties                              |
 | struct      | Y  | 数据传输拓扑结构 key: 入口节点 value: 出口节点集合    Map<String, List<String>> k/v都是Node name |
 
