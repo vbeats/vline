@@ -21,6 +21,7 @@ import org.springframework.util.ObjectUtils;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -38,7 +39,7 @@ public class Node<T> implements INode<T>, Serializable {
 
     String name; // 设备名称  全局唯一
 
-    List<String> tags;  // 节点标签
+    List<Map<String, String>> extra;  // 节点 扩展属性  业务自定义
 
     // -------------------------不同通信协议配置属性    一个 node 只能配置一种
     TcpProperties tcp;

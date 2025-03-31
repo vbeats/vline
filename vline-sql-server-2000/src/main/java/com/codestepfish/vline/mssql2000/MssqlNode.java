@@ -5,6 +5,7 @@ import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.core.mssql.MssqlProperties;
 import com.codestepfish.vline.mssql2000.handler.MssqlReadHandler;
 import com.codestepfish.vline.mssql2000.handler.MssqlWriteHandler;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,6 +21,7 @@ import java.util.Objects;
 @Setter
 @Slf4j
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 @Accessors(chain = true)
 public class MssqlNode<T> extends Node<T> {
 

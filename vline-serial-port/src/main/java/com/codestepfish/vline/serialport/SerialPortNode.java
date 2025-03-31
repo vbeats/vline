@@ -4,6 +4,7 @@ import cn.hutool.core.thread.ThreadUtil;
 import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.serialport.handler.SerialPortDataHandler;
 import com.codestepfish.vline.serialport.handler.SerialPortHandler;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +19,7 @@ import java.util.Objects;
 @Setter
 @Slf4j
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 @Accessors(chain = true)
 public class SerialPortNode<T> extends Node<T> {
 

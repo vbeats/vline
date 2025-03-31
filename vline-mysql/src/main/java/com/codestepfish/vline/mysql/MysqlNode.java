@@ -5,6 +5,7 @@ import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.core.mysql.MysqlProperties;
 import com.codestepfish.vline.mysql.handler.MysqlReadHandler;
 import com.codestepfish.vline.mysql.handler.MysqlWriteHandler;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,6 +21,7 @@ import java.util.Objects;
 @Setter
 @Slf4j
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 @Accessors(chain = true)
 public class MysqlNode<T> extends Node<T> {
 

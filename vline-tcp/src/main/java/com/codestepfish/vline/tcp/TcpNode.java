@@ -3,6 +3,7 @@ package com.codestepfish.vline.tcp;
 import cn.hutool.core.thread.ThreadUtil;
 import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.tcp.handler.TcpHandler;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.netty.channel.ChannelFuture;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ import org.springframework.util.ObjectUtils;
 @Setter
 @Slf4j
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 @Accessors(chain = true)
 public class TcpNode<T> extends Node<T> {
     @Override
