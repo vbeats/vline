@@ -5,6 +5,8 @@ spring:
 vline:
   nodes:
     - name: t1
+      extra:
+        - id: 1
       type: serial_port
       serial-port:
         device: COM1
