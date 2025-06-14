@@ -8,7 +8,7 @@ Not ETL
 
 ## dependency
 
-> JDK21 springboot3.4.1 其它版本未测试
+> JDK21 springboot3.x 其它版本未测试
 
 ```gradle
     implementation project("com.codestepfish.vline:vline-spring-boot-starter:${version}")
@@ -33,6 +33,7 @@ Not ETL
 | serial-port        |        | ✅        |
 | 独立文档               |        | ⭕        |
 | 冗余模块处理             |        | ⭕        |
+| example完善          |        | ⭕        |
 
 ## desc
 

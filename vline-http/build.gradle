@@ -1,7 +1,7 @@
 dependencies {
     api(project(":vline-core"))
 
-    api libs.get('httpmime')
+    api libs.get('httpclient')
     api libs.get('okhttp')
 
     api 'org.springframework.boot:spring-boot-starter-web'
