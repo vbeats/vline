@@ -31,7 +31,7 @@ public class SerialPortNode<T> extends Node<T> {
         try {
             Assert.hasText(this.getSerialPort().getDataHandler(), "serial port dataHandler is null");
 
-            Class<SerialPortDataHandler> dataHandlerClazz = (Class<SerialPortDataHandler>) Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(this.getSerialPort().getDataHandler());
+            Class<? extends SerialPortDataHandler> dataHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(this.getSerialPort().getDataHandler()).asSubclass(SerialPortDataHandler.class);
             serialPortDataHandler = dataHandlerClazz.getDeclaredConstructor().newInstance();
             // 初始化串口
             ThreadUtil.execute(() -> SerialPortHandler.init(this, serialPortDataHandler));
@@ -42,14 +42,14 @@ public class SerialPortNode<T> extends Node<T> {
     }
 
     @Override
-    public void destroy() throws Exception {
+    public void destroy() {
         super.destroy();
         SerialPortHandler.SERIAL_PORTS.entrySet().parallelStream()
                 .forEach(entry -> entry.getValue().closePort());
     }
 
     @Override
-    public void sendData(T data) {
+    public void receiveData(T data) {
         ThreadUtil.execute(() -> serialPortDataHandler.send(this, data));
     }
 }

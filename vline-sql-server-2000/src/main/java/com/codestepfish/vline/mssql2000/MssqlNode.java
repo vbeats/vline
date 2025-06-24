@@ -40,12 +40,12 @@ public class MssqlNode<T> extends Node<T> {
 
             switch (properties.getMode()) {
                 case READ -> {
-                    Class<MssqlReadHandler> readHandlerClazz = (Class<MssqlReadHandler>) Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler());
+                    Class<? extends MssqlReadHandler> readHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(MssqlReadHandler.class);
                     mssqlReadHandler = readHandlerClazz.getDeclaredConstructor().newInstance();
                     ThreadUtil.execute(() -> mssqlReadHandler.read(this));
                 }
                 case WRITE -> {
-                    Class<MssqlWriteHandler> writeHandlerClazz = (Class<MssqlWriteHandler>) Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler());
+                    Class<? extends MssqlWriteHandler> writeHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(MssqlWriteHandler.class);
                     mssqlWriteHandler = writeHandlerClazz.getDeclaredConstructor().newInstance();
                 }
             }
@@ -57,13 +57,17 @@ public class MssqlNode<T> extends Node<T> {
     }
 
     @Override
-    public void destroy() throws Exception {
+    public void destroy() {
         super.destroy();
-        DataSourceHolder.destroy(this.getName());
+        try {
+            DataSourceHolder.destroy(this.getName());
+        } catch (Exception e) {
+            log.error("========> mssql : {} destroy failed : ", this.getName(), e);
+        }
     }
 
     @Override
-    public void sendData(T data) {
+    public void receiveData(T data) {
         ThreadUtil.execute(() -> mssqlWriteHandler.write(this, data));
     }
 }

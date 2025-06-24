@@ -1,6 +1,6 @@
 spring:
   application:
-    name: example-tcp
+    name: example-serial-port
 
 vline:
   nodes:
@@ -22,3 +22,7 @@ vline:
   struct:
     t1:
       - t2
+
+# t1 COM1
+# t2 COM2
+# 数据互相转发

@@ -8,4 +8,5 @@ dependencies {
     api libs.get('anyline-data-jdbc-mysql')
 
     api 'org.springframework.boot:spring-boot-starter-jdbc'
+    api 'org.springframework.boot:spring-boot-starter-web'
 }

@@ -1,5 +1,6 @@
 package com.codestepfish.vline.spring.boot.starter;
 
+import com.codestepfish.vline.core.Node;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.DisposableBean;
@@ -22,7 +23,7 @@ public class VLineAutoConfiguration implements InitializingBean, DisposableBean 
 
     @Override
     public void destroy() throws Exception {
-
+        vLineProperties.getNodes().parallelStream().forEach(Node::destroy);
     }
 
     @Override

@@ -31,10 +31,10 @@ public class TcpNode<T> extends Node<T> {
     }
 
     @Override
-    public void sendData(T data) {
+    public void receiveData(T data) {
         ChannelFuture future = TcpHandler.CHANNEL_FUTURES.get(this.getName());
         if (ObjectUtils.isEmpty(future)) {
-            log.warn("tcp node offline ... : {}  data not send: {} ", this.getName(), data);
+            log.warn("tcp node offline ... : {}  data send failed: {} ", this.getName(), data);
             return;
         }
 

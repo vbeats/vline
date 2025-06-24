@@ -25,12 +25,12 @@ public class RedisNode<T> extends Node<T> {
     }
 
     @Override
-    public void destroy() throws Exception {
+    public void destroy() {
         super.destroy();
     }
 
     @Override
-    public void sendData(T data) {
+    public void receiveData(T data) {
 
     }
 }

@@ -3,17 +3,17 @@ package com.codestepfish.vline.core;
 public interface INode<T> {
 
     /**
-     * 节点通信初始化
+     * 节点初始化
      */
     void init();
 
     /**
-     * 节点通信资源销毁
+     * 节点资源销毁
      */
-    void destroy() throws Exception;
+    void destroy();
 
     /**
-     * 推送data
+     * 当前节点 接收data
      */
-    void sendData(T data);
+    void receiveData(T data);
 }

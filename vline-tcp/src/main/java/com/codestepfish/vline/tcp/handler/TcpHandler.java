@@ -46,7 +46,7 @@ public class TcpHandler {
         ServerBootstrap bootstrap = new ServerBootstrap();
 
         try {
-            Class<ChannelHandler> clazz = (Class<ChannelHandler>) Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(tp.getChildHandler());
+            Class<? extends ChannelHandler> clazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(tp.getChildHandler()).asSubclass(ChannelHandler.class);
 
             bootstrap.group(boss, worker)
                     .channel(NioServerSocketChannel.class)
@@ -78,7 +78,7 @@ public class TcpHandler {
         Bootstrap bootstrap = new Bootstrap();
 
         try {
-            Class<ChannelHandler> clazz = (Class<ChannelHandler>) Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(tp.getChildHandler());
+            Class<? extends ChannelHandler> clazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(tp.getChildHandler()).asSubclass(ChannelHandler.class);
 
             bootstrap.group(worker)
                     .channel(NioSocketChannel.class)

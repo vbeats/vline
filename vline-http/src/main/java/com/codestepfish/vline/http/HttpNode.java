@@ -35,7 +35,7 @@ public class HttpNode<T> extends Node<T> {
             try {
                 Assert.hasText(hp.getHandler(), "http handler is null");
 
-                Class<HttpHandler> clazz = (Class<HttpHandler>) Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(hp.getHandler());
+                Class<? extends HttpHandler> clazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(hp.getHandler()).asSubclass(HttpHandler.class);
                 this.httpHandler = SpringUtil.getBean(clazz);
 
             } catch (Exception e) {
@@ -51,7 +51,7 @@ public class HttpNode<T> extends Node<T> {
     }
 
     @Override
-    public void sendData(T data) {
+    public void receiveData(T data) {
         this.httpHandler.handle(this, data);
     }
 }

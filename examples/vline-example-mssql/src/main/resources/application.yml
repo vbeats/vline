@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: example-mssql
+
+
+vline:
+  nodes:
+    - name: t1
+      mssql2000:
+        mode: read
+        host: 192.168.100.82
+        port: 1433
+        database-name: test
+        username: sa
+        password: sa123456
+        data-handler: com.codestepfish.vline.example.mssql.MssqlReadExampleHandler
+    - name: t2
+      http:
+        handler: com.codestepfish.vline.example.http.HttpExampleHandler
+    - name: t3
+      mssql2000:
+        mode: write
+        host: 192.168.100.82
+        port: 1433
+        database-name: test
+        username: sa
+        password: sa123456
+        data-handler: com.codestepfish.vline.example.mssql.MssqlWriteExampleHandler
+  struct:
+    t1:
+      - t3
+
