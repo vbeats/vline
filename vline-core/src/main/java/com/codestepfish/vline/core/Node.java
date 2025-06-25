@@ -9,6 +9,7 @@ import com.codestepfish.vline.core.mssql.MssqlProperties;
 import com.codestepfish.vline.core.mysql.MysqlProperties;
 import com.codestepfish.vline.core.redis.RedisProperties;
 import com.codestepfish.vline.core.serialport.SerialPortProperties;
+import com.codestepfish.vline.core.sqlite.SqliteProperties;
 import com.codestepfish.vline.core.tcp.TcpProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
@@ -53,6 +54,8 @@ public class Node<T> implements INode<T>, Serializable {
     MssqlProperties mssql2000;
 
     MysqlProperties mysql;
+
+    SqliteProperties sqlite;
 
     SerialPortProperties serialPort;
 
@@ -109,6 +112,13 @@ public class Node<T> implements INode<T>, Serializable {
         this.mssql2000 = mssql2000;
         if (!ObjectUtils.isEmpty(mssql2000)) {
             this.type = NodeType.MSSQL2000;
+        }
+    }
+
+    public void setSqlite(SqliteProperties sqlite) {
+        this.sqlite = sqlite;
+        if (!ObjectUtils.isEmpty(sqlite)) {
+            this.type = NodeType.SQLITE;
         }
     }
 }

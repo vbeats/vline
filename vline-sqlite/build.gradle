@@ -1,0 +1,12 @@
+dependencies {
+    api(project(":vline-core"))
+
+    api libs.get('druid')
+    api libs.get('sqlite')
+    api libs.get('anyline-mvc')
+    api libs.get('anyline-environment')
+    api libs.get('anyline-data-jdbc-sqlite')
+
+    api 'org.springframework.boot:spring-boot-starter-jdbc'
+    api 'org.springframework.boot:spring-boot-starter-web'
+}

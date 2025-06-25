@@ -12,7 +12,7 @@ import lombok.ToString;
 public class MysqlProperties {
 
     @JSONField(serializeFeatures = JSONWriter.Feature.WriteEnumsUsingName)
-    private Mode mode = Mode.READ;  // read or write
+    private Mode mode = Mode.OTHER;  // read or write
 
     private String host = "127.0.0.1";
 
@@ -32,6 +32,7 @@ public class MysqlProperties {
 
     public enum Mode {
         READ,
-        WRITE
+        WRITE,
+        OTHER  // other 不处理任何业务, 仅注入数据源
     }
 }

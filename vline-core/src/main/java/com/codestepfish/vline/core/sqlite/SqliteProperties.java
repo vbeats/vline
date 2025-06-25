@@ -1,4 +1,4 @@
-package com.codestepfish.vline.core.mssql;
+package com.codestepfish.vline.core.sqlite;
 
 import com.alibaba.fastjson2.JSONWriter;
 import com.alibaba.fastjson2.annotation.JSONField;
@@ -9,28 +9,18 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class MssqlProperties {
+public class SqliteProperties {
 
     @JSONField(serializeFeatures = JSONWriter.Feature.WriteEnumsUsingName)
     private Mode mode = Mode.OTHER;  // read or write
 
-    private String host = "127.0.0.1";
-
-    private Integer port = 1433;
+    private String dbPath; // db 文件路径
 
     private String databaseName;
 
-    private String username;
+    private String driverClassName = "org.sqlite.JDBC";
 
-    private String password;
-
-    private Boolean encrypt = false;
-
-    private Boolean trustServerCertificate = true;
-
-    private String driverClassName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-
-    private String jdbcUrl;  // 完整jdbc url
+    private String jdbcUrl;  // 完整jdbc url jdbc:sqlite://xx.db
 
     private String dataHandler;  // 数据处理器
 
