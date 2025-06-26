@@ -3,6 +3,7 @@ package com.codestepfish.vline.spring.boot.starter.mssql;
 import cn.hutool.core.bean.BeanUtil;
 import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.core.enums.NodeType;
+import com.codestepfish.vline.core.mssql.MssqlProperties;
 import com.codestepfish.vline.mssql2008r2.MssqlNode;
 import com.codestepfish.vline.spring.boot.starter.VLineContext;
 import com.codestepfish.vline.spring.boot.starter.VLineProperties;
@@ -40,9 +41,12 @@ public class MssqlNodeAutoConfiguration implements ApplicationListener {
             MssqlNode mssqlNode = BeanUtil.copyProperties(node, MssqlNode.class);
             mssqlNode.init();
 
-            VLineContext.NODES.put(node.getName(), mssqlNode);
-            // event bus
-            VLineContext.createEventBus(node.getName());
+            // other mode 不处理消息
+            if (!MssqlProperties.Mode.OTHER.equals(mssqlNode.getMssql().getMode())) {
+                VLineContext.NODES.put(node.getName(), mssqlNode);
+                // event bus
+                VLineContext.createEventBus(node.getName());
+            }
 
             countDownLatch.countDown();
         });

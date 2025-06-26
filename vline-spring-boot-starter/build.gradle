@@ -19,6 +19,11 @@ java {
         capability(group.toString(), "mysql-support", version.toString())
     }
 
+    registerFeature("sqliteSupport") {
+        usingSourceSet(sourceSets[SourceSet.MAIN_SOURCE_SET_NAME])
+        capability(group.toString(), "sqlite-support", version.toString())
+    }
+
     registerFeature("mssql2000Support") {
         usingSourceSet(sourceSets[SourceSet.MAIN_SOURCE_SET_NAME])
         capability(group.toString(), "mssql2000-support", version.toString())
@@ -42,6 +47,7 @@ dependencies {
     httpSupportApi project(":vline-http")
     tcpSupportApi project(":vline-tcp")
     mysqlSupportApi project(":vline-mysql")
+    sqliteSupportApi project(":vline-sqlite")
     mssql2000SupportApi project(":vline-sql-server-2000")
     mssql2008r2SupportApi project(":vline-sql-server-2008-r2")
     serialPortSupportApi project(":vline-serial-port")

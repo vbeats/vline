@@ -19,7 +19,7 @@ Not ETL
     .....
 ```
 
-## ToDo
+## Support
 
 | module             | remark | progress |
 |--------------------|--------|----------|
@@ -27,13 +27,11 @@ Not ETL
 | http               |        | ✅        |
 | redis              |        | ➖        |
 | mysql              |        | ✅        |
+| sqlite             |        | ✅        |
 | postgresql         |        | ➖        |
 | sql-server-2008-r2 |        | ✅        |
 | sql-server-2000    |        | ✅        |
 | serial-port        |        | ✅        |
-| 独立文档               |        | ⭕        |
-| 冗余模块处理             |        | ⭕        |
-| example完善          |        | ⭕        |
 
 ## desc
 
@@ -49,6 +47,7 @@ Not ETL
 | vline-tcp                 | netty tcp                                      |
 | vline-http                | 自定义实现                                          |
 | vline-mysql               | mysql8 其它未测试                                   |
+| vline-sqlite              | sqlite                                         |
 | vline-sql-server-2008-r2  | sql server2008 R2                              |
 | vline-spring-boot-starter | spring boot starter : yml解析 初始化  event bus事件监听 |
 | examples                  | 示例                                             |
@@ -111,13 +110,14 @@ vline:
 
 > com.codestepfish.vline.core.mssql.MssqlProperties
 
-1. node节点上层必须实现 `com.codestepfish.vline.mssql2008r2.handler.MssqlReadHandler/MssqlWriteHandler` 接口
+1. node节点(read/write mode)上层必须实现 `com.codestepfish.vline.mssql2008r2.handler.MssqlReadHandler/MssqlWriteHandler`
+   接口
 2. 模块依赖了 `spring-boot-starter-jdbc` , 如果不需要springboot自动配置数据源 , 上层应用应当排除
    `DataSourceAutoConfiguration`
 
 | key                    | 必填 | desc                                                                                         |
 |:-----------------------|----|----------------------------------------------------------------------------------------------|
-| mode                   | N  | read/write                                                                                   |
+| mode                   | N  | read/write/other(仅注入数据源)                                                                     |
 | host                   | N  | 默认127.0.0.1                                                                                  |
 | port                   | N  | 默认1433                                                                                       |
 | databaseName           | Y  | 数据库                                                                                          |
@@ -133,13 +133,13 @@ vline:
 
 > com.codestepfish.vline.core.mysql.MysqlProperties
 
-1. node节点上层必须实现 `com.codestepfish.vline.mysql.handler.MysqlReadHandler/MysqlWriteHandler` 接口
+1. node节点(read/write mode)上层必须实现 `com.codestepfish.vline.mysql.handler.MysqlReadHandler/MysqlWriteHandler` 接口
 2. 模块依赖了 `spring-boot-starter-jdbc` , 如果不需要springboot自动配置数据源 , 上层应用应当排除
    `DataSourceAutoConfiguration`
 
 | key             | 必填 | desc                                                                                   |
 |:----------------|----|----------------------------------------------------------------------------------------|
-| mode            | N  | read/write                                                                             |
+| mode            | N  | read/write/other(仅注入数据源)                                                               |
 | host            | N  | 默认127.0.0.1                                                                            |
 | port            | N  | 默认3306                                                                                 |
 | databaseName    | Y  | 数据库                                                                                    |
@@ -148,6 +148,22 @@ vline:
 | driverClassName | N  | 默认com.mysql.cj.jdbc.Driver                                                             |
 | jdbcUrl         | N  | 完整jdbc url                                                                             |
 | dataHandler     | Y  | 数据处理具体实现 实现 com.codestepfish.vline.mysql.handler.MysqlReadHandler/MysqlWriteHandler 接口 |
+
+### sqlite 🛰️
+
+> com.codestepfish.vline.core.sqlite.SqliteProperties
+
+1. node节点(read/write mode)上层必须实现 `com.codestepfish.vline.sqlite.handler.SqLiteReadHandler/SqLiteWriteHandler` 接口
+2. 模块依赖了 `spring-boot-starter-jdbc` , 如果不需要springboot自动配置数据源 , 上层应用应当排除
+   `DataSourceAutoConfiguration`
+
+| key             | 必填 | desc                                                                                      |
+|:----------------|----|-------------------------------------------------------------------------------------------|
+| mode            | N  | read/write/other(仅注入数据源)                                                                  |
+| dbPath          | Y  | 数据库文件路径                                                                                   |
+| driverClassName | N  | 默认org.sqlite.JDBC                                                                         |
+| jdbcUrl         | N  | 完整jdbc url                                                                                |
+| dataHandler     | Y  | 数据处理具体实现 实现 com.codestepfish.vline.sqlite.handler.SqLiteReadHandler/SqLiteWriteHandler 接口 |
 
 ### serial port 🛰️
 

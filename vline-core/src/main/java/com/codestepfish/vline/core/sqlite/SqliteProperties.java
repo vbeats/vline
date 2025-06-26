@@ -16,11 +16,9 @@ public class SqliteProperties {
 
     private String dbPath; // db 文件路径
 
-    private String databaseName;
-
     private String driverClassName = "org.sqlite.JDBC";
 
-    private String jdbcUrl;  // 完整jdbc url jdbc:sqlite://xx.db
+    private String jdbcUrl;  // 完整jdbc url jdbc:sqlite:xx.db
 
     private String dataHandler;  // 数据处理器
 

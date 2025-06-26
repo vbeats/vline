@@ -48,6 +48,9 @@ public class MssqlNode<T> extends Node<T> {
                     Class<? extends MssqlWriteHandler> writeHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(MssqlWriteHandler.class);
                     mssqlWriteHandler = writeHandlerClazz.getDeclaredConstructor().newInstance();
                 }
+                case OTHER -> {
+                    // do nothing
+                }
             }
 
         } catch (Exception e) {

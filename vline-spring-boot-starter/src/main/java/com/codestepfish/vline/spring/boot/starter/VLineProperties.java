@@ -6,8 +6,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +30,10 @@ public class VLineProperties {
      * @return
      */
     public List<String> nextNodes(String nodeName) {
+
+        if (CollectionUtils.isEmpty(struct)) {
+            return Collections.emptyList();
+        }
         List<String> ns = new ArrayList<>();
 
         struct.entrySet().forEach(entry -> {

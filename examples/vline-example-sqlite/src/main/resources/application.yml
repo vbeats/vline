@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: example-sqlite
+
+vline:
+  nodes:
+    - name: t1
+      sqlite:
+        mode: read
+        db-path: ./examples/vline-example-sqlite/src/main/resources/test.db
+        data-handler: com.codestepfish.vline.example.sqlite.SqLiteReadExampleHandler

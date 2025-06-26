@@ -48,6 +48,9 @@ public class MysqlNode<T> extends Node<T> {
                     Class<? extends MysqlWriteHandler> writeHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(MysqlWriteHandler.class);
                     mysqlWriteHandler = writeHandlerClazz.getDeclaredConstructor().newInstance();
                 }
+                case OTHER -> {
+                    // do nothing
+                }
             }
 
         } catch (Exception e) {

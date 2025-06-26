@@ -3,6 +3,7 @@ package com.codestepfish.vline.spring.boot.starter.mysql;
 import cn.hutool.core.bean.BeanUtil;
 import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.core.enums.NodeType;
+import com.codestepfish.vline.core.mysql.MysqlProperties;
 import com.codestepfish.vline.mysql.MysqlNode;
 import com.codestepfish.vline.spring.boot.starter.VLineContext;
 import com.codestepfish.vline.spring.boot.starter.VLineProperties;
@@ -40,9 +41,12 @@ public class MysqlNodeAutoConfiguration implements ApplicationListener {
             MysqlNode mysqlNode = BeanUtil.copyProperties(node, MysqlNode.class);
             mysqlNode.init();
 
-            VLineContext.NODES.put(node.getName(), mysqlNode);
-            // event bus
-            VLineContext.createEventBus(node.getName());
+            // other mode 不处理消息
+            if (!MysqlProperties.Mode.OTHER.equals(mysqlNode.getMysql().getMode())) {
+                VLineContext.NODES.put(node.getName(), mysqlNode);
+                // event bus
+                VLineContext.createEventBus(node.getName());
+            }
 
             countDownLatch.countDown();
         });

@@ -1,12 +1,12 @@
-package com.codestepfish.vline.spring.boot.starter.mssql;
+package com.codestepfish.vline.spring.boot.starter.sqlite;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.core.enums.NodeType;
-import com.codestepfish.vline.core.mssql.MssqlProperties;
-import com.codestepfish.vline.mssql2000.MssqlNode;
+import com.codestepfish.vline.core.sqlite.SqliteProperties;
 import com.codestepfish.vline.spring.boot.starter.VLineContext;
 import com.codestepfish.vline.spring.boot.starter.VLineProperties;
+import com.codestepfish.vline.sqlite.SqLiteNode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -23,27 +23,27 @@ import java.util.concurrent.CountDownLatch;
 @Slf4j
 @Configuration
 @RequiredArgsConstructor
-@ConditionalOnClass(MssqlNode.class)
+@ConditionalOnClass(SqLiteNode.class)
 @EnableConfigurationProperties({VLineProperties.class})
 @ConfigurationPropertiesScan(basePackages = "com.codestepfish.vline.spring.boot.starter")
-public class Mssql2000NodeAutoConfiguration implements ApplicationListener {
+public class SqLiteNodeAutoConfiguration implements ApplicationListener {
 
     private final VLineProperties vLineProperties;
 
-    @ConditionalOnClass(MssqlNode.class)
-    public void mssqlNodeInit() throws InterruptedException {
+    @ConditionalOnClass(SqLiteNode.class)
+    public void sqLiteNodeInit() throws InterruptedException {
         // init node
-        List<Node> nodes = vLineProperties.getNodes().stream().filter(e -> NodeType.MSSQL2000.equals(e.getType())).toList();
+        List<Node> nodes = vLineProperties.getNodes().stream().filter(e -> NodeType.SQLITE.equals(e.getType())).toList();
         CountDownLatch countDownLatch = new CountDownLatch(nodes.size());
 
         nodes.forEach(node -> {
-            // mssql init
-            MssqlNode mssqlNode = BeanUtil.copyProperties(node, MssqlNode.class);
-            mssqlNode.init();
+            // sqlite init
+            SqLiteNode sqLiteNode = BeanUtil.copyProperties(node, SqLiteNode.class);
+            sqLiteNode.init();
 
             // other mode 不处理消息
-            if (!MssqlProperties.Mode.OTHER.equals(mssqlNode.getMssql().getMode())) {
-                VLineContext.NODES.put(node.getName(), mssqlNode);
+            if (!SqliteProperties.Mode.OTHER.equals(sqLiteNode.getSqlite().getMode())) {
+                VLineContext.NODES.put(node.getName(), sqLiteNode);
                 // event bus
                 VLineContext.createEventBus(node.getName());
             }
@@ -58,7 +58,7 @@ public class Mssql2000NodeAutoConfiguration implements ApplicationListener {
     public void onApplicationEvent(ApplicationEvent event) {
         if (event instanceof ApplicationReadyEvent) {
             try {
-                mssqlNodeInit();
+                sqLiteNodeInit();
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
