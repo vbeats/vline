@@ -36,15 +36,15 @@ public class SqLiteNode<T> extends Node<T> {
 
             SqliteProperties properties = this.getSqlite();
 
-            Assert.hasText(properties.getDataHandler(), "sqlite dataHandler is null");
-
             switch (properties.getMode()) {
                 case READ -> {
+                    Assert.hasText(properties.getDataHandler(), "sqlite dataHandler is null");
                     Class<? extends SqLiteReadHandler> readHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(SqLiteReadHandler.class);
                     sqliteReadHandler = readHandlerClazz.getDeclaredConstructor().newInstance();
                     ThreadUtil.execute(() -> sqliteReadHandler.read(this));
                 }
                 case WRITE -> {
+                    Assert.hasText(properties.getDataHandler(), "sqlite dataHandler is null");
                     Class<? extends SqLiteWriteHandler> writeHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(SqLiteWriteHandler.class);
                     sqliteWriteHandler = writeHandlerClazz.getDeclaredConstructor().newInstance();
                 }

@@ -36,15 +36,15 @@ public class MysqlNode<T> extends Node<T> {
 
             MysqlProperties properties = this.getMysql();
 
-            Assert.hasText(properties.getDataHandler(), "mysql dataHandler is null");
-
             switch (properties.getMode()) {
                 case READ -> {
+                    Assert.hasText(properties.getDataHandler(), "mysql dataHandler is null");
                     Class<? extends MysqlReadHandler> readHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(MysqlReadHandler.class);
                     mysqlReadHandler = readHandlerClazz.getDeclaredConstructor().newInstance();
                     ThreadUtil.execute(() -> mysqlReadHandler.read(this));
                 }
                 case WRITE -> {
+                    Assert.hasText(properties.getDataHandler(), "mysql dataHandler is null");
                     Class<? extends MysqlWriteHandler> writeHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(MysqlWriteHandler.class);
                     mysqlWriteHandler = writeHandlerClazz.getDeclaredConstructor().newInstance();
                 }

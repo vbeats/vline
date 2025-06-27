@@ -36,15 +36,15 @@ public class MssqlNode<T> extends Node<T> {
 
             MssqlProperties properties = this.getMssql2000();
 
-            Assert.hasText(properties.getDataHandler(), "mssql dataHandler is null");
-
             switch (properties.getMode()) {
                 case READ -> {
+                    Assert.hasText(properties.getDataHandler(), "mssql dataHandler is null");
                     Class<? extends MssqlReadHandler> readHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(MssqlReadHandler.class);
                     mssqlReadHandler = readHandlerClazz.getDeclaredConstructor().newInstance();
                     ThreadUtil.execute(() -> mssqlReadHandler.read(this));
                 }
                 case WRITE -> {
+                    Assert.hasText(properties.getDataHandler(), "mssql dataHandler is null");
                     Class<? extends MssqlWriteHandler> writeHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(MssqlWriteHandler.class);
                     mssqlWriteHandler = writeHandlerClazz.getDeclaredConstructor().newInstance();
                 }
