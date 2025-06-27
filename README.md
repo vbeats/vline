@@ -128,6 +128,7 @@ vline:
 | driverClassName        | N  | 默认com.microsoft.sqlserver.jdbc.SQLServerDriver(2000默认net.sourceforge.jtds.jdbc.Driver)       |
 | jdbcUrl                | N  | 完整jdbc url                                                                                   |
 | dataHandler            | Y  | 数据处理具体实现 实现 com.codestepfish.vline.mssql2008r2.handler.MssqlReadHandler/MssqlWriteHandler 接口 |
+| initSql                | N  | 初始sql脚本位置(注意DDL操作影响)                                                                         |
 
 ### mysql 🛰️
 
@@ -148,6 +149,7 @@ vline:
 | driverClassName | N  | 默认com.mysql.cj.jdbc.Driver                                                             |
 | jdbcUrl         | N  | 完整jdbc url                                                                             |
 | dataHandler     | Y  | 数据处理具体实现 实现 com.codestepfish.vline.mysql.handler.MysqlReadHandler/MysqlWriteHandler 接口 |
+| initSql         | N  | 初始sql脚本位置(注意DDL操作影响)                                                                   |
 
 ### sqlite 🛰️
 
@@ -164,6 +166,7 @@ vline:
 | driverClassName | N  | 默认org.sqlite.JDBC                                                                         |
 | jdbcUrl         | N  | 完整jdbc url                                                                                |
 | dataHandler     | Y  | 数据处理具体实现 实现 com.codestepfish.vline.sqlite.handler.SqLiteReadHandler/SqLiteWriteHandler 接口 |
+| initSql         | N  | 初始sql脚本位置(注意DDL操作影响)                                                                      |
 
 ### serial port 🛰️
 
