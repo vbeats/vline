@@ -113,9 +113,9 @@ vline:
 
 ### redis 🛰️
 
-上层通过`com.codestepfish.vline.redis.RedisClientHolder`获取节点对应的`RedissonClient`
-
-`redisson`配置文件位置: `classpath:redisson/{nodeName}.yml`
+1. 上层通过`com.codestepfish.vline.redis.RedisClientHolder`获取节点对应的`RedissonClient`
+2. `redisson`配置文件位置: `classpath:redisson/{nodeName}.yml`
+3. 上层应用应当排除`RedisAutoConfiguration`
 
 > com.codestepfish.vline.core.redis.RedisProperties
 
