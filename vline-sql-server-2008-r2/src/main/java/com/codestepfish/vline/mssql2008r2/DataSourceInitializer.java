@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.anyline.data.datasource.DataSourceHolder;
 import org.anyline.data.runtime.DataRuntime;
 import org.anyline.metadata.type.DatabaseType;
+import org.flywaydb.core.Flyway;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
@@ -49,5 +50,11 @@ public class DataSourceInitializer {
         Assert.notNull(dataRuntime, String.format("数据源 :%s 初始化失败", node.getName()));
 
         log.info("【DataSource - Sql Server】reg success: {}", node.getName());
+
+        // flyway
+        Flyway.configure().dataSource(ds)
+                .baselineOnMigrate(true)
+                .locations(String.format("classpath:sqlserver/%s", node.getName()))
+                .load().migrate();
     }
 }

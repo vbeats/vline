@@ -36,13 +36,13 @@ public class VLineProperties {
         }
         List<String> ns = new ArrayList<>();
 
-        struct.entrySet().forEach(entry -> {
-            if (nodeName.equals(entry.getKey())) {
-                ns.addAll(entry.getValue());
+        struct.forEach((key, value) -> {
+            if (nodeName.equals(key)) {
+                ns.addAll(value);
             }
 
-            if (entry.getValue().contains(nodeName)) {
-                ns.add(entry.getKey());
+            if (value.contains(nodeName)) {
+                ns.add(key);
             }
         });
 

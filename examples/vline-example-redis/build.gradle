@@ -1,0 +1,48 @@
+import org.springframework.boot.gradle.plugin.SpringBootPlugin
+
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version "${SpringBootVersion}"
+    id 'io.spring.dependency-management' version "${DependencyManagement}"
+}
+
+group = "${group}"
+version = "${version}"
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+sourceCompatibility = JavaVersion.VERSION_21
+targetCompatibility = JavaVersion.VERSION_21
+
+[compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+
+compileJava.options.compilerArgs.addAll(['-parameters'])
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom SpringBootPlugin.BOM_COORDINATES
+    }
+}
+
+dependencies {
+    implementation project(":vline-redis")
+    implementation project(":vline-spring-boot-starter")
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

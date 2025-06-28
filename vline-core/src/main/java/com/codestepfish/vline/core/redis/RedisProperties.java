@@ -1,5 +1,7 @@
 package com.codestepfish.vline.core.redis;
 
+import com.alibaba.fastjson2.JSONWriter;
+import com.alibaba.fastjson2.annotation.JSONField;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,14 +15,16 @@ import lombok.extern.slf4j.Slf4j;
 @Accessors(chain = true)
 public class RedisProperties {
 
-    RedisSingleServerConfig singleServerConfig;
+    @JSONField(serializeFeatures = JSONWriter.Feature.WriteEnumsUsingName)
+    private Mode mode = Mode.SINGLE;
 
-    RedisClusterServersConfig clusterServersConfig;
+    private String dataHandler;
 
-    RedisSentinelServersConfig sentinelServersConfig;
-
-    RedisReplicatedServersConfig redisReplicatedServersConfig;
-
-    RedisMasterSlaveServersConfig masterSlaveServersConfig;
-
+    public enum Mode {
+        SINGLE,
+        CLUSTER,
+        SENTINEL,
+        REPLICATED,
+        MASTER_SLAVE,
+    }
 }

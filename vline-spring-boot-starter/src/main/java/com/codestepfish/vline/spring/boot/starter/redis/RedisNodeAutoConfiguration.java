@@ -6,14 +6,16 @@ import com.codestepfish.vline.core.enums.NodeType;
 import com.codestepfish.vline.redis.RedisNode;
 import com.codestepfish.vline.spring.boot.starter.VLineContext;
 import com.codestepfish.vline.spring.boot.starter.VLineProperties;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
@@ -26,11 +28,10 @@ import java.util.concurrent.CountDownLatch;
 @AutoConfigureBefore(value = {RedisAutoConfiguration.class})
 @EnableConfigurationProperties({VLineProperties.class})
 @ConfigurationPropertiesScan(basePackages = "com.codestepfish.vline.spring.boot.starter")
-public class RedisNodeAutoConfiguration {
+public class RedisNodeAutoConfiguration implements ApplicationListener {
 
     private final VLineProperties vLineProperties;
 
-    @PostConstruct
     @ConditionalOnClass(RedisNode.class)
     public void redisNodeInit() throws InterruptedException {
         // init node
@@ -49,5 +50,16 @@ public class RedisNodeAutoConfiguration {
         });
 
         countDownLatch.await();
+    }
+
+    @Override
+    public void onApplicationEvent(ApplicationEvent event) {
+        if (event instanceof ApplicationReadyEvent) {
+            try {
+                redisNodeInit();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }

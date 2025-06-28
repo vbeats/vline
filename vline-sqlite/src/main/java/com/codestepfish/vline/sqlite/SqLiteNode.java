@@ -12,13 +12,9 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 import org.anyline.data.datasource.DataSourceHolder;
-import org.apache.commons.io.FileUtils;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
-import org.springframework.util.ResourceUtils;
-import org.springframework.util.StringUtils;
 
-import java.io.File;
 import java.util.Objects;
 
 @Getter
@@ -30,7 +26,7 @@ import java.util.Objects;
 public class SqLiteNode<T> extends Node<T> {
 
     SqLiteReadHandler sqliteReadHandler;
-    SqLiteWriteHandler sqliteWriteHandler;
+    SqLiteWriteHandler<T> sqliteWriteHandler;
 
     @Override
     public void init() {
@@ -39,14 +35,6 @@ public class SqLiteNode<T> extends Node<T> {
             DataSourceInitializer.initDataSource(this);  // 数据源初始化
 
             SqliteProperties properties = this.getSqlite();
-
-            // init sql
-            if (StringUtils.hasText(properties.getInitSql())) {
-                File initFile = ResourceUtils.getFile(properties.getInitSql());
-                Assert.isTrue(initFile.exists(), "init sql file not exists");
-                String initSql = FileUtils.readFileToString(initFile, "utf-8");
-
-            }
 
             switch (properties.getMode()) {
                 case READ -> {

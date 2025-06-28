@@ -30,8 +30,6 @@ public class MysqlProperties {
 
     private String dataHandler;  // 数据处理器
 
-    private String initSql; // 初始sql脚本位置
-
     public enum Mode {
         READ,
         WRITE,

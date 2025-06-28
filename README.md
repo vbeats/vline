@@ -19,13 +19,17 @@ Not ETL
     .....
 ```
 
+## todo
+
+- [x] init sql 改造, 通过flyway实现版本控制
+
 ## Support
 
 | module             | remark | progress |
 |--------------------|--------|----------|
 | tcp                |        | ✅        |
 | http               |        | ✅        |
-| redis              |        | ➖        |
+| redis              |        | ✅        |
 | mysql              |        | ✅        |
 | sqlite             |        | ✅        |
 | postgresql         |        | ➖        |
@@ -46,6 +50,7 @@ Not ETL
 | vline-core                | 定义Node基本信息、属性, Node可以理解为入口/出口对应的数据源            |
 | vline-tcp                 | netty tcp                                      |
 | vline-http                | 自定义实现                                          |
+| vline-redis               | 注入redisson client                              |
 | vline-mysql               | mysql8 其它未测试                                   |
 | vline-sqlite              | sqlite                                         |
 | vline-sql-server-2008-r2  | sql server2008 R2                              |
@@ -106,6 +111,19 @@ vline:
 |:--------|----|---------------------------------------------------------|
 | handler | Y  | 自定义http请求处理逻辑 实现com.codestepfish.vline.http.HttpHandler |
 
+### redis 🛰️
+
+上层通过`com.codestepfish.vline.redis.RedisClientHolder`获取节点对应的`RedissonClient`
+
+`redisson`配置文件位置: `classpath:redisson/{nodeName}.yml`
+
+> com.codestepfish.vline.core.redis.RedisProperties
+
+| key         | 必填 | desc                                                      |
+|:------------|----|-----------------------------------------------------------|
+| mode        | N  | SINGLE, CLUSTER, SENTINEL, REPLICATED, MASTER_SLAVE       |
+| dataHandler | Y  | 实现com.codestepfish.vline.redis.handler.RedisDataHandler接口 |
+
 ### mssql 🛰️
 
 > com.codestepfish.vline.core.mssql.MssqlProperties
@@ -114,6 +132,7 @@ vline:
    接口
 2. 模块依赖了 `spring-boot-starter-jdbc` , 如果不需要springboot自动配置数据源 , 上层应用应当排除
    `DataSourceAutoConfiguration`
+3. flyway文件位置`classpath:sqlserver/{nodeName}`  (< 2008 版本不一定支持)
 
 | key                    | 必填 | desc                                                                                         |
 |:-----------------------|----|----------------------------------------------------------------------------------------------|
@@ -128,7 +147,6 @@ vline:
 | driverClassName        | N  | 默认com.microsoft.sqlserver.jdbc.SQLServerDriver(2000默认net.sourceforge.jtds.jdbc.Driver)       |
 | jdbcUrl                | N  | 完整jdbc url                                                                                   |
 | dataHandler            | Y  | 数据处理具体实现 实现 com.codestepfish.vline.mssql2008r2.handler.MssqlReadHandler/MssqlWriteHandler 接口 |
-| initSql                | N  | 初始sql脚本位置(注意DDL操作影响)                                                                         |
 
 ### mysql 🛰️
 
@@ -137,6 +155,7 @@ vline:
 1. node节点(read/write mode)上层必须实现 `com.codestepfish.vline.mysql.handler.MysqlReadHandler/MysqlWriteHandler` 接口
 2. 模块依赖了 `spring-boot-starter-jdbc` , 如果不需要springboot自动配置数据源 , 上层应用应当排除
    `DataSourceAutoConfiguration`
+3. flyway文件位置`classpath:mysql/{nodeName}`
 
 | key             | 必填 | desc                                                                                   |
 |:----------------|----|----------------------------------------------------------------------------------------|
@@ -149,7 +168,6 @@ vline:
 | driverClassName | N  | 默认com.mysql.cj.jdbc.Driver                                                             |
 | jdbcUrl         | N  | 完整jdbc url                                                                             |
 | dataHandler     | Y  | 数据处理具体实现 实现 com.codestepfish.vline.mysql.handler.MysqlReadHandler/MysqlWriteHandler 接口 |
-| initSql         | N  | 初始sql脚本位置(注意DDL操作影响)                                                                   |
 
 ### sqlite 🛰️
 
@@ -158,6 +176,7 @@ vline:
 1. node节点(read/write mode)上层必须实现 `com.codestepfish.vline.sqlite.handler.SqLiteReadHandler/SqLiteWriteHandler` 接口
 2. 模块依赖了 `spring-boot-starter-jdbc` , 如果不需要springboot自动配置数据源 , 上层应用应当排除
    `DataSourceAutoConfiguration`
+3. flyway文件位置`classpath:sqlite/{nodeName}`
 
 | key             | 必填 | desc                                                                                      |
 |:----------------|----|-------------------------------------------------------------------------------------------|
@@ -166,7 +185,6 @@ vline:
 | driverClassName | N  | 默认org.sqlite.JDBC                                                                         |
 | jdbcUrl         | N  | 完整jdbc url                                                                                |
 | dataHandler     | Y  | 数据处理具体实现 实现 com.codestepfish.vline.sqlite.handler.SqLiteReadHandler/SqLiteWriteHandler 接口 |
-| initSql         | N  | 初始sql脚本位置(注意DDL操作影响)                                                                      |
 
 ### serial port 🛰️
 

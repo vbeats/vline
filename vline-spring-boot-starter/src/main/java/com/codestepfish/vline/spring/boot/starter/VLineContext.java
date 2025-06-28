@@ -7,6 +7,7 @@ import com.google.common.eventbus.EventBus;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.ObjectUtils;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -33,7 +34,10 @@ public class VLineContext {
 
     // 推送消息 --> event bus
     public static <T> void posMsg(String key, T msg) {
-        EVENT_BUS_MAP.get(key).post(new VLineEvent<>(key, msg));
+        EventBus eventBus = EVENT_BUS_MAP.get(key);
+        if (!ObjectUtils.isEmpty(eventBus)) {
+            eventBus.post(new VLineEvent<>(key, msg));
+        }
     }
 
 }

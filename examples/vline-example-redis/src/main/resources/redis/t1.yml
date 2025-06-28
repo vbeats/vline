@@ -1,0 +1,22 @@
+singleServerConfig:
+  address: "redis://127.0.0.1:6379"
+threads: 16
+nettyThreads: 32
+referenceEnabled: true
+transportMode: "NIO"
+lockWatchdogTimeout: 30000
+lockWatchdogBatchSize: 100
+fairLockWaitTimeout: 300000
+checkLockSyncedSlaves: true
+slavesSyncTimeout: 1000
+reliableTopicWatchdogTimeout: 600000
+keepPubSubOrder: true
+useScriptCache: true
+minCleanUpDelay: 5
+maxCleanUpDelay: 1800
+cleanUpKeysAmount: 100
+nettyHook: !<org.redisson.client.DefaultNettyHook> { }
+useThreadClassLoader: true
+addressResolverGroupFactory: !<org.redisson.connection.SequentialDnsAddressResolverFactory> { }
+lazyInitialization: false
+protocol: "RESP3"

@@ -2,6 +2,7 @@ dependencies {
     api(project(":vline-core"))
 
     api libs.get('redisson')
+    api libs.get('redisson-data')
     api libs.get('caffeine')
     api libs.get('commons-pool2')
 

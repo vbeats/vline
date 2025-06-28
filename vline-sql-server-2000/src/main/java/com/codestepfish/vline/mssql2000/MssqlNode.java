@@ -26,7 +26,7 @@ import java.util.Objects;
 public class MssqlNode<T> extends Node<T> {
 
     MssqlReadHandler mssqlReadHandler;
-    MssqlWriteHandler mssqlWriteHandler;
+    MssqlWriteHandler<T> mssqlWriteHandler;
 
     @Override
     public void init() {

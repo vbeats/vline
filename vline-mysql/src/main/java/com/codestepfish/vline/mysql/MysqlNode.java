@@ -26,7 +26,7 @@ import java.util.Objects;
 public class MysqlNode<T> extends Node<T> {
 
     MysqlReadHandler mysqlReadHandler;
-    MysqlWriteHandler mysqlWriteHandler;
+    MysqlWriteHandler<T> mysqlWriteHandler;
 
     @Override
     public void init() {
