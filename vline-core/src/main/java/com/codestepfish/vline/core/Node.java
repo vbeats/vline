@@ -7,6 +7,7 @@ import com.codestepfish.vline.core.enums.NodeType;
 import com.codestepfish.vline.core.http.HttpProperties;
 import com.codestepfish.vline.core.mssql.MssqlProperties;
 import com.codestepfish.vline.core.mysql.MysqlProperties;
+import com.codestepfish.vline.core.postgres.PostgresProperties;
 import com.codestepfish.vline.core.redis.RedisProperties;
 import com.codestepfish.vline.core.serialport.SerialPortProperties;
 import com.codestepfish.vline.core.sqlite.SqliteProperties;
@@ -54,6 +55,8 @@ public class Node<T> implements INode<T>, Serializable {
     MssqlProperties mssql2000;
 
     MysqlProperties mysql;
+
+    PostgresProperties postgres;
 
     SqliteProperties sqlite;
 
@@ -119,6 +122,13 @@ public class Node<T> implements INode<T>, Serializable {
         this.sqlite = sqlite;
         if (!ObjectUtils.isEmpty(sqlite)) {
             this.type = NodeType.SQLITE;
+        }
+    }
+
+    public void setPostgres(PostgresProperties postgres) {
+        this.postgres = postgres;
+        if (!ObjectUtils.isEmpty(postgres)) {
+            this.type = NodeType.POSTGRES;
         }
     }
 }
