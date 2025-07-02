@@ -33,9 +33,7 @@ subprojects {
         toolchain {
             languageVersion = JavaLanguageVersion.of(21)
         }
-    }
 
-    java {
         withJavadocJar()
         withSourcesJar()
         sourceCompatibility = JavaVersion.VERSION_21
