@@ -9,13 +9,13 @@ vline:
         - id: 1
       type: serial_port
       serial-port:
-        device: COM1
+        device: /dev/ttyS0
         ignored: false
         data-handler: com.codestepfish.vline.example.serialport.SerialPortExampleDataHandler
     - name: t2
       type: serial_port
       serial-port:
-        device: COM2
+        device: /dev/ttyS1
         ignored: true
         data-handler: com.codestepfish.vline.example.serialport.SerialPortExampleDataHandler
 
