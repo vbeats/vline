@@ -15,28 +15,25 @@ public class SerialPortExampleDataHandler implements SerialPortDataHandler {
     public <T> void receive(SerialPortNode node) {
 
         SerialPort serialPort = SerialPortHandler.SERIAL_PORTS.get(node.getName());
-
-        while (true) {
-            while (serialPort.bytesAvailable() > 0) {
-                byte[] readBuffer = new byte[serialPort.bytesAvailable()];
-                int numRead = serialPort.readBytes(readBuffer, readBuffer.length);
-                log.info("=======> {}【{}】 receive data: {}", node.getName(), node.getSerialPort().getDevice(), bytesToHex(readBuffer));
-
-                VLineContext.posMsg(node.getName(), readBuffer);
-            }
+        int bytesAvailable = serialPort.bytesAvailable();
+        if (bytesAvailable <= 0) {
+            return;
         }
+        byte[] readBuffer = new byte[bytesAvailable];
+        int numRead = serialPort.readBytes(readBuffer, readBuffer.length);
+        String data = bytesToHex(readBuffer);
+        log.info("=======> {}【{}】 receive data: {}", node.getName(), node.getSerialPort().getDevice(), data);
+
+        VLineContext.posMsg(node.getName(), readBuffer);
     }
 
     @Override
     public <T> void send(SerialPortNode node, T data) {
 
         // data ===> send to node
-
         byte[] datas = (byte[]) data;
-
         SerialPort serialPort = SerialPortHandler.SERIAL_PORTS.get(node.getName());
         serialPort.writeBytes(datas, datas.length);
-
     }
 
     private static String bytesToHex(byte[] bytes) {

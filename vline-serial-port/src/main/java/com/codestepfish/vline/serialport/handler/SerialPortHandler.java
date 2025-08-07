@@ -18,6 +18,7 @@ public class SerialPortHandler {
     public static <T> void init(SerialPortNode node, SerialPortDataHandler dataHandler) {
 
         SerialPort serialPort = SerialPort.getCommPort(node.getSerialPort().getDevice());
+        serialPort.setBaudRate(115200);
         boolean opened = serialPort.openPort();
         log.info("===========> 串口: {} 打开结果: {}", node.getSerialPort().getDevice(), opened);
         if (!opened) {
