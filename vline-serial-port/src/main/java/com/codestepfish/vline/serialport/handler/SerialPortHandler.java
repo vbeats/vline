@@ -1,5 +1,6 @@
 package com.codestepfish.vline.serialport.handler;
 
+import com.codestepfish.vline.core.serialport.SerialPortProperties;
 import com.codestepfish.vline.serialport.SerialPortNode;
 import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
@@ -16,13 +17,19 @@ public class SerialPortHandler {
 
 
     public static <T> void init(SerialPortNode node, SerialPortDataHandler dataHandler) {
+        SerialPortProperties properties = node.getSerialPort();
 
-        SerialPort serialPort = SerialPort.getCommPort(node.getSerialPort().getDevice());
-        serialPort.setBaudRate(115200);
+        SerialPort serialPort = SerialPort.getCommPort(properties.getDevice());
+
+        serialPort.setBaudRate(properties.getBaudRate());
+        serialPort.setNumDataBits(properties.getDataBits());
+        serialPort.setNumStopBits(properties.getStopBits());
+        serialPort.setParity(properties.getParity());
+
         boolean opened = serialPort.openPort();
-        log.info("===========> 串口: {} 打开结果: {}", node.getSerialPort().getDevice(), opened);
+        log.info("===========> 串口: {} 打开状态: {}", properties.getDevice(), opened);
         if (!opened) {
-            log.error("串口: {} 打开失败", node.getSerialPort().getDevice());
+            log.error("串口: {} 打开失败", properties.getDevice());
             return;
         }
 

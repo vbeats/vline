@@ -20,7 +20,8 @@ public class SerialPortExampleDataHandler implements SerialPortDataHandler {
             return;
         }
         byte[] readBuffer = new byte[bytesAvailable];
-        int numRead = serialPort.readBytes(readBuffer, readBuffer.length);
+        serialPort.readBytes(readBuffer, readBuffer.length);
+
         String data = bytesToHex(readBuffer);
         log.info("=======> {}【{}】 receive data: {}", node.getName(), node.getSerialPort().getDevice(), data);
 

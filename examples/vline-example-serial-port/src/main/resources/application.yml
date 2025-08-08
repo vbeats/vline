@@ -10,12 +10,17 @@ vline:
       type: serial_port
       serial-port:
         device: /dev/ttyS0
+        baud-rate: 115200
         ignored: false
         data-handler: com.codestepfish.vline.example.serialport.SerialPortExampleDataHandler
     - name: t2
       type: serial_port
       serial-port:
         device: /dev/ttyS1
+        baud-rate: 115200
+        data-bits: 8
+        stop-bits: 1
+        parity: 0
         ignored: true
         data-handler: com.codestepfish.vline.example.serialport.SerialPortExampleDataHandler
 
@@ -23,6 +28,6 @@ vline:
     t1:
       - t2
 
-# t1 COM1
-# t2 COM2
+# t1 ttyS0
+# t2 ttyS1
 # 数据互相转发
