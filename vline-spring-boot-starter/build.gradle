@@ -1,46 +1,46 @@
 java {
     registerFeature("redisSupport") {
-        usingSourceSet(sourceSets[SourceSet.MAIN_SOURCE_SET_NAME])
+        usingSourceSet(sourceSets.main)
         capability(group.toString(), "redis-support", version.toString())
     }
 
     registerFeature("httpSupport") {
-        usingSourceSet(sourceSets[SourceSet.MAIN_SOURCE_SET_NAME])
+        usingSourceSet(sourceSets.main)
         capability(group.toString(), "http-support", version.toString())
     }
 
     registerFeature("tcpSupport") {
-        usingSourceSet(sourceSets[SourceSet.MAIN_SOURCE_SET_NAME])
+        usingSourceSet(sourceSets.main)
         capability(group.toString(), "tcp-support", version.toString())
     }
 
     registerFeature("mysqlSupport") {
-        usingSourceSet(sourceSets[SourceSet.MAIN_SOURCE_SET_NAME])
+        usingSourceSet(sourceSets.main)
         capability(group.toString(), "mysql-support", version.toString())
     }
 
     registerFeature("postgresSupport") {
-        usingSourceSet(sourceSets[SourceSet.MAIN_SOURCE_SET_NAME])
+        usingSourceSet(sourceSets.main)
         capability(group.toString(), "postgres-support", version.toString())
     }
 
     registerFeature("sqliteSupport") {
-        usingSourceSet(sourceSets[SourceSet.MAIN_SOURCE_SET_NAME])
+        usingSourceSet(sourceSets.main)
         capability(group.toString(), "sqlite-support", version.toString())
     }
 
     registerFeature("mssql2000Support") {
-        usingSourceSet(sourceSets[SourceSet.MAIN_SOURCE_SET_NAME])
+        usingSourceSet(sourceSets.main)
         capability(group.toString(), "mssql2000-support", version.toString())
     }
 
     registerFeature("mssql2008r2Support") {
-        usingSourceSet(sourceSets[SourceSet.MAIN_SOURCE_SET_NAME])
+        usingSourceSet(sourceSets.main)
         capability(group.toString(), "mssql2008r2-support", version.toString())
     }
 
     registerFeature("serialPortSupport") {
-        usingSourceSet(sourceSets[SourceSet.MAIN_SOURCE_SET_NAME])
+        usingSourceSet(sourceSets.main)
         capability(group.toString(), "serialPort-support", version.toString())
     }
 }

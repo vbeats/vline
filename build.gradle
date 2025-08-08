@@ -11,8 +11,8 @@ plugins {
 apply from: 'version.gradle'
 
 allprojects {
-    group "${group}"
-    version "${version}"
+    group = "${group}"
+    version = "${version}"
 
     repositories {
         mavenCentral()
@@ -115,6 +115,7 @@ subprojects {
             inceptionYear = "2025"
             description = "lightweight edge data acquisition"
             copyright = "vbeats"
+            license = "MIT"
         }
 
         signing {
