@@ -19,6 +19,10 @@ Not ETL
     .....
 ```
 
+## 💻 dev
+
+深入理解 [DeepWiki](https://deepwiki.com/vbeats/vline)
+
 ## todo
 
 - [x] init sql 改造, 通过flyway实现版本控制
