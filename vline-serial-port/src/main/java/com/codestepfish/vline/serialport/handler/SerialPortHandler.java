@@ -21,10 +21,7 @@ public class SerialPortHandler {
 
         SerialPort serialPort = SerialPort.getCommPort(properties.getDevice());
 
-        serialPort.setBaudRate(properties.getBaudRate());
-        serialPort.setNumDataBits(properties.getDataBits());
-        serialPort.setNumStopBits(properties.getStopBits());
-        serialPort.setParity(properties.getParity());
+        serialPort.setComPortParameters(properties.getBaudRate(), properties.getDataBits(), properties.getStopBits(), properties.getParity(), properties.getUseRs485Mode());
 
         boolean opened = serialPort.openPort();
         log.info("===========> 串口: {} 打开状态: {}", properties.getDevice(), opened);

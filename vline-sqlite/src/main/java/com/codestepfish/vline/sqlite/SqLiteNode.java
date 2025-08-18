@@ -25,8 +25,8 @@ import java.util.Objects;
 @Accessors(chain = true)
 public class SqLiteNode<T> extends Node<T> {
 
-    SqLiteReadHandler sqliteReadHandler;
-    SqLiteWriteHandler<T> sqliteWriteHandler;
+    private SqLiteReadHandler sqliteReadHandler;
+    private SqLiteWriteHandler<T> sqliteWriteHandler;
 
     @Override
     public void init() {

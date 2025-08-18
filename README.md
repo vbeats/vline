@@ -221,12 +221,13 @@ vline:
 
 1. node节点上层必须实现 `com.codestepfish.vline.serialport.handler.SerialPortDataHandler` 接口
 
-| key         | 必填 | desc                                                                           |
-|:------------|----|--------------------------------------------------------------------------------|
-| device      | Y  | read/write                                                                     |
-| baudRate    | N  | 串口波特率     默认9600                                                               |
-| dataBits    | N  | 数据位         默认8                                                                |
-| stopBits    | N  | 停止位         默认 1                                                               |
-| parity      | N  | 奇偶校验        默认 0                                                               |
-| ignored     | N  | 是否忽略其它业务处理  只转发数据                                                              |
-| dataHandler | Y  | 数据处理具体实现 实现 com.codestepfish.vline.serialport.handler.SerialPortDataHandler 接口 |
+| key          | 必填 | desc                                                                           |
+|:-------------|----|--------------------------------------------------------------------------------|
+| device       | Y  | read/write                                                                     |
+| baudRate     | N  | 串口波特率     默认9600                                                               |
+| dataBits     | N  | 数据位         默认8                                                                |
+| stopBits     | N  | 停止位         默认 1                                                               |
+| parity       | N  | 奇偶校验        默认 0                                                               |
+| useRs485Mode | N  | 是否使用rs485模式        默认 false                                                    |
+| ignored      | N  | 是否忽略其它业务处理  只转发数据                                                              |
+| dataHandler  | Y  | 数据处理具体实现 实现 com.codestepfish.vline.serialport.handler.SerialPortDataHandler 接口 |

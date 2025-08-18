@@ -23,7 +23,7 @@ import java.util.Objects;
 @Accessors(chain = true)
 public class SerialPortNode<T> extends Node<T> {
 
-    SerialPortDataHandler serialPortDataHandler;
+    private SerialPortDataHandler serialPortDataHandler;
 
     @Override
     public void init() {

@@ -25,8 +25,8 @@ import java.util.Objects;
 @Accessors(chain = true)
 public class MysqlNode<T> extends Node<T> {
 
-    MysqlReadHandler mysqlReadHandler;
-    MysqlWriteHandler<T> mysqlWriteHandler;
+    private MysqlReadHandler mysqlReadHandler;
+    private MysqlWriteHandler<T> mysqlWriteHandler;
 
     @Override
     public void init() {

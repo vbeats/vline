@@ -37,30 +37,30 @@ public class Node<T> implements INode<T>, Serializable {
     private static final long serialVersionUID = 7681638777205375687L;
 
     @JSONField(serializeFeatures = JSONWriter.Feature.WriteEnumsUsingName)
-    NodeType type;
+    private NodeType type;
 
-    String name; // 设备名称  全局唯一
+    private String name; // 设备名称  全局唯一
 
-    List<Map<String, Object>> extra;  // 节点 扩展属性  业务自定义
+    private List<Map<String, Object>> extra;  // 节点 扩展属性  业务自定义
 
     // -------------------------不同通信协议配置属性    一个 node 只能配置一种
-    TcpProperties tcp;
+    private TcpProperties tcp;
 
-    HttpProperties http;
+    private HttpProperties http;
 
-    RedisProperties redis;
+    private RedisProperties redis;
 
-    MssqlProperties mssql;
+    private MssqlProperties mssql;
 
-    MssqlProperties mssql2000;
+    private MssqlProperties mssql2000;
 
-    MysqlProperties mysql;
+    private MysqlProperties mysql;
 
-    PostgresProperties postgres;
+    private PostgresProperties postgres;
 
-    SqliteProperties sqlite;
+    private SqliteProperties sqlite;
 
-    SerialPortProperties serialPort;
+    private SerialPortProperties serialPort;
 
     @Override
     public void init() {

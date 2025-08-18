@@ -25,8 +25,8 @@ import java.util.Objects;
 @Accessors(chain = true)
 public class PostgresNode<T> extends Node<T> {
 
-    PostgresReadHandler postgresReadHandler;
-    PostgresWriteHandler<T> postgresWriteHandler;
+    private PostgresReadHandler postgresReadHandler;
+    private PostgresWriteHandler<T> postgresWriteHandler;
 
     @Override
     public void init() {

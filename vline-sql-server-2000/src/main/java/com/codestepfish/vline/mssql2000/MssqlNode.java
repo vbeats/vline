@@ -25,8 +25,8 @@ import java.util.Objects;
 @Accessors(chain = true)
 public class MssqlNode<T> extends Node<T> {
 
-    MssqlReadHandler mssqlReadHandler;
-    MssqlWriteHandler<T> mssqlWriteHandler;
+    private MssqlReadHandler mssqlReadHandler;
+    private MssqlWriteHandler<T> mssqlWriteHandler;
 
     @Override
     public void init() {

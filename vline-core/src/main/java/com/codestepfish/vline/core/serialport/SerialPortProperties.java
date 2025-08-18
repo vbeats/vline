@@ -20,6 +20,8 @@ public class SerialPortProperties {
 
     private Integer parity = 0; // 奇偶校验
 
+    private Boolean useRs485Mode = false; // 是否使用rs485模式
+
     private Boolean ignored = true; // 忽略其它业务处理  只转发数据
 
     private String dataHandler;  // 业务数据处理
