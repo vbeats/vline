@@ -12,7 +12,7 @@ public class SerialPortProperties {
     // 串口 属性
     private String device;  // 设备
 
-    private Integer baudRate = 9600; // 波特率
+    private Integer baudRate = 115200; // 波特率
 
     private Integer dataBits = 8; // 数据位
 
