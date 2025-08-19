@@ -5,6 +5,7 @@ import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.serialport.handler.SerialPortDataHandler;
 import com.codestepfish.vline.serialport.handler.SerialPortHandler;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.google.common.util.concurrent.RateLimiter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +14,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 @Getter
 @Setter
@@ -24,6 +28,7 @@ import java.util.Objects;
 public class SerialPortNode<T> extends Node<T> {
 
     private SerialPortDataHandler serialPortDataHandler;
+    public static final Map<String, RateLimiter> RATE_LIMITERS = new ConcurrentHashMap<>(10);  // 每个串口一个rateLimiter
 
     @Override
     public void init() {
@@ -33,8 +38,11 @@ public class SerialPortNode<T> extends Node<T> {
 
             Class<? extends SerialPortDataHandler> dataHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(this.getSerialPort().getDataHandler()).asSubclass(SerialPortDataHandler.class);
             serialPortDataHandler = dataHandlerClazz.getDeclaredConstructor().newInstance();
+
+            RATE_LIMITERS.put(this.getName(), RateLimiter.create(1, 2L, TimeUnit.SECONDS));
+
             // 初始化串口
-            ThreadUtil.execute(() -> SerialPortHandler.init(this, serialPortDataHandler));
+            ThreadUtil.execute(() -> SerialPortHandler.openPort(this, serialPortDataHandler));
         } catch (Exception e) {
             log.error("serial port : {} init failed : ", this.getName(), e);
             throw new RuntimeException(e);

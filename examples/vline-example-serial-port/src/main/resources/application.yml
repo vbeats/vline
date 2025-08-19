@@ -9,14 +9,14 @@ vline:
         - id: 1
       type: serial_port
       serial-port:
-        device: /dev/ttyS0
+        device: COM3
         baud-rate: 115200
         ignored: false
         data-handler: com.codestepfish.vline.example.serialport.SerialPortExampleDataHandler
     - name: t2
       type: serial_port
       serial-port:
-        device: /dev/ttyS1
+        device: COM4
         baud-rate: 115200
         data-bits: 8
         stop-bits: 1

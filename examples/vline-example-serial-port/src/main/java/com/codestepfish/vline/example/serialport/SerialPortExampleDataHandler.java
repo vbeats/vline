@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class SerialPortExampleDataHandler implements SerialPortDataHandler {
 
-
     @Override
     public <T> void receive(SerialPortNode node) {
 
