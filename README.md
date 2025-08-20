@@ -21,7 +21,7 @@ Not ETL
 
 ## 💻 dev
 
-深入理解 [DeepWiki](https://deepwiki.com/vbeats/vline)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/vbeats/vline)
 
 ## todo
 
