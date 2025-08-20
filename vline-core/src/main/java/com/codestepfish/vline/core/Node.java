@@ -31,7 +31,7 @@ import java.util.Map;
 @ToString
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @Accessors(chain = true)
-public class Node<T> implements INode<T>, Serializable {
+public class Node implements INode, Serializable {
 
     @Serial
     private static final long serialVersionUID = 7681638777205375687L;
@@ -64,16 +64,16 @@ public class Node<T> implements INode<T>, Serializable {
 
     @Override
     public void init() {
-        log.info("node init: {}", JSON.toJSONString(this));
+        log.info("【{}】 Init 🛞\tNode Config: {}", this.getName(), JSON.toJSONString(this));
     }
 
     @Override
     public void destroy() {
-        log.info("node destroy: {}", this.getName());
+        log.info("【{}】 Destroy ...", this.getName());
     }
 
     @Override
-    public void receiveData(T data) {
+    public <T> void receiveData(T data) {
     }
 
     public void setTcp(TcpProperties tcp) {

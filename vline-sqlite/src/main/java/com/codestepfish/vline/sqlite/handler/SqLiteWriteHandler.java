@@ -3,7 +3,7 @@ package com.codestepfish.vline.sqlite.handler;
 
 import com.codestepfish.vline.sqlite.SqLiteNode;
 
-public interface SqLiteWriteHandler<T> {
+public interface SqLiteWriteHandler {
 
-    void write(SqLiteNode node, T data); // write mode
+    <T> void write(SqLiteNode node, T data); // write mode
 }

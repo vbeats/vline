@@ -16,19 +16,19 @@ import java.util.List;
 public class VLineEventListener implements SubscriberExceptionHandler { // event bus event msg listener
 
     @Subscribe
-    public void msgHandler(VLineEvent event) {
-        log.info("event bus received event: {}", event);
+    public <T> void msgHandler(VLineEvent<T> event) {
+        log.info("【 {} 】 Event Bus Received Event : {}", event.getKey(), event);
         List<String> nextNodes = SpringUtil.getBean(VLineProperties.class).nextNodes(event.getKey());
         nextNodes.parallelStream().forEach(node -> VLineContext.NODES.get(node).receiveData(event.getMsg()));
     }
 
     @Subscribe
     public void deadEventHandler(DeadEvent event) {
-        log.warn("event bus dead event : {}", event);
+        log.warn("Event Bus Dead Event : {}", event);
     }
 
     @Override
     public void handleException(Throwable exception, SubscriberExceptionContext context) {
-        log.error("event bus : {} exception : ", context, exception);
+        log.error("Event Bus {} Exception : ", context, exception);
     }
 }

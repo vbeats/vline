@@ -18,7 +18,7 @@ import org.springframework.util.ObjectUtils;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @Accessors(chain = true)
-public class TcpNode<T> extends Node<T> {
+public class TcpNode extends Node {
     @Override
     public void init() {
         super.init();
@@ -26,15 +26,10 @@ public class TcpNode<T> extends Node<T> {
     }
 
     @Override
-    public void destroy() {
-        log.info("node destroy: {}", this.getName());
-    }
-
-    @Override
-    public void receiveData(T data) {
+    public <T> void receiveData(T data) {
         ChannelFuture future = TcpHandler.CHANNEL_FUTURES.get(this.getName());
         if (ObjectUtils.isEmpty(future)) {
-            log.warn("tcp node offline ... : {}  data send failed: {} ", this.getName(), data);
+            log.warn("【 {} 】 Offline ... Data Send Failed: {} ", this.getName(), data);
             return;
         }
 

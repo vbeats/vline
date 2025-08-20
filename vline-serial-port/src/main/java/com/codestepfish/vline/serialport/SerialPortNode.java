@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @Accessors(chain = true)
-public class SerialPortNode<T> extends Node<T> {
+public class SerialPortNode extends Node {
 
     private SerialPortDataHandler serialPortDataHandler;
     public static final Map<String, RateLimiter> RATE_LIMITERS = new ConcurrentHashMap<>(10);  // 每个串口一个rateLimiter
@@ -34,7 +34,7 @@ public class SerialPortNode<T> extends Node<T> {
     public void init() {
         super.init();
         try {
-            Assert.hasText(this.getSerialPort().getDataHandler(), "serial port dataHandler is null");
+            Assert.hasText(this.getSerialPort().getDataHandler(), "【" + this.getName() + "】 Require Config DataHandler");
 
             Class<? extends SerialPortDataHandler> dataHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(this.getSerialPort().getDataHandler()).asSubclass(SerialPortDataHandler.class);
             serialPortDataHandler = dataHandlerClazz.getDeclaredConstructor().newInstance();
@@ -44,7 +44,7 @@ public class SerialPortNode<T> extends Node<T> {
             // 初始化串口
             ThreadUtil.execute(() -> SerialPortHandler.openPort(this, serialPortDataHandler));
         } catch (Exception e) {
-            log.error("serial port : {} init failed : ", this.getName(), e);
+            log.error("【{}】 Init Failed : ", this.getName(), e);
             throw new RuntimeException(e);
         }
     }
@@ -57,7 +57,7 @@ public class SerialPortNode<T> extends Node<T> {
     }
 
     @Override
-    public void receiveData(T data) {
+    public <T> void receiveData(T data) {
         ThreadUtil.execute(() -> serialPortDataHandler.send(this, data));
     }
 }

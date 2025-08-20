@@ -1,6 +1,6 @@
 package com.codestepfish.vline.core;
 
-public interface INode<T> {
+public interface INode {
 
     /**
      * 节点初始化
@@ -15,5 +15,5 @@ public interface INode<T> {
     /**
      * 当前节点 接收data
      */
-    void receiveData(T data);
+    <T> void receiveData(T data);
 }

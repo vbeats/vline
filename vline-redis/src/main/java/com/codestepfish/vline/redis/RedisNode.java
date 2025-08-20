@@ -24,9 +24,9 @@ import java.util.Objects;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @Accessors(chain = true)
-public class RedisNode<T> extends Node<T> {
+public class RedisNode extends Node {
 
-    private RedisDataHandler<T> redisDataHandler;
+    private RedisDataHandler redisDataHandler;
 
     @Override
     public void init() {
@@ -34,14 +34,14 @@ public class RedisNode<T> extends Node<T> {
 
         RedisProperties properties = this.getRedis();
         try {
-            Assert.hasText(properties.getDataHandler(), "redis dataHandler is null");
+            Assert.hasText(properties.getDataHandler(), "【" + this.getName() + "】 Require Config DataHandler");
             Class<? extends RedisDataHandler> readHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(RedisDataHandler.class);
             redisDataHandler = readHandlerClazz.getDeclaredConstructor().newInstance();
 
             RedisClientHolder.REDIS_CLIENTS.put(this.getName(), Redisson.create(Config.fromYAML(ResourceUtils.getFile(String.format("classpath:redis/%s.yml", this.getName())))));
-            log.info("redis node : {} init success , client mode: {}", this.getName(), properties.getMode());
+            log.info("【{}】 Redis Node Init Success , Client Mode: {}", this.getName(), properties.getMode());
         } catch (Exception e) {
-            log.error("redis node : {} init error", this.getName(), e);
+            log.error("【{}】 Redis Node Init Error", this.getName(), e);
             throw new RuntimeException(e);
         }
     }
@@ -53,7 +53,7 @@ public class RedisNode<T> extends Node<T> {
     }
 
     @Override
-    public void receiveData(T data) {
+    public <T> void receiveData(T data) {
         ThreadUtil.execute(() -> redisDataHandler.handle(this, data));
     }
 }

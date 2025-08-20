@@ -23,10 +23,10 @@ import java.util.Objects;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @Accessors(chain = true)
-public class MysqlNode<T> extends Node<T> {
+public class MysqlNode extends Node {
 
     private MysqlReadHandler mysqlReadHandler;
-    private MysqlWriteHandler<T> mysqlWriteHandler;
+    private MysqlWriteHandler mysqlWriteHandler;
 
     @Override
     public void init() {
@@ -38,13 +38,13 @@ public class MysqlNode<T> extends Node<T> {
 
             switch (properties.getMode()) {
                 case READ -> {
-                    Assert.hasText(properties.getDataHandler(), "mysql dataHandler is null");
+                    Assert.hasText(properties.getDataHandler(), "【" + this.getName() + "】 Require Config DataHandler");
                     Class<? extends MysqlReadHandler> readHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(MysqlReadHandler.class);
                     mysqlReadHandler = readHandlerClazz.getDeclaredConstructor().newInstance();
                     ThreadUtil.execute(() -> mysqlReadHandler.read(this));
                 }
                 case WRITE -> {
-                    Assert.hasText(properties.getDataHandler(), "mysql dataHandler is null");
+                    Assert.hasText(properties.getDataHandler(), "【" + this.getName() + "】 Require Config DataHandler");
                     Class<? extends MysqlWriteHandler> writeHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(MysqlWriteHandler.class);
                     mysqlWriteHandler = writeHandlerClazz.getDeclaredConstructor().newInstance();
                 }
@@ -54,7 +54,7 @@ public class MysqlNode<T> extends Node<T> {
             }
 
         } catch (Exception e) {
-            log.error("mysql : {} init failed : ", this.getName(), e);
+            log.error("【{}】 Init Failed : ", this.getName(), e);
             throw new RuntimeException(e);
         }
     }
@@ -65,12 +65,12 @@ public class MysqlNode<T> extends Node<T> {
         try {
             DataSourceHolder.destroy(this.getName());
         } catch (Exception e) {
-            log.error("========> mysql : {} destroy failed : ", this.getName(), e);
+            log.error("【{}】 Destroy Exception : ", this.getName(), e);
         }
     }
 
     @Override
-    public void receiveData(T data) {
+    public <T> void receiveData(T data) {
         ThreadUtil.execute(() -> mysqlWriteHandler.write(this, data));
     }
 }

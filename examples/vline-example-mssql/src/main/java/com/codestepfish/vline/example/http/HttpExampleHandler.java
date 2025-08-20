@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class HttpExampleHandler<T> implements HttpHandler<T> {
+public class HttpExampleHandler implements HttpHandler {
 
     @Override
-    public void handle(HttpNode node, T data) {
+    public <T> void handle(HttpNode node, T data) {
         log.info("custom http handle: {} {} ", node, data);
     }
 }

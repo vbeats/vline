@@ -21,7 +21,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @Accessors(chain = true)
-public class HttpNode<T> extends Node<T> {
+public class HttpNode extends Node {
 
     private HttpHandler httpHandler;
 
@@ -33,25 +33,20 @@ public class HttpNode<T> extends Node<T> {
             HttpProperties hp = this.getHttp();
 
             try {
-                Assert.hasText(hp.getHandler(), "http handler is null");
+                Assert.hasText(hp.getHandler(), "【" + this.getName() + "】 Require Config HttpHandler");
 
                 Class<? extends HttpHandler> clazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(hp.getHandler()).asSubclass(HttpHandler.class);
                 this.httpHandler = SpringUtil.getBean(clazz);
 
             } catch (Exception e) {
-                log.error("http forest init failed : ", e);
+                log.error("【{}】 Init Failed : ", this.getName(), e);
                 throw new RuntimeException(e);
             }
         });
     }
 
     @Override
-    public void destroy() {
-        log.info("node destroy: {}", this.getName());
-    }
-
-    @Override
-    public void receiveData(T data) {
+    public <T> void receiveData(T data) {
         this.httpHandler.handle(this, data);
     }
 }

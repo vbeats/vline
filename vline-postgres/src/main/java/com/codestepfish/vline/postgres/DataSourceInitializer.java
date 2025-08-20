@@ -47,7 +47,7 @@ public class DataSourceInitializer {
 
         DataRuntime dataRuntime = DataSourceHolder.reg(node.getName(), ds, DatabaseType.PostgreSQL);
 
-        Assert.notNull(dataRuntime, String.format("数据源 :%s 初始化失败", node.getName()));
+        Assert.notNull(dataRuntime, String.format("【 %s 】 DataSource Init Failed", node.getName()));
 
         log.info("【DataSource - PostgreSQL】reg success: {}", node.getName());
 

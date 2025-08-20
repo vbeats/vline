@@ -23,10 +23,10 @@ import java.util.Objects;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @Accessors(chain = true)
-public class SqLiteNode<T> extends Node<T> {
+public class SqLiteNode extends Node {
 
     private SqLiteReadHandler sqliteReadHandler;
-    private SqLiteWriteHandler<T> sqliteWriteHandler;
+    private SqLiteWriteHandler sqliteWriteHandler;
 
     @Override
     public void init() {
@@ -38,13 +38,13 @@ public class SqLiteNode<T> extends Node<T> {
 
             switch (properties.getMode()) {
                 case READ -> {
-                    Assert.hasText(properties.getDataHandler(), "sqlite dataHandler is null");
+                    Assert.hasText(properties.getDataHandler(), "【 " + this.getName() + " 】 Require Config DataHandler");
                     Class<? extends SqLiteReadHandler> readHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(SqLiteReadHandler.class);
                     sqliteReadHandler = readHandlerClazz.getDeclaredConstructor().newInstance();
                     ThreadUtil.execute(() -> sqliteReadHandler.read(this));
                 }
                 case WRITE -> {
-                    Assert.hasText(properties.getDataHandler(), "sqlite dataHandler is null");
+                    Assert.hasText(properties.getDataHandler(), "【 " + this.getName() + " 】 Require Config DataHandler");
                     Class<? extends SqLiteWriteHandler> writeHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(SqLiteWriteHandler.class);
                     sqliteWriteHandler = writeHandlerClazz.getDeclaredConstructor().newInstance();
                 }
@@ -54,7 +54,7 @@ public class SqLiteNode<T> extends Node<T> {
             }
 
         } catch (Exception e) {
-            log.error("sqlite : {} init failed : ", this.getName(), e);
+            log.error("【 {} 】 Init Failed : ", this.getName(), e);
             throw new RuntimeException(e);
         }
     }
@@ -65,12 +65,12 @@ public class SqLiteNode<T> extends Node<T> {
         try {
             DataSourceHolder.destroy(this.getName());
         } catch (Exception e) {
-            log.error("========> sqlite : {} destroy failed : ", this.getName(), e);
+            log.error("【 {} 】 Destroy Exception : ", this.getName(), e);
         }
     }
 
     @Override
-    public void receiveData(T data) {
+    public <T> void receiveData(T data) {
         ThreadUtil.execute(() -> sqliteWriteHandler.write(this, data));
     }
 }

@@ -23,10 +23,10 @@ import java.util.Objects;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @Accessors(chain = true)
-public class PostgresNode<T> extends Node<T> {
+public class PostgresNode extends Node {
 
     private PostgresReadHandler postgresReadHandler;
-    private PostgresWriteHandler<T> postgresWriteHandler;
+    private PostgresWriteHandler postgresWriteHandler;
 
     @Override
     public void init() {
@@ -38,13 +38,13 @@ public class PostgresNode<T> extends Node<T> {
 
             switch (properties.getMode()) {
                 case READ -> {
-                    Assert.hasText(properties.getDataHandler(), "postgres dataHandler is null");
+                    Assert.hasText(properties.getDataHandler(), "【" + this.getName() + "】 Require Config DataHandler");
                     Class<? extends PostgresReadHandler> readHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(PostgresReadHandler.class);
                     postgresReadHandler = readHandlerClazz.getDeclaredConstructor().newInstance();
                     ThreadUtil.execute(() -> postgresReadHandler.read(this));
                 }
                 case WRITE -> {
-                    Assert.hasText(properties.getDataHandler(), "postgres dataHandler is null");
+                    Assert.hasText(properties.getDataHandler(), "【" + this.getName() + "】 Require Config DataHandler");
                     Class<? extends PostgresWriteHandler> writeHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(PostgresWriteHandler.class);
                     postgresWriteHandler = writeHandlerClazz.getDeclaredConstructor().newInstance();
                 }
@@ -54,7 +54,7 @@ public class PostgresNode<T> extends Node<T> {
             }
 
         } catch (Exception e) {
-            log.error("postgres : {} init failed : ", this.getName(), e);
+            log.error("【{}】 Init Failed : ", this.getName(), e);
             throw new RuntimeException(e);
         }
     }
@@ -65,12 +65,12 @@ public class PostgresNode<T> extends Node<T> {
         try {
             DataSourceHolder.destroy(this.getName());
         } catch (Exception e) {
-            log.error("========> postgres : {} destroy failed : ", this.getName(), e);
+            log.error("【{}】 Destroy Exception : ", this.getName(), e);
         }
     }
 
     @Override
-    public void receiveData(T data) {
+    public <T> void receiveData(T data) {
         ThreadUtil.execute(() -> postgresWriteHandler.write(this, data));
     }
 }
