@@ -9,6 +9,7 @@ import com.google.common.eventbus.Subscribe;
 import com.google.common.eventbus.SubscriberExceptionContext;
 import com.google.common.eventbus.SubscriberExceptionHandler;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 
@@ -17,7 +18,10 @@ public class VLineEventListener implements SubscriberExceptionHandler { // event
 
     @Subscribe
     public <T> void msgHandler(VLineEvent<T> event) {
-        log.info("【 {} 】 Event Bus Received Event : {}", event.getKey(), event);
+        if (ObjectUtils.isEmpty(event.getMsg())) {
+            return;
+        }
+        log.info("【 {} 】 Event Bus Received Data : {}", event.getKey(), event.getMsg());
         List<String> nextNodes = SpringUtil.getBean(VLineProperties.class).nextNodes(event.getKey());
         nextNodes.parallelStream().forEach(node -> VLineContext.NODES.get(node).receiveData(event.getMsg()));
     }

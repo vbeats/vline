@@ -1,6 +1,5 @@
 package com.codestepfish.vline.core;
 
-import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONWriter;
 import com.alibaba.fastjson2.annotation.JSONField;
 import com.codestepfish.vline.core.enums.NodeType;
@@ -64,7 +63,7 @@ public class Node implements INode, Serializable {
 
     @Override
     public void init() {
-        log.info("【{}】 Init 🛞\tNode Config: {}", this.getName(), JSON.toJSONString(this));
+        log.info("Node:【{}】 Start Init...", this.getName());
     }
 
     @Override
@@ -129,6 +128,13 @@ public class Node implements INode, Serializable {
         this.postgres = postgres;
         if (!ObjectUtils.isEmpty(postgres)) {
             this.type = NodeType.POSTGRES;
+        }
+    }
+
+    public void setSerialPort(SerialPortProperties serialPort) {
+        this.serialPort = serialPort;
+        if (!ObjectUtils.isEmpty(serialPort)) {
+            this.type = NodeType.SERIAL_PORT;
         }
     }
 }

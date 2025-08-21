@@ -5,6 +5,7 @@ dependencies {
     api libs.get('fastjson-ext')
     api libs.get('jackson-core')
     api libs.get('jackson-annotations')
+    api libs.get('jackson-yaml')
     api libs.get('commons-io')
     api libs.get('ttl')
 

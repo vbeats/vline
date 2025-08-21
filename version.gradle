@@ -28,6 +28,7 @@ ext {
             'fastjson'                  : "com.alibaba.fastjson2:fastjson2:${versions.fastjson}",
             'jackson-core'              : "com.fasterxml.jackson.core:jackson-core:${versions.jackson}",
             'jackson-annotations'       : "com.fasterxml.jackson.core:jackson-annotations:${versions.jackson}",
+            'jackson-yaml'              : "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:${versions.jackson}",
             'fastjson-ext'              : "com.alibaba.fastjson2:fastjson2-extension-spring6:${versions.fastjson}",
             'mysql'                     : "com.mysql:mysql-connector-j:${versions.mysql}",
             'postgres'                  : "org.postgresql:postgresql:${versions.postgres}",
