@@ -41,8 +41,6 @@ public class SerialPortNodeAutoConfiguration {
             serialPortNode.init();
 
             VLineContext.NODES.put(node.getName(), serialPortNode);
-            // event bus
-            VLineContext.createEventBus(node.getName());
 
             countDownLatch.countDown();
         });

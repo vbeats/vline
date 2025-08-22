@@ -39,8 +39,6 @@ public class HttpNodeAutoConfiguration {
             httpNode.init();
 
             VLineContext.NODES.put(node.getName(), httpNode);
-            // event bus
-            VLineContext.createEventBus(node.getName());
 
             countDownLatch.countDown();
         });

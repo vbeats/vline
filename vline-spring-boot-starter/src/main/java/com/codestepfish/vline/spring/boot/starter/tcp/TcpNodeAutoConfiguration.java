@@ -40,8 +40,6 @@ public class TcpNodeAutoConfiguration {
             tcpNode.init();
 
             VLineContext.NODES.put(node.getName(), tcpNode);
-            // event bus
-            VLineContext.createEventBus(node.getName());
 
             countDownLatch.countDown();
         });

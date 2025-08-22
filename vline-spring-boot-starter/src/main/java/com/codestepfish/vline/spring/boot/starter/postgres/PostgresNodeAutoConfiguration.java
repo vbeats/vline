@@ -44,8 +44,6 @@ public class PostgresNodeAutoConfiguration implements ApplicationListener {
             // other mode 不处理消息
             if (!PostgresProperties.Mode.OTHER.equals(postgresNode.getPostgres().getMode())) {
                 VLineContext.NODES.put(node.getName(), postgresNode);
-                // event bus
-                VLineContext.createEventBus(node.getName());
             }
 
             countDownLatch.countDown();

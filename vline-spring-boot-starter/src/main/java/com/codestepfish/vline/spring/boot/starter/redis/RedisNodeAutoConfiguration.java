@@ -43,8 +43,6 @@ public class RedisNodeAutoConfiguration implements ApplicationListener {
             redisNode.init();
 
             VLineContext.NODES.put(node.getName(), redisNode);
-            // event bus
-            VLineContext.createEventBus(node.getName());
 
             countDownLatch.countDown();
         });

@@ -44,8 +44,6 @@ public class SqLiteNodeAutoConfiguration implements ApplicationListener {
             // other mode 不处理消息
             if (!SqliteProperties.Mode.OTHER.equals(sqLiteNode.getSqlite().getMode())) {
                 VLineContext.NODES.put(node.getName(), sqLiteNode);
-                // event bus
-                VLineContext.createEventBus(node.getName());
             }
 
             countDownLatch.countDown();

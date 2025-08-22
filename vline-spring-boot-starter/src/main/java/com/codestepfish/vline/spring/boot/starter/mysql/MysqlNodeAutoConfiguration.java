@@ -44,8 +44,6 @@ public class MysqlNodeAutoConfiguration implements ApplicationListener {
             // other mode 不处理消息
             if (!MysqlProperties.Mode.OTHER.equals(mysqlNode.getMysql().getMode())) {
                 VLineContext.NODES.put(node.getName(), mysqlNode);
-                // event bus
-                VLineContext.createEventBus(node.getName());
             }
 
             countDownLatch.countDown();

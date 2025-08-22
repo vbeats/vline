@@ -44,8 +44,6 @@ public class Mssql2000NodeAutoConfiguration implements ApplicationListener {
             // other mode 不处理消息
             if (!MssqlProperties.Mode.OTHER.equals(mssqlNode.getMssql().getMode())) {
                 VLineContext.NODES.put(node.getName(), mssqlNode);
-                // event bus
-                VLineContext.createEventBus(node.getName());
             }
 
             countDownLatch.countDown();

@@ -1,6 +1,7 @@
 package com.codestepfish.vline.core.eventbus;
 
 import lombok.*;
+import lombok.experimental.Accessors;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -10,12 +11,15 @@ import java.io.Serializable;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class VLineEvent<T> implements Serializable {
+@Accessors(chain = true)
+public class VLineEvent implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -1342729915234628231L;
 
-    private String key;  // node name , event bus key
+    private String key;  // node name
 
-    private T msg;  // msg内容
+    private Long sequence;  // 事件序列
+
+    private Object payload;  // payload数据
 }
