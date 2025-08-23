@@ -3,7 +3,6 @@ dependencies {
 
     api libs.get('redisson')
     api libs.get('redisson-data')
-    api libs.get('caffeine')
     api libs.get('commons-pool2')
 
     api 'org.springframework.boot:spring-boot-starter-data-redis'

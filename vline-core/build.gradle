@@ -1,6 +1,7 @@
 dependencies {
     api libs.get('guava')
     api libs.get('disruptor')
+    api libs.get('caffeine')
     api libs.get('hutool')
     api libs.get('fastjson')
     api libs.get('fastjson-ext')
@@ -12,5 +13,6 @@ dependencies {
 
     api 'org.springframework:spring-core'
     api 'org.springframework.boot:spring-boot-starter-logging'
+    api 'org.springframework.boot:spring-boot-starter-cache'
     api 'org.springframework.retry:spring-retry'
 }

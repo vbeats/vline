@@ -6,46 +6,21 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.util.CollectionUtils;
+import org.springframework.context.annotation.Configuration;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 @Getter
 @Setter
 @ToString
+@Configuration
 @ConfigurationProperties(prefix = VLine.PREFIX)
 public class VLineProperties {
 
-    private List<Node> nodes;
+    private List<Node> nodes; // 节点
 
     private Map<String, List<String>> struct; // 拓扑结构
 
-    /**
-     * 当前node的 下级/上级节点 名
-     *
-     * @param nodeName
-     * @return
-     */
-    public List<String> nextNodes(String nodeName) {
-
-        if (CollectionUtils.isEmpty(struct)) {
-            return Collections.emptyList();
-        }
-        List<String> ns = new ArrayList<>();
-
-        struct.forEach((key, value) -> {
-            if (nodeName.equals(key)) {
-                ns.addAll(value);
-            }
-
-            if (value.contains(nodeName)) {
-                ns.add(key);
-            }
-        });
-
-        return ns;
-    }
+    private Boolean cacheStats = false; // 是否开启caffeine cache统计  15s一次
 }

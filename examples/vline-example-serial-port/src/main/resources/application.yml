@@ -27,6 +27,7 @@ vline:
   struct:
     t1:
       - t2
+  cache-stats: true
 
 # t1 ttyS0
 # t2 ttyS1

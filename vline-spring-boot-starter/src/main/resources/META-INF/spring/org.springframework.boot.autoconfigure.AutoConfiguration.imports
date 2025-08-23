@@ -1,3 +1,5 @@
+com.codestepfish.vline.spring.boot.starter.cache.VLineCacheConfig
+com.codestepfish.vline.spring.boot.starter.VLineContext
 com.codestepfish.vline.spring.boot.starter.eventbus.VLineEventHandler
 com.codestepfish.vline.spring.boot.starter.eventbus.DisruptorConfig
 com.codestepfish.vline.spring.boot.starter.VLineAutoConfiguration
