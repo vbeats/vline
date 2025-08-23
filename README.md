@@ -71,6 +71,7 @@ Not ETL
 
 ```yaml
 vline:
+  cache-stats: false
   nodes:
     - name: t1
       type: tcp
@@ -86,6 +87,7 @@ vline:
 
 | key         | 必填 | desc                                                                         |
 |:------------|----|------------------------------------------------------------------------------|
+| cache-stats | N  | 是否开启caffeine cache统计  15s一次                                                  |
 | nodes       | Y  | 节点定义 com.codestepfish.vline.core.Node                                        |
 | -name       | Y  | 节点名称 全局唯一                                                                    |
 | -type       | Y  | 节点类型 com.codestepfish.vline.core.enums.NodeType                              |
