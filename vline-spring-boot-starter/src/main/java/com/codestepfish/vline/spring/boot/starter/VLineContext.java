@@ -78,6 +78,7 @@ public class VLineContext {
         try {
             VLineEvent event = eventBus.get(sequence);
             event.setKey(nodeName);
+            event.setSequence(sequence);
             event.setPayload(payload);
         } finally {
             eventBus.publish(sequence);
