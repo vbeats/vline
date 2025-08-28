@@ -41,7 +41,7 @@ public class MysqlNode extends Node {
                     Assert.hasText(properties.getDataHandler(), "【" + this.getName() + "】 Require Config DataHandler");
                     Class<? extends MysqlReadHandler> readHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(MysqlReadHandler.class);
                     mysqlReadHandler = readHandlerClazz.getDeclaredConstructor().newInstance();
-                    ThreadUtil.execute(() -> mysqlReadHandler.read(this));
+                    Thread.ofVirtual().start(() -> mysqlReadHandler.read(this));
                 }
                 case WRITE -> {
                     Assert.hasText(properties.getDataHandler(), "【" + this.getName() + "】 Require Config DataHandler");
@@ -71,6 +71,6 @@ public class MysqlNode extends Node {
 
     @Override
     public <T> void receiveData(T data) {
-        ThreadUtil.execute(() -> mysqlWriteHandler.write(this, data));
+        Thread.ofVirtual().start(() -> mysqlWriteHandler.write(this, data));
     }
 }

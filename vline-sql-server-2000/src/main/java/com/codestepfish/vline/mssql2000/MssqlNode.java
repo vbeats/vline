@@ -1,6 +1,5 @@
 package com.codestepfish.vline.mssql2000;
 
-import cn.hutool.core.thread.ThreadUtil;
 import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.core.mssql.MssqlProperties;
 import com.codestepfish.vline.mssql2000.handler.MssqlReadHandler;
@@ -41,7 +40,7 @@ public class MssqlNode extends Node {
                     Assert.hasText(properties.getDataHandler(), "【 " + this.getName() + " 】 Require Config DataHandler");
                     Class<? extends MssqlReadHandler> readHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(MssqlReadHandler.class);
                     mssqlReadHandler = readHandlerClazz.getDeclaredConstructor().newInstance();
-                    ThreadUtil.execute(() -> mssqlReadHandler.read(this));
+                    Thread.ofVirtual().start(() -> mssqlReadHandler.read(this));
                 }
                 case WRITE -> {
                     Assert.hasText(properties.getDataHandler(), "【 " + this.getName() + " 】 Require Config DataHandler");
@@ -71,6 +70,6 @@ public class MssqlNode extends Node {
 
     @Override
     public <T> void receiveData(T data) {
-        ThreadUtil.execute(() -> mssqlWriteHandler.write(this, data));
+        Thread.ofVirtual().start(() -> mssqlWriteHandler.write(this, data));
     }
 }

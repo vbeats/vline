@@ -1,6 +1,5 @@
 package com.codestepfish.vline.http;
 
-import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.core.http.HttpProperties;
@@ -29,7 +28,7 @@ public class HttpNode extends Node {
     public void init() {
         super.init();
         // 初始化forest client
-        ThreadUtil.execute(() -> {
+        Thread.ofVirtual().start(() -> {
             HttpProperties hp = this.getHttp();
 
             try {

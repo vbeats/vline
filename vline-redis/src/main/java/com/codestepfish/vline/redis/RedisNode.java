@@ -1,6 +1,5 @@
 package com.codestepfish.vline.redis;
 
-import cn.hutool.core.thread.ThreadUtil;
 import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.core.redis.RedisProperties;
 import com.codestepfish.vline.redis.handler.RedisDataHandler;
@@ -54,6 +53,6 @@ public class RedisNode extends Node {
 
     @Override
     public <T> void receiveData(T data) {
-        ThreadUtil.execute(() -> redisDataHandler.handle(this, data));
+        Thread.ofVirtual().start(() -> redisDataHandler.handle(this, data));
     }
 }

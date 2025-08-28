@@ -1,6 +1,5 @@
 package com.codestepfish.vline.serialport;
 
-import cn.hutool.core.thread.ThreadUtil;
 import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.serialport.handler.SerialPortDataHandler;
 import com.codestepfish.vline.serialport.handler.SerialPortHandler;
@@ -42,7 +41,7 @@ public class SerialPortNode extends Node {
             RATE_LIMITERS.put(this.getName(), RateLimiter.create(1, 2L, TimeUnit.SECONDS));
 
             // 初始化串口
-            ThreadUtil.execute(() -> SerialPortHandler.openPort(this, serialPortDataHandler));
+            Thread.ofVirtual().start(() -> SerialPortHandler.openPort(this, serialPortDataHandler));
         } catch (Exception e) {
             log.error("【{}】 Init Failed : ", this.getName(), e);
             throw new RuntimeException(e);
@@ -58,6 +57,6 @@ public class SerialPortNode extends Node {
 
     @Override
     public <T> void receiveData(T data) {
-        ThreadUtil.execute(() -> serialPortDataHandler.send(this, data));
+        Thread.ofVirtual().start(() -> serialPortDataHandler.send(this, data));
     }
 }

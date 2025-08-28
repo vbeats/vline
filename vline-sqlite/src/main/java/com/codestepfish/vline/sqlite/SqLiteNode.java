@@ -1,6 +1,5 @@
 package com.codestepfish.vline.sqlite;
 
-import cn.hutool.core.thread.ThreadUtil;
 import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.core.sqlite.SqliteProperties;
 import com.codestepfish.vline.sqlite.handler.SqLiteReadHandler;
@@ -41,7 +40,7 @@ public class SqLiteNode extends Node {
                     Assert.hasText(properties.getDataHandler(), "【 " + this.getName() + " 】 Require Config DataHandler");
                     Class<? extends SqLiteReadHandler> readHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(SqLiteReadHandler.class);
                     sqliteReadHandler = readHandlerClazz.getDeclaredConstructor().newInstance();
-                    ThreadUtil.execute(() -> sqliteReadHandler.read(this));
+                    Thread.ofVirtual().start(() -> sqliteReadHandler.read(this));
                 }
                 case WRITE -> {
                     Assert.hasText(properties.getDataHandler(), "【 " + this.getName() + " 】 Require Config DataHandler");
@@ -71,6 +70,6 @@ public class SqLiteNode extends Node {
 
     @Override
     public <T> void receiveData(T data) {
-        ThreadUtil.execute(() -> sqliteWriteHandler.write(this, data));
+        Thread.ofVirtual().start(() -> sqliteWriteHandler.write(this, data));
     }
 }

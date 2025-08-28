@@ -1,6 +1,5 @@
 package com.codestepfish.vline.tcp;
 
-import cn.hutool.core.thread.ThreadUtil;
 import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.tcp.handler.TcpHandler;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,7 +21,7 @@ public class TcpNode extends Node {
     @Override
     public void init() {
         super.init();
-        ThreadUtil.execute(() -> TcpHandler.init(this));
+        Thread.ofVirtual().start(() -> TcpHandler.init(this));
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.codestepfish.vline.postgres;
 
-import cn.hutool.core.thread.ThreadUtil;
 import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.core.postgres.PostgresProperties;
 import com.codestepfish.vline.postgres.handler.PostgresReadHandler;
@@ -41,7 +40,7 @@ public class PostgresNode extends Node {
                     Assert.hasText(properties.getDataHandler(), "【" + this.getName() + "】 Require Config DataHandler");
                     Class<? extends PostgresReadHandler> readHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(PostgresReadHandler.class);
                     postgresReadHandler = readHandlerClazz.getDeclaredConstructor().newInstance();
-                    ThreadUtil.execute(() -> postgresReadHandler.read(this));
+                    Thread.ofVirtual().start(() -> postgresReadHandler.read(this));
                 }
                 case WRITE -> {
                     Assert.hasText(properties.getDataHandler(), "【" + this.getName() + "】 Require Config DataHandler");
@@ -71,6 +70,6 @@ public class PostgresNode extends Node {
 
     @Override
     public <T> void receiveData(T data) {
-        ThreadUtil.execute(() -> postgresWriteHandler.write(this, data));
+        Thread.ofVirtual().start(() -> postgresWriteHandler.write(this, data));
     }
 }
