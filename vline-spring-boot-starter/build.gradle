@@ -39,6 +39,11 @@ java {
         capability(group.toString(), "mssql2008r2-support", version.toString())
     }
 
+    registerFeature("oracleSupport") {
+        usingSourceSet(sourceSets.main)
+        capability(group.toString(), "oracle-support", version.toString())
+    }
+
     registerFeature("serialPortSupport") {
         usingSourceSet(sourceSets.main)
         capability(group.toString(), "serialPort-support", version.toString())
@@ -56,6 +61,7 @@ dependencies {
     sqliteSupportApi project(":vline-sqlite")
     mssql2000SupportApi project(":vline-sql-server-2000")
     mssql2008r2SupportApi project(":vline-sql-server-2008-r2")
+    oracleSupportApi project(":vline-oracle")
     serialPortSupportApi project(":vline-serial-port")
 
     api 'org.springframework.boot:spring-boot-starter'

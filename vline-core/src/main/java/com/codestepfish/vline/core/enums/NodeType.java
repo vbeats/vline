@@ -10,5 +10,6 @@ public enum NodeType {
     SQLITE,
     MSSQL, // SQL SERVER
     MSSQL2000,
+    ORACLE,
     SERIAL_PORT;
 }

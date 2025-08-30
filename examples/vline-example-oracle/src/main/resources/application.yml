@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: example-postgres
+
+
+vline:
+  nodes:
+    - name: t1
+      oracle:
+        mode: read
+        host: 127.0.0.1
+        port: 1521
+        service-name: XE
+        username: TEST
+        password: root
+        data-handler: com.codestepfish.vline.example.oracle.OracleReadExampleHandler
+
+  struct:
+    t1:

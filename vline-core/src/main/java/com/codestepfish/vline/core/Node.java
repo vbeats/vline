@@ -6,6 +6,7 @@ import com.codestepfish.vline.core.enums.NodeType;
 import com.codestepfish.vline.core.http.HttpProperties;
 import com.codestepfish.vline.core.mssql.MssqlProperties;
 import com.codestepfish.vline.core.mysql.MysqlProperties;
+import com.codestepfish.vline.core.oracle.OracleProperties;
 import com.codestepfish.vline.core.postgres.PostgresProperties;
 import com.codestepfish.vline.core.redis.RedisProperties;
 import com.codestepfish.vline.core.serialport.SerialPortProperties;
@@ -56,6 +57,15 @@ public class Node implements INode, Serializable {
     private MysqlProperties mysql;
 
     private PostgresProperties postgres;
+
+    private OracleProperties oracle;
+
+    public void setOracle(OracleProperties oracle) {
+        this.oracle = oracle;
+        if (!ObjectUtils.isEmpty(oracle)) {
+            this.type = NodeType.ORACLE;
+        }
+    }
 
     private SqliteProperties sqlite;
 

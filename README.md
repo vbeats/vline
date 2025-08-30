@@ -217,6 +217,29 @@ vline:
 | jdbcUrl         | N  | 完整jdbc url                                                                                |
 | dataHandler     | Y  | 数据处理具体实现 实现 com.codestepfish.vline.sqlite.handler.SqLiteReadHandler/SqLiteWriteHandler 接口 |
 
+### oracle 🛰️
+
+> com.codestepfish.vline.core.oracle.OracleProperties
+
+1. node节点(read/write mode)上层必须实现
+   `com.codestepfish.vline.oracle.handler.OracleReadHandler/OracleWriteHandler`
+   接口
+2. 模块依赖了 `spring-boot-starter-jdbc` , 如果不需要springboot自动配置数据源 , 上层应用应当排除
+   `DataSourceAutoConfiguration`
+3. flyway文件位置`classpath:oracle/{nodeName}`
+
+| key             | 必填 | desc                                                                                      |
+|:----------------|----|-------------------------------------------------------------------------------------------|
+| mode            | N  | read/write/other(仅注入数据源)                                                                  |
+| host            | N  | 默认127.0.0.1                                                                               |
+| port            | N  | 默认1521                                                                                    |
+| serviceName     | Y  | 服务名称                                                                                      |
+| username        | Y  | 账号                                                                                        |
+| password        | Y  | 密码                                                                                        |
+| driverClassName | N  | 默认oracle.jdbc.driver.OracleDriver                                                         |
+| jdbcUrl         | N  | 完整jdbc url  jdbc:oracle:thin:@host:port:serviceName                                       |
+| dataHandler     | Y  | 数据处理具体实现 实现 com.codestepfish.vline.oracle.handler.OracleReadHandler/OracleWriteHandler 接口 |
+
 ### serial port 🛰️
 
 > com.codestepfish.vline.core.serialport.SerialPortProperties

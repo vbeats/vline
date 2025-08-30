@@ -1,0 +1,14 @@
+dependencies {
+    api(project(":vline-core"))
+
+    api libs.get('druid')
+    api libs.get('oracle')
+    api libs.get('anyline-mvc')
+    api libs.get('anyline-environment')
+    api libs.get('anyline-data-jdbc-oracle')
+    api libs.get('flyway-core')
+    api libs.get('flyway-oracle')
+
+    api 'org.springframework.boot:spring-boot-starter-jdbc'
+    api 'org.springframework.boot:spring-boot-starter-web'
+}
