@@ -29,17 +29,18 @@ Not ETL
 
 ## Support
 
-| module             | remark | progress |
-|--------------------|--------|----------|
-| tcp                |        | ✅        |
-| http               |        | ✅        |
-| redis              |        | ✅        |
-| mysql              |        | ✅        |
-| sqlite             |        | ✅        |
-| postgresql         |        | ✅        |
-| sql-server-2008-r2 |        | ✅        |
-| sql-server-2000    |        | ✅        |
-| serial-port        |        | ✅        |
+| module             | remark      | progress |
+|--------------------|-------------|----------|
+| tcp                |             | ✅        |
+| http               |             | ✅        |
+| redis              |             | ✅        |
+| mysql              |             | ✅        |
+| sqlite             |             | ✅        |
+| postgresql         |             | ✅        |
+| sql-server-2008-r2 |             | ✅        |
+| sql-server-2000    |             | ✅        |
+| oracle             | 11gr2 ~ 23c | ✅        |
+| serial-port        |             | ✅        |
 
 ## desc
 
