@@ -22,5 +22,5 @@ public class VLineProperties {
 
     private Map<String, List<String>> struct; // 拓扑结构
 
-    private Boolean cacheStats = false; // 是否开启caffeine cache统计  15s一次
+    private Boolean cacheStats = false; // 是否开启caffeine cache统计  60s一次
 }

@@ -54,6 +54,7 @@ public class VLineAutoConfiguration implements InitializingBean, DisposableBean 
             Thread.ofVirtual().name("VLineCacheStats")
                     .start(() -> {
                         while (true) {
+                            ThreadUtil.safeSleep(60000);
                             Collection<String> cacheNames = cacheManager.getCacheNames();
 
                             cacheNames.forEach(cacheName -> {
@@ -62,11 +63,9 @@ public class VLineAutoConfiguration implements InitializingBean, DisposableBean 
                                     com.github.benmanes.caffeine.cache.Cache<Object, Object> cache = caffeineCache.getNativeCache();
                                     CacheStats stats = cache.stats();
 
-                                    log.info("caffeine cache stata : {} ", stats);
+                                    log.info("caffeine cache stats : {} ", stats);
                                 }
-
                             });
-                            ThreadUtil.safeSleep(15000);
                         }
                     });
         }
