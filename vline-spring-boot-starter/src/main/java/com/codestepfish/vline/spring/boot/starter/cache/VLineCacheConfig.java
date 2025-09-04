@@ -17,7 +17,7 @@ public class VLineCacheConfig {
         CaffeineCacheManager cacheManager = new CaffeineCacheManager();
         cacheManager.setAllowNullValues(false);
         cacheManager.setCacheSpecification("""
-                initialCapacity=20,maximumSize=1000,expireAfterAccess=5s,recordStats
+                initialCapacity=20,maximumSize=1000,recordStats
                 """);
 
         return cacheManager;
