@@ -6,7 +6,6 @@ import com.lmax.disruptor.EventHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 
@@ -19,9 +18,6 @@ public class VLineEventHandler implements EventHandler<VLineEvent> {
 
     @Override
     public void onEvent(VLineEvent event, long sequence, boolean endOfBatch) throws Exception {
-        if (ObjectUtils.isEmpty(event.getPayload())) {
-            return;
-        }
         log.info("【 {} 】 -- {} EventHandler Received Data : {}", event.getKey(), sequence, event.getPayload());
         List<String> nextNodes = vLineContext.nextNodes(event.getKey());
         nextNodes.parallelStream().forEach(node -> VLineContext.NODES.get(node).receiveData(event.getPayload()));
