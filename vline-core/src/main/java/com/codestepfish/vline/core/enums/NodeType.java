@@ -11,5 +11,6 @@ public enum NodeType {
     MSSQL, // SQL SERVER
     MSSQL2000,
     ORACLE,
-    SERIAL_PORT;
+    SERIAL_PORT,
+    MODBUS;
 }

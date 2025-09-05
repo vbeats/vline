@@ -4,6 +4,7 @@ import com.alibaba.fastjson2.JSONWriter;
 import com.alibaba.fastjson2.annotation.JSONField;
 import com.codestepfish.vline.core.enums.NodeType;
 import com.codestepfish.vline.core.http.HttpProperties;
+import com.codestepfish.vline.core.modbus.ModbusProperties;
 import com.codestepfish.vline.core.mssql.MssqlProperties;
 import com.codestepfish.vline.core.mysql.MysqlProperties;
 import com.codestepfish.vline.core.oracle.OracleProperties;
@@ -60,16 +61,11 @@ public class Node implements INode, Serializable {
 
     private OracleProperties oracle;
 
-    public void setOracle(OracleProperties oracle) {
-        this.oracle = oracle;
-        if (!ObjectUtils.isEmpty(oracle)) {
-            this.type = NodeType.ORACLE;
-        }
-    }
-
     private SqliteProperties sqlite;
 
     private SerialPortProperties serialPort;
+
+    private ModbusProperties modbus;
 
     @Override
     public void init() {
@@ -145,6 +141,20 @@ public class Node implements INode, Serializable {
         this.serialPort = serialPort;
         if (!ObjectUtils.isEmpty(serialPort)) {
             this.type = NodeType.SERIAL_PORT;
+        }
+    }
+
+    public void setOracle(OracleProperties oracle) {
+        this.oracle = oracle;
+        if (!ObjectUtils.isEmpty(oracle)) {
+            this.type = NodeType.ORACLE;
+        }
+    }
+
+    public void setModbus(ModbusProperties modbus) {
+        this.modbus = modbus;
+        if (!ObjectUtils.isEmpty(modbus)) {
+            this.type = NodeType.MODBUS;
         }
     }
 }

@@ -20,7 +20,8 @@ ext {
             jtds       : '1.3.1',
             jSerialComm: '2.11.2',
             flyway     : '11.11.2',
-            oracle     : '23.9.0.25.07'
+            oracle     : '23.9.0.25.07',
+            modbus     : '2.1.3'
     ]
 
     libs = [
@@ -59,5 +60,7 @@ ext {
             'flyway-sqlserver'          : "org.flywaydb:flyway-sqlserver:${versions.flyway}",
             'flyway-postgres'           : "org.flywaydb:flyway-database-postgresql:${versions.flyway}",
             'flyway-oracle'             : "org.flywaydb:flyway-database-oracle:${versions.flyway}",
+            'modbus-tcp'                : "com.digitalpetri.modbus:modbus-tcp:${versions.modbus}",
+            'modbus-serial'             : "com.digitalpetri.modbus:modbus-serial:${versions.modbus}"
     ]
 }

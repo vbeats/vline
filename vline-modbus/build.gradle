@@ -1,0 +1,6 @@
+dependencies {
+    api(project(":vline-core"))
+
+    api libs.get('modbus-tcp')
+    api libs.get('modbus-serial')
+}

@@ -13,3 +13,4 @@ com.codestepfish.vline.spring.boot.starter.postgres.PostgresNodeAutoConfiguratio
 com.codestepfish.vline.spring.boot.starter.sqlite.SqLiteNodeAutoConfiguration
 com.codestepfish.vline.spring.boot.starter.oracle.OracleNodeAutoConfiguration
 com.codestepfish.vline.spring.boot.starter.serialport.SerialPortNodeAutoConfiguration
+com.codestepfish.vline.spring.boot.starter.modbus.ModbusNodeAutoConfiguration

@@ -25,7 +25,7 @@ Not ETL
 
 ## todo
 
-- [x] init sql 改造, 通过flyway实现版本控制
+- [ ] 增加modbus支持
 
 ## Support
 
@@ -41,10 +41,7 @@ Not ETL
 | sql-server-2000    |             | ✅        |
 | oracle             | 11gr2 ~ 23c | ✅        |
 | serial-port        |             | ✅        |
-
-## desc
-
-1. ~~msg data持久化 保证数据传递不丢失~~  由上层应用层实现
+| modbus             | RTU/TCP     | ⭕️       |
 
 ## module
 
@@ -257,3 +254,7 @@ vline:
 | useRs485Mode | N  | 是否使用rs485模式        默认 false                                                    |
 | ignored      | N  | 是否忽略其它业务处理  只转发数据                                                              |
 | dataHandler  | Y  | 数据处理具体实现 实现 com.codestepfish.vline.serialport.handler.SerialPortDataHandler 接口 |
+
+### modbus 🛰️
+
+...
