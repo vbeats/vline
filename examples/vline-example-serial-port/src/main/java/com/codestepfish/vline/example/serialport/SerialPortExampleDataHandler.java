@@ -10,6 +10,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class SerialPortExampleDataHandler implements SerialPortDataHandler {
 
+    private static String bytesToHex(byte[] bytes) {
+        StringBuilder result = new StringBuilder();
+        for (byte b : bytes) {
+            result.append(String.format("%02x", b));
+        }
+        return result.toString();
+    }
+
     @Override
     public <T> void receive(SerialPortNode node) {
 
@@ -34,13 +42,5 @@ public class SerialPortExampleDataHandler implements SerialPortDataHandler {
         byte[] datas = (byte[]) data;
         SerialPort serialPort = SerialPortHandler.SERIAL_PORTS.get(node.getName());
         serialPort.writeBytes(datas, datas.length);
-    }
-
-    private static String bytesToHex(byte[] bytes) {
-        StringBuilder result = new StringBuilder();
-        for (byte b : bytes) {
-            result.append(String.format("%02x", b));
-        }
-        return result.toString();
     }
 }

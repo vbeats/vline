@@ -59,6 +59,8 @@ public class Node implements INode, Serializable {
     private PostgresProperties postgres;
 
     private OracleProperties oracle;
+    private SqliteProperties sqlite;
+    private SerialPortProperties serialPort;
 
     public void setOracle(OracleProperties oracle) {
         this.oracle = oracle;
@@ -66,10 +68,6 @@ public class Node implements INode, Serializable {
             this.type = NodeType.ORACLE;
         }
     }
-
-    private SqliteProperties sqlite;
-
-    private SerialPortProperties serialPort;
 
     @Override
     public void init() {

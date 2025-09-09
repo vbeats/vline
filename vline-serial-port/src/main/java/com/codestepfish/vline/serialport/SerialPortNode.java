@@ -26,8 +26,8 @@ import java.util.concurrent.TimeUnit;
 @Accessors(chain = true)
 public class SerialPortNode extends Node {
 
-    private SerialPortDataHandler serialPortDataHandler;
     public static final Map<String, RateLimiter> RATE_LIMITERS = new ConcurrentHashMap<>(10);  // 每个串口一个rateLimiter
+    private SerialPortDataHandler serialPortDataHandler;
 
     @Override
     public void init() {

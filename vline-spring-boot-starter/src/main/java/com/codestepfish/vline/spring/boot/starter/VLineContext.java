@@ -32,9 +32,28 @@ public class VLineContext {
 
     // key node name
     public static final Map<String, Node> NODES = new ConcurrentHashMap<>(10);
-
-    private final VLineProperties vLineProperties;
     private static volatile RingBuffer<VLineEvent> eventBus;
+    private final VLineProperties vLineProperties;
+
+    // 推送消息 --> event bus
+    public static void posMsg(String nodeName, Object payload) {
+        if (eventBus == null) {
+            synchronized (VLineContext.class) {
+                eventBus = SpringUtil.getBean(new TypeReference<>() {
+                });
+            }
+        }
+
+        long sequence = eventBus.next();
+        try {
+            VLineEvent event = eventBus.get(sequence);
+            event.setKey(nodeName);
+            event.setSequence(sequence);
+            event.setPayload(payload);
+        } finally {
+            eventBus.publish(sequence);
+        }
+    }
 
     /**
      * 当前node的 下级/上级节点 名
@@ -63,26 +82,6 @@ public class VLineContext {
         });
 
         return ns;
-    }
-
-    // 推送消息 --> event bus
-    public static void posMsg(String nodeName, Object payload) {
-        if (eventBus == null) {
-            synchronized (VLineContext.class) {
-                eventBus = SpringUtil.getBean(new TypeReference<>() {
-                });
-            }
-        }
-
-        long sequence = eventBus.next();
-        try {
-            VLineEvent event = eventBus.get(sequence);
-            event.setKey(nodeName);
-            event.setSequence(sequence);
-            event.setPayload(payload);
-        } finally {
-            eventBus.publish(sequence);
-        }
     }
 
 }

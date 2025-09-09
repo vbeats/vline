@@ -1,6 +1,5 @@
 package com.codestepfish.vline.mysql;
 
-import cn.hutool.core.thread.ThreadUtil;
 import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.core.mysql.MysqlProperties;
 import com.codestepfish.vline.mysql.handler.MysqlReadHandler;
