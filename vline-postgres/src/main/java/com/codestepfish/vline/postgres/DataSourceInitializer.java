@@ -52,9 +52,11 @@ public class DataSourceInitializer {
         log.info("【DataSource - PostgreSQL】reg success: {}", node.getName());
 
         // flyway
-        Flyway.configure().dataSource(ds)
-                .baselineOnMigrate(true)
-                .locations(String.format("classpath:postgres/%s", node.getName()))
-                .load().migrate();
+        if (properties.getFlyway()) {
+            Flyway.configure().dataSource(ds)
+                    .baselineOnMigrate(true)
+                    .locations(String.format("classpath:postgres/%s", node.getName()))
+                    .load().migrate();
+        }
     }
 }

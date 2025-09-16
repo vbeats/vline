@@ -37,8 +37,8 @@ Not ETL
 | mysql              |             | ✅        |
 | sqlite             |             | ✅        |
 | postgresql         |             | ✅        |
-| sql-server-2008-r2 |             | ✅        |
-| sql-server-2000    |             | ✅        |
+| sql-server-2008-r2 | mssql驱动     | ✅        |
+| sql-server-2000    | jtds驱动      | ✅        |
 | oracle             | 11gr2 ~ 23c | ✅        |
 | serial-port        |             | ✅        |
 
@@ -59,8 +59,8 @@ Not ETL
 | vline-mysql               | mysql8 其它未测试                                   |
 | vline-postgres            | postgresql                                     |
 | vline-sqlite              | sqlite                                         |
-| vline-sql-server-2000     | sql server2000                                 |
-| vline-sql-server-2008-r2  | sql server2008 R2                              |
+| vline-sql-server-2000     | jtds 2000 ~ 2012                               |
+| vline-sql-server-2008-r2  | 2008 R2 +                                      |
 | vline-spring-boot-starter | spring boot starter : yml解析 初始化  event bus事件监听 |
 | examples                  | 示例                                             |
 
@@ -156,6 +156,7 @@ vline:
 | driverClassName        | N  | 默认com.microsoft.sqlserver.jdbc.SQLServerDriver(2000默认net.sourceforge.jtds.jdbc.Driver)       |
 | jdbcUrl                | N  | 完整jdbc url                                                                                   |
 | dataHandler            | Y  | 数据处理具体实现 实现 com.codestepfish.vline.mssql2008r2.handler.MssqlReadHandler/MssqlWriteHandler 接口 |
+| flyway                 | N  | 默认false                                                                                      |
 
 ### mysql 🛰️
 
@@ -177,6 +178,7 @@ vline:
 | driverClassName | N  | 默认com.mysql.cj.jdbc.Driver                                                             |
 | jdbcUrl         | N  | 完整jdbc url                                                                             |
 | dataHandler     | Y  | 数据处理具体实现 实现 com.codestepfish.vline.mysql.handler.MysqlReadHandler/MysqlWriteHandler 接口 |
+| flyway          | N  | 默认false                                                                                |
 
 ### postgresql 🛰️
 
@@ -200,6 +202,7 @@ vline:
 | driverClassName | N  | 默认org.postgresql.Driver                                                                         |
 | jdbcUrl         | N  | 完整jdbc url                                                                                      |
 | dataHandler     | Y  | 数据处理具体实现 实现 com.codestepfish.vline.postgres.handler.PostgresReadHandler/PostgresWriteHandler 接口 |
+| flyway          | N  | 默认false                                                                                         |
 
 ### sqlite 🛰️
 
@@ -217,6 +220,7 @@ vline:
 | driverClassName | N  | 默认org.sqlite.JDBC                                                                         |
 | jdbcUrl         | N  | 完整jdbc url                                                                                |
 | dataHandler     | Y  | 数据处理具体实现 实现 com.codestepfish.vline.sqlite.handler.SqLiteReadHandler/SqLiteWriteHandler 接口 |
+| flyway          | N  | 默认false                                                                                   |
 
 ### oracle 🛰️
 
@@ -240,6 +244,7 @@ vline:
 | driverClassName | N  | 默认oracle.jdbc.driver.OracleDriver                                                         |
 | jdbcUrl         | N  | 完整jdbc url  jdbc:oracle:thin:@host:port:serviceName                                       |
 | dataHandler     | Y  | 数据处理具体实现 实现 com.codestepfish.vline.oracle.handler.OracleReadHandler/OracleWriteHandler 接口 |
+| flyway          | N  | 默认false                                                                                   |
 
 ### serial port 🛰️
 

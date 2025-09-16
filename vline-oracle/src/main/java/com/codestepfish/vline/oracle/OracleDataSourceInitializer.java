@@ -52,9 +52,11 @@ public class OracleDataSourceInitializer {
         log.info("【DataSource - Oracle】reg success: {}", node.getName());
 
         // flyway
-        Flyway.configure().dataSource(ds)
-                .baselineOnMigrate(true)
-                .locations(String.format("classpath:oracle/%s", node.getName()))
-                .load().migrate();
+        if (properties.getFlyway()) {
+            Flyway.configure().dataSource(ds)
+                    .baselineOnMigrate(true)
+                    .locations(String.format("classpath:oracle/%s", node.getName()))
+                    .load().migrate();
+        }
     }
 }

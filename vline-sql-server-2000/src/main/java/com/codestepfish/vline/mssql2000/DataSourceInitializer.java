@@ -52,9 +52,11 @@ public class DataSourceInitializer {
         log.info("【DataSource - Sql Server】reg success: {}", node.getName());
 
         // flyway
-        Flyway.configure().dataSource(ds)
-                .baselineOnMigrate(true)
-                .locations(String.format("classpath:sqlserver/%s", node.getName()))
-                .load().migrate();
+        if (properties.getFlyway()) {
+            Flyway.configure().dataSource(ds)
+                    .baselineOnMigrate(true)
+                    .locations(String.format("classpath:sqlserver/%s", node.getName()))
+                    .load().migrate();
+        }
     }
 }

@@ -50,9 +50,11 @@ public class DataSourceInitializer {
         log.info("【DataSource - SqLite】reg success: {}", node.getName());
 
         // flyway
-        Flyway.configure().dataSource(ds)
-                .baselineOnMigrate(true)
-                .locations(String.format("classpath:sqlite/%s", node.getName()))
-                .load().migrate();
+        if (properties.getFlyway()) {
+            Flyway.configure().dataSource(ds)
+                    .baselineOnMigrate(true)
+                    .locations(String.format("classpath:sqlite/%s", node.getName()))
+                    .load().migrate();
+        }
     }
 }
