@@ -1,4 +1,4 @@
-package com.codestepfish.vline.mssql2008r2;
+package com.codestepfish.vline.mssql;
 
 import com.alibaba.druid.DbType;
 import com.alibaba.druid.pool.DruidDataSource;
@@ -47,7 +47,7 @@ public class DataSourceInitializer {
 
         DataRuntime dataRuntime = DataSourceHolder.reg(node.getName(), ds, DatabaseType.MSSQL);
 
-        Assert.notNull(dataRuntime, String.format("【 %s 】 DataSource Init Failed", node.getName()));
+        Assert.notNull(dataRuntime, String.format("【%s】 DataSource Init Failed", node.getName()));
 
         log.info("【DataSource - Sql Server】reg success: {}", node.getName());
 

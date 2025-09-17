@@ -47,7 +47,7 @@ public class DataSourceInitializer {
 
         DataRuntime dataRuntime = DataSourceHolder.reg(node.getName(), ds, DatabaseType.MySQL);
 
-        Assert.notNull(dataRuntime, String.format("【 %s 】 DataSource Init Failed", node.getName()));
+        Assert.notNull(dataRuntime, String.format("【%s】 DataSource Init Failed", node.getName()));
 
         log.info("【DataSource - MySQL】reg success: {}", node.getName());
 

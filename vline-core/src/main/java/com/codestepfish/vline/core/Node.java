@@ -52,7 +52,7 @@ public class Node implements INode, Serializable {
 
     private MssqlProperties mssql;
 
-    private MssqlProperties mssql2000;
+    private MssqlProperties mssqlJtds;
 
     private MysqlProperties mysql;
 
@@ -118,10 +118,10 @@ public class Node implements INode, Serializable {
         }
     }
 
-    public void setMssql2000(MssqlProperties mssql2000) {
-        this.mssql2000 = mssql2000;
-        if (!ObjectUtils.isEmpty(mssql2000)) {
-            this.type = NodeType.MSSQL2000;
+    public void setMssqlJtds(MssqlProperties mssqlJtds) {
+        this.mssqlJtds = mssqlJtds;
+        if (!ObjectUtils.isEmpty(mssqlJtds)) {
+            this.type = NodeType.MSSQL_JTDS;
         }
     }
 

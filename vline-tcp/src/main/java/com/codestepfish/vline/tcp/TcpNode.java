@@ -28,7 +28,7 @@ public class TcpNode extends Node {
     public <T> void receiveData(T data) {
         ChannelFuture future = TcpHandler.CHANNEL_FUTURES.get(this.getName());
         if (ObjectUtils.isEmpty(future)) {
-            log.warn("【 {} 】 Offline ... Data Send Failed: {} ", this.getName(), data);
+            log.warn("【{}】 Offline ... Data Send Failed: {} ", this.getName(), data);
             return;
         }
 

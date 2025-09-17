@@ -5,19 +5,19 @@ spring:
 
 vline:
   nodes:
-#    - name: t1
-#      mssql2000:
-#        mode: read
-#        host: 192.168.88.128
-#        port: 1433
-#        database-name: test
-#        username: sa
-#        password: sa123456
-#        flyway: false
-#        data-handler: com.codestepfish.vline.example.mssql.MssqlReadExampleHandler
-#    - name: t2
-#      http:
-#        handler: com.codestepfish.vline.example.http.HttpExampleHandler
+    - name: t1
+      mssql-jtds:
+        mode: read
+        host: 192.168.88.128
+        port: 1433
+        database-name: test
+        username: sa
+        password: sa123456
+        flyway: false
+        data-handler: com.codestepfish.vline.example.mssql.MssqlReadExampleHandler
+    - name: t2
+      http:
+        handler: com.codestepfish.vline.example.http.HttpExampleHandler
     #    - name: t3
     #      mssql:
     #        mode: read

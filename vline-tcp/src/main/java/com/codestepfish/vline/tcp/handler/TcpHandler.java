@@ -36,7 +36,7 @@ public class TcpHandler {
     private static void startServer(TcpNode node) {
         TcpProperties tp = node.getTcp();
         if (!StringUtils.hasText(tp.getChildHandler())) {
-            log.warn("【 {} 】 Require Config ChildHandler.....", node.getName());
+            log.warn("【{}】 Require Config ChildHandler.....", node.getName());
             return;
         }
 
@@ -58,7 +58,7 @@ public class TcpHandler {
 
             future.channel().closeFuture().sync();
         } catch (Exception e) {
-            log.error("【 {} 】 Start Failed : ", node.getName(), e);
+            log.error("【{}】 Start Failed : ", node.getName(), e);
             throw new RuntimeException(e);
         } finally {
             boss.shutdownGracefully();
@@ -70,7 +70,7 @@ public class TcpHandler {
     private static void startClient(TcpNode node) {
         TcpProperties tp = node.getTcp();
         if (!StringUtils.hasText(tp.getChildHandler())) {
-            log.warn("【 {} 】 Require Config ChildHandler.....", node.getName());
+            log.warn("【{}】 Require Config ChildHandler.....", node.getName());
             return;
         }
 
@@ -90,20 +90,20 @@ public class TcpHandler {
 
             future.addListener(f -> {
                 if (f.isSuccess()) {
-                    log.info("【 {} 】 Connect To {}:{} Success...", node.getName(), tp.getHost(), tp.getPort());
+                    log.info("【{}】 Connect To {}:{} Success...", node.getName(), tp.getHost(), tp.getPort());
 
                     // 成功建立连接的channel future add 断开连接监听
                     future.channel().closeFuture().addListener(f2 -> {
-                        log.warn("【 {} 】 Disconnect With {}:{} Reconnect After {} S...", node.getName(), tp.getHost(), tp.getPort(), tp.getReconnectDelay().toSeconds());
+                        log.warn("【{}】 Disconnect With {}:{} Reconnect After {} S...", node.getName(), tp.getHost(), tp.getPort(), tp.getReconnectDelay().toSeconds());
                         future.channel().eventLoop().schedule(() -> startClient(node), tp.getReconnectDelay().getSeconds(), TimeUnit.SECONDS);
                     });
                 } else {
-                    log.warn("【 {} 】 Disconnect With {}:{} Reconnect After {} S...", node.getName(), tp.getHost(), tp.getPort(), tp.getReconnectDelay().toSeconds());
+                    log.warn("【{}】 Disconnect With {}:{} Reconnect After {} S...", node.getName(), tp.getHost(), tp.getPort(), tp.getReconnectDelay().toSeconds());
                     future.channel().eventLoop().schedule(() -> startClient(node), tp.getReconnectDelay().getSeconds(), TimeUnit.SECONDS);
                 }
             });
         } catch (Exception e) {
-            log.error("【 {} 】 Connect Failed : ", node.getName(), e);
+            log.error("【{}】 Connect Failed : ", node.getName(), e);
             throw new RuntimeException(e);
         }
     }

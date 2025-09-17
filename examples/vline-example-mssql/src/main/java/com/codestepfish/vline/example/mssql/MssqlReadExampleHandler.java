@@ -1,8 +1,8 @@
 package com.codestepfish.vline.example.mssql;
 
 import cn.hutool.core.thread.ThreadUtil;
-import com.codestepfish.vline.mssql2000.MssqlNode;
-import com.codestepfish.vline.mssql2000.handler.MssqlReadHandler;
+import com.codestepfish.vline.jtds.MssqlNode;
+import com.codestepfish.vline.jtds.handler.MssqlReadHandler;
 import com.codestepfish.vline.spring.boot.starter.VLineContext;
 import lombok.extern.slf4j.Slf4j;
 import org.anyline.entity.DataSet;

@@ -4,7 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.core.enums.NodeType;
 import com.codestepfish.vline.core.mssql.MssqlProperties;
-import com.codestepfish.vline.mssql2000.MssqlNode;
+import com.codestepfish.vline.jtds.MssqlNode;
 import com.codestepfish.vline.spring.boot.starter.VLineContext;
 import com.codestepfish.vline.spring.boot.starter.VLineProperties;
 import lombok.RequiredArgsConstructor;
@@ -26,14 +26,14 @@ import java.util.concurrent.CountDownLatch;
 @ConditionalOnClass(MssqlNode.class)
 @EnableConfigurationProperties({VLineProperties.class})
 @ConfigurationPropertiesScan(basePackages = "com.codestepfish.vline.spring.boot.starter")
-public class Mssql2000NodeAutoConfiguration implements ApplicationListener {
+public class MssqlJtdsNodeAutoConfiguration implements ApplicationListener {
 
     private final VLineProperties vLineProperties;
 
     @ConditionalOnClass(MssqlNode.class)
     public void mssqlNodeInit() throws InterruptedException {
         // init node
-        List<Node> nodes = vLineProperties.getNodes().stream().filter(e -> NodeType.MSSQL2000.equals(e.getType())).toList();
+        List<Node> nodes = vLineProperties.getNodes().stream().filter(e -> NodeType.MSSQL_JTDS.equals(e.getType())).toList();
         CountDownLatch countDownLatch = new CountDownLatch(nodes.size());
 
         nodes.forEach(node -> {
@@ -42,7 +42,7 @@ public class Mssql2000NodeAutoConfiguration implements ApplicationListener {
             mssqlNode.init();
 
             // other mode 不处理消息
-            if (!MssqlProperties.Mode.OTHER.equals(mssqlNode.getMssql2000().getMode())) {
+            if (!MssqlProperties.Mode.OTHER.equals(mssqlNode.getMssqlJtds().getMode())) {
                 VLineContext.NODES.put(node.getName(), mssqlNode);
             }
 

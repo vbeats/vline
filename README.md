@@ -29,18 +29,18 @@ Not ETL
 
 ## Support
 
-| module             | remark      | progress |
-|--------------------|-------------|----------|
-| tcp                |             | ✅        |
-| http               |             | ✅        |
-| redis              |             | ✅        |
-| mysql              |             | ✅        |
-| sqlite             |             | ✅        |
-| postgresql         |             | ✅        |
-| sql-server-2008-r2 | mssql驱动     | ✅        |
-| sql-server-2000    | jtds驱动      | ✅        |
-| oracle             | 11gr2 ~ 23c | ✅        |
-| serial-port        |             | ✅        |
+| module          | remark      | progress |
+|-----------------|-------------|----------|
+| tcp             |             | ✅        |
+| http            |             | ✅        |
+| redis           |             | ✅        |
+| mysql           |             | ✅        |
+| sqlite          |             | ✅        |
+| postgresql      |             | ✅        |
+| sql-server      | mssql驱动     | ✅        |
+| sql-server-jtds | jtds驱动      | ✅        |
+| oracle          | 11gr2 ~ 23c | ✅        |
+| serial-port     |             | ✅        |
 
 ## desc
 
@@ -59,8 +59,8 @@ Not ETL
 | vline-mysql               | mysql8 其它未测试                                   |
 | vline-postgres            | postgresql                                     |
 | vline-sqlite              | sqlite                                         |
-| vline-sql-server-2000     | jtds 2000 ~ 2012                               |
-| vline-sql-server-2008-r2  | 2008 R2 +                                      |
+| vline-sql-server-jtds     | jtds驱动 2000 ~ 2012                             |
+| vline-sql-server          | mssql驱动 2008+                                  |
 | vline-spring-boot-starter | spring boot starter : yml解析 初始化  event bus事件监听 |
 | examples                  | 示例                                             |
 
@@ -137,26 +137,26 @@ vline:
 
 > com.codestepfish.vline.core.mssql.MssqlProperties
 
-1. node节点(read/write mode)上层必须实现 `com.codestepfish.vline.mssql2008r2.handler.MssqlReadHandler/MssqlWriteHandler`
+1. node节点(read/write mode)上层必须实现 `com.codestepfish.vline.mssql.handler.MssqlReadHandler/MssqlWriteHandler`
    接口
 2. 模块依赖了 `spring-boot-starter-jdbc` , 如果不需要springboot自动配置数据源 , 上层应用应当排除
    `DataSourceAutoConfiguration`
 3. flyway文件位置`classpath:sqlserver/{nodeName}`  (< 2008 版本不一定支持)
 
-| key                    | 必填 | desc                                                                                         |
-|:-----------------------|----|----------------------------------------------------------------------------------------------|
-| mode                   | N  | read/write/other(仅注入数据源)                                                                     |
-| host                   | N  | 默认127.0.0.1                                                                                  |
-| port                   | N  | 默认1433                                                                                       |
-| databaseName           | Y  | 数据库                                                                                          |
-| username               | Y  | 账号                                                                                           |
-| password               | Y  | 密码                                                                                           |
-| encrypt                | N  | 默认false                                                                                      |
-| trustServerCertificate | N  | 默认true                                                                                       |
-| driverClassName        | N  | 默认com.microsoft.sqlserver.jdbc.SQLServerDriver(2000默认net.sourceforge.jtds.jdbc.Driver)       |
-| jdbcUrl                | N  | 完整jdbc url                                                                                   |
-| dataHandler            | Y  | 数据处理具体实现 实现 com.codestepfish.vline.mssql2008r2.handler.MssqlReadHandler/MssqlWriteHandler 接口 |
-| flyway                 | N  | 默认false                                                                                      |
+| key                    | 必填 | desc                                                                                   |
+|:-----------------------|----|----------------------------------------------------------------------------------------|
+| mode                   | N  | read/write/other(仅注入数据源)                                                               |
+| host                   | N  | 默认127.0.0.1                                                                            |
+| port                   | N  | 默认1433                                                                                 |
+| databaseName           | Y  | 数据库                                                                                    |
+| username               | Y  | 账号                                                                                     |
+| password               | Y  | 密码                                                                                     |
+| encrypt                | N  | 默认false                                                                                |
+| trustServerCertificate | N  | 默认true                                                                                 |
+| driverClassName        | N  | 默认com.microsoft.sqlserver.jdbc.SQLServerDriver(jtds默认net.sourceforge.jtds.jdbc.Driver) |
+| jdbcUrl                | N  | 完整jdbc url                                                                             |
+| dataHandler            | Y  | 数据处理具体实现 实现 com.codestepfish.vline.mssql.handler.MssqlReadHandler/MssqlWriteHandler 接口 |
+| flyway                 | N  | 默认false                                                                                |
 
 ### mysql 🛰️
 

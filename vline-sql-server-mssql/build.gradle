@@ -5,7 +5,7 @@ dependencies {
     api libs.get('anyline-mvc')
     api libs.get('anyline-environment')
     api libs.get('anyline-data-jdbc-mssql')
-    api libs.get('jdbc-mssql-2008-r2')
+    api libs.get('jdbc-mssql')
     api libs.get('flyway-core')
     api libs.get('flyway-sqlserver')
 

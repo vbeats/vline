@@ -1,7 +1,7 @@
-package com.codestepfish.vline.mssql2000.handler;
+package com.codestepfish.vline.jtds.handler;
 
 
-import com.codestepfish.vline.mssql2000.MssqlNode;
+import com.codestepfish.vline.jtds.MssqlNode;
 
 public interface MssqlWriteHandler {
 

@@ -1,9 +1,9 @@
-package com.codestepfish.vline.mssql2000;
+package com.codestepfish.vline.jtds;
 
 import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.core.mssql.MssqlProperties;
-import com.codestepfish.vline.mssql2000.handler.MssqlReadHandler;
-import com.codestepfish.vline.mssql2000.handler.MssqlWriteHandler;
+import com.codestepfish.vline.jtds.handler.MssqlReadHandler;
+import com.codestepfish.vline.jtds.handler.MssqlWriteHandler;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,17 +33,17 @@ public class MssqlNode extends Node {
         try {
             DataSourceInitializer.initDataSource(this);  // 数据源初始化
 
-            MssqlProperties properties = this.getMssql2000();
+            MssqlProperties properties = this.getMssqlJtds();
 
             switch (properties.getMode()) {
                 case READ -> {
-                    Assert.hasText(properties.getDataHandler(), "【 " + this.getName() + " 】 Require Config DataHandler");
+                    Assert.hasText(properties.getDataHandler(), "【" + this.getName() + "】 Require Config DataHandler");
                     Class<? extends MssqlReadHandler> readHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(MssqlReadHandler.class);
                     mssqlReadHandler = readHandlerClazz.getDeclaredConstructor().newInstance();
                     Thread.ofVirtual().start(() -> mssqlReadHandler.read(this));
                 }
                 case WRITE -> {
-                    Assert.hasText(properties.getDataHandler(), "【 " + this.getName() + " 】 Require Config DataHandler");
+                    Assert.hasText(properties.getDataHandler(), "【" + this.getName() + "】 Require Config DataHandler");
                     Class<? extends MssqlWriteHandler> writeHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(MssqlWriteHandler.class);
                     mssqlWriteHandler = writeHandlerClazz.getDeclaredConstructor().newInstance();
                 }
@@ -53,7 +53,7 @@ public class MssqlNode extends Node {
             }
 
         } catch (Exception e) {
-            log.error("【 {} 】 Init Failed : ", this.getName(), e);
+            log.error("【{}】 Init Failed : ", this.getName(), e);
             throw new RuntimeException(e);
         }
     }
@@ -64,7 +64,7 @@ public class MssqlNode extends Node {
         try {
             DataSourceHolder.destroy(this.getName());
         } catch (Exception e) {
-            log.error("【 {} 】 Destroy Exception : ", this.getName(), e);
+            log.error("【{}】 Destroy Exception : ", this.getName(), e);
         }
     }
 

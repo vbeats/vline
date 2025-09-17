@@ -47,7 +47,7 @@ public class OracleDataSourceInitializer {
 
         DataRuntime dataRuntime = DataSourceHolder.reg(node.getName(), ds, DatabaseType.ORACLE);
 
-        Assert.notNull(dataRuntime, String.format("【 %s 】 DataSource Init Failed", node.getName()));
+        Assert.notNull(dataRuntime, String.format("【%s】 DataSource Init Failed", node.getName()));
 
         log.info("【DataSource - Oracle】reg success: {}", node.getName());
 

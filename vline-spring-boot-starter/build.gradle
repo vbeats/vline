@@ -29,14 +29,14 @@ java {
         capability(group.toString(), "sqlite-support", version.toString())
     }
 
-    registerFeature("mssql2000Support") {
+    registerFeature("mssqlJtdsSupport") {
         usingSourceSet(sourceSets.main)
-        capability(group.toString(), "mssql2000-support", version.toString())
+        capability(group.toString(), "mssql-jtds-support", version.toString())
     }
 
-    registerFeature("mssql2008r2Support") {
+    registerFeature("mssqlSupport") {
         usingSourceSet(sourceSets.main)
-        capability(group.toString(), "mssql2008r2-support", version.toString())
+        capability(group.toString(), "mssql-support", version.toString())
     }
 
     registerFeature("oracleSupport") {
@@ -59,8 +59,8 @@ dependencies {
     mysqlSupportApi project(":vline-mysql")
     postgresSupportApi project(":vline-postgres")
     sqliteSupportApi project(":vline-sqlite")
-    mssql2000SupportApi project(":vline-sql-server-2000")
-    mssql2008r2SupportApi project(":vline-sql-server-2008-r2")
+    mssqlJtdsSupportApi project(":vline-sql-server-jtds")
+    mssqlSupportApi project(":vline-sql-server-mssql")
     oracleSupportApi project(":vline-oracle")
     serialPortSupportApi project(":vline-serial-port")
 

@@ -15,8 +15,8 @@ include 'vline-mysql'
 include 'vline-sqlite'
 include 'vline-postgres'
 include 'vline-oracle'
-include 'vline-sql-server-2000'
-include 'vline-sql-server-2008-r2'
+include 'vline-sql-server-jtds'
+include 'vline-sql-server-mssql'
 include 'vline-serial-port'
 
 

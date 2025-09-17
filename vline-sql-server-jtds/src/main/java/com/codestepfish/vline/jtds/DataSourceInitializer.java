@@ -1,4 +1,4 @@
-package com.codestepfish.vline.mssql2000;
+package com.codestepfish.vline.jtds;
 
 import com.alibaba.druid.DbType;
 import com.alibaba.druid.pool.DruidDataSource;
@@ -16,7 +16,7 @@ public class DataSourceInitializer {
 
     // 动态注册数据源
     public static void initDataSource(MssqlNode node) throws Exception {
-        MssqlProperties properties = node.getMssql2000();
+        MssqlProperties properties = node.getMssqlJtds();
 
         if (!StringUtils.hasText(properties.getJdbcUrl())) {
             properties.setJdbcUrl(String.format("jdbc:jtds:sqlserver://%s:%s/%s;namedPipe=false;", properties.getHost(), properties.getPort(), properties.getDatabaseName()));
@@ -47,7 +47,7 @@ public class DataSourceInitializer {
 
         DataRuntime dataRuntime = DataSourceHolder.reg(node.getName(), ds, DatabaseType.MSSQL);
 
-        Assert.notNull(dataRuntime, String.format("【 %s 】 DataSource Init Failed", node.getName()));
+        Assert.notNull(dataRuntime, String.format("【%s】 DataSource Init Failed", node.getName()));
 
         log.info("【DataSource - Sql Server】reg success: {}", node.getName());
 

@@ -18,7 +18,7 @@ public class VLineEventHandler implements EventHandler<VLineEvent> {
 
     @Override
     public void onEvent(VLineEvent event, long sequence, boolean endOfBatch) throws Exception {
-        log.info("【 {} 】 -- {} EventHandler Received Data : {}", event.getKey(), sequence, event.getPayload());
+        log.info("【{}】 -- {} EventHandler Received Data : {}", event.getKey(), sequence, event.getPayload());
         List<String> nextNodes = vLineContext.nextNodes(event.getKey());
         nextNodes.parallelStream().forEach(node -> VLineContext.NODES.get(node).receiveData(event.getPayload()));
     }

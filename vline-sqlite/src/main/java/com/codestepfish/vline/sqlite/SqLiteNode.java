@@ -37,13 +37,13 @@ public class SqLiteNode extends Node {
 
             switch (properties.getMode()) {
                 case READ -> {
-                    Assert.hasText(properties.getDataHandler(), "【 " + this.getName() + " 】 Require Config DataHandler");
+                    Assert.hasText(properties.getDataHandler(), "【" + this.getName() + "】 Require Config DataHandler");
                     Class<? extends SqLiteReadHandler> readHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(SqLiteReadHandler.class);
                     sqliteReadHandler = readHandlerClazz.getDeclaredConstructor().newInstance();
                     Thread.ofVirtual().start(() -> sqliteReadHandler.read(this));
                 }
                 case WRITE -> {
-                    Assert.hasText(properties.getDataHandler(), "【 " + this.getName() + " 】 Require Config DataHandler");
+                    Assert.hasText(properties.getDataHandler(), "【" + this.getName() + "】 Require Config DataHandler");
                     Class<? extends SqLiteWriteHandler> writeHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(SqLiteWriteHandler.class);
                     sqliteWriteHandler = writeHandlerClazz.getDeclaredConstructor().newInstance();
                 }
@@ -53,7 +53,7 @@ public class SqLiteNode extends Node {
             }
 
         } catch (Exception e) {
-            log.error("【 {} 】 Init Failed : ", this.getName(), e);
+            log.error("【{}】 Init Failed : ", this.getName(), e);
             throw new RuntimeException(e);
         }
     }
@@ -64,7 +64,7 @@ public class SqLiteNode extends Node {
         try {
             DataSourceHolder.destroy(this.getName());
         } catch (Exception e) {
-            log.error("【 {} 】 Destroy Exception : ", this.getName(), e);
+            log.error("【{}】 Destroy Exception : ", this.getName(), e);
         }
     }
 

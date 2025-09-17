@@ -45,7 +45,7 @@ public class DataSourceInitializer {
 
         DataRuntime dataRuntime = DataSourceHolder.reg(node.getName(), ds, DatabaseType.SQLite);
 
-        Assert.notNull(dataRuntime, String.format("【 %s 】 DataSource Init Failed", node.getName()));
+        Assert.notNull(dataRuntime, String.format("【%s】 DataSource Init Failed", node.getName()));
 
         log.info("【DataSource - SqLite】reg success: {}", node.getName());
 

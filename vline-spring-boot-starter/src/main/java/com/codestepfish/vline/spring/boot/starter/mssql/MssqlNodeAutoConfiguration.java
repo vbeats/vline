@@ -4,7 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.core.enums.NodeType;
 import com.codestepfish.vline.core.mssql.MssqlProperties;
-import com.codestepfish.vline.mssql2008r2.MssqlNode;
+import com.codestepfish.vline.mssql.MssqlNode;
 import com.codestepfish.vline.spring.boot.starter.VLineContext;
 import com.codestepfish.vline.spring.boot.starter.VLineProperties;
 import lombok.RequiredArgsConstructor;

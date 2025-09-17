@@ -9,7 +9,7 @@ public enum NodeType {
     POSTGRES,
     SQLITE,
     MSSQL, // SQL SERVER
-    MSSQL2000,
+    MSSQL_JTDS,
     ORACLE,
     SERIAL_PORT;
 }
