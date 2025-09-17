@@ -60,7 +60,7 @@ Not ETL
 | vline-postgres            | postgresql                                     |
 | vline-sqlite              | sqlite                                         |
 | vline-sql-server-jtds     | jtds驱动 2000 ~ 2012                             |
-| vline-sql-server          | mssql驱动 2008+                                  |
+| vline-sql-server          | mssql驱动 2005+                                  |
 | vline-spring-boot-starter | spring boot starter : yml解析 初始化  event bus事件监听 |
 | examples                  | 示例                                             |
 
