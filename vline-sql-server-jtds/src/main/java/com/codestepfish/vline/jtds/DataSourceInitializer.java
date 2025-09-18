@@ -24,7 +24,7 @@ public class DataSourceInitializer {
 
         DruidDataSource ds = new DruidDataSource();
         ds.setUrl(properties.getJdbcUrl());
-        ds.setDbType(DbType.sqlserver);
+        ds.setDbType(DbType.jtds);
         ds.setDriverClassName("net.sourceforge.jtds.jdbc.Driver");
         ds.setUsername(properties.getUsername());
         ds.setPassword(properties.getPassword());
