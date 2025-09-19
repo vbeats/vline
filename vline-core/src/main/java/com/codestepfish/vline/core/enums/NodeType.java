@@ -11,5 +11,6 @@ public enum NodeType {
     MSSQL, // SQL SERVER
     MSSQL_JTDS,
     ORACLE,
+    ETCD,
     SERIAL_PORT;
 }

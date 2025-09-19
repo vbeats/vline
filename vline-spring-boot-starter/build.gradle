@@ -44,6 +44,11 @@ java {
         capability(group.toString(), "oracle-support", version.toString())
     }
 
+    registerFeature("etcdSupport") {
+        usingSourceSet(sourceSets.main)
+        capability(group.toString(), "etcd-support", version.toString())
+    }
+
     registerFeature("serialPortSupport") {
         usingSourceSet(sourceSets.main)
         capability(group.toString(), "serialPort-support", version.toString())
@@ -62,6 +67,7 @@ dependencies {
     mssqlJtdsSupportApi project(":vline-sql-server-jtds")
     mssqlSupportApi project(":vline-sql-server-mssql")
     oracleSupportApi project(":vline-oracle")
+    etcdSupportApi project(":vline-etcd")
     serialPortSupportApi project(":vline-serial-port")
 
     api 'org.springframework.boot:spring-boot-starter'

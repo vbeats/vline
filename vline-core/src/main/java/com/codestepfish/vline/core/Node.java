@@ -3,6 +3,7 @@ package com.codestepfish.vline.core;
 import com.alibaba.fastjson2.JSONWriter;
 import com.alibaba.fastjson2.annotation.JSONField;
 import com.codestepfish.vline.core.enums.NodeType;
+import com.codestepfish.vline.core.etcd.EtcdProperties;
 import com.codestepfish.vline.core.http.HttpProperties;
 import com.codestepfish.vline.core.mssql.MssqlProperties;
 import com.codestepfish.vline.core.mysql.MysqlProperties;
@@ -59,15 +60,12 @@ public class Node implements INode, Serializable {
     private PostgresProperties postgres;
 
     private OracleProperties oracle;
-    private SqliteProperties sqlite;
-    private SerialPortProperties serialPort;
 
-    public void setOracle(OracleProperties oracle) {
-        this.oracle = oracle;
-        if (!ObjectUtils.isEmpty(oracle)) {
-            this.type = NodeType.ORACLE;
-        }
-    }
+    private SqliteProperties sqlite;
+
+    private EtcdProperties etcd;
+
+    private SerialPortProperties serialPort;
 
     @Override
     public void init() {
@@ -136,6 +134,20 @@ public class Node implements INode, Serializable {
         this.postgres = postgres;
         if (!ObjectUtils.isEmpty(postgres)) {
             this.type = NodeType.POSTGRES;
+        }
+    }
+
+    public void setOracle(OracleProperties oracle) {
+        this.oracle = oracle;
+        if (!ObjectUtils.isEmpty(oracle)) {
+            this.type = NodeType.ORACLE;
+        }
+    }
+
+    public void setEtcd(EtcdProperties etcd) {
+        this.etcd = etcd;
+        if (!ObjectUtils.isEmpty(etcd)) {
+            this.type = NodeType.ETCD;
         }
     }
 

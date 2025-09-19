@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: example-etcd
+
+vline:
+  nodes:
+    - name: t1
+      etcd:
+        endpoints: http://127.0.0.1:2379
+        data-handler: com.codestepfish.vline.example.etcd.EtcdExampleDataHandler

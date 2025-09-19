@@ -29,18 +29,19 @@ Not ETL
 
 ## Support
 
-| module          | remark      | progress |
-|-----------------|-------------|----------|
-| tcp             |             | ✅        |
-| http            |             | ✅        |
-| redis           |             | ✅        |
-| mysql           |             | ✅        |
-| sqlite          |             | ✅        |
-| postgresql      |             | ✅        |
-| sql-server      | mssql驱动     | ✅        |
-| sql-server-jtds | jtds驱动      | ✅        |
-| oracle          | 11gr2 ~ 23c | ✅        |
-| serial-port     |             | ✅        |
+| module          | remark  | progress |
+|-----------------|---------|----------|
+| tcp             |         | ✅        |
+| http            |         | ✅        |
+| redis           |         | ✅        |
+| mysql           |         | ✅        |
+| sqlite          |         | ✅        |
+| postgresql      |         | ✅        |
+| sql-server      | mssql驱动 | ✅        |
+| sql-server-jtds | jtds驱动  | ✅        |
+| oracle          | 11gr2 + | ✅        |
+| etcd            |         | ✅        |
+| serial-port     |         | ✅        |
 
 ## desc
 
@@ -61,6 +62,9 @@ Not ETL
 | vline-sqlite              | sqlite                                         |
 | vline-sql-server-jtds     | jtds驱动 2000 ~ 2012                             |
 | vline-sql-server          | mssql驱动 2005+                                  |
+| vline-oracle              | oracle 11gr2 +                                 |
+| vline-etcd                | etcd client                                    |
+| vline-serial-port         | 串口通信                                           |
 | vline-spring-boot-starter | spring boot starter : yml解析 初始化  event bus事件监听 |
 | examples                  | 示例                                             |
 
@@ -245,6 +249,17 @@ vline:
 | jdbcUrl         | N  | 完整jdbc url  jdbc:oracle:thin:@host:port:serviceName                                       |
 | dataHandler     | Y  | 数据处理具体实现 实现 com.codestepfish.vline.oracle.handler.OracleReadHandler/OracleWriteHandler 接口 |
 | flyway          | N  | 默认false                                                                                   |
+
+### etcd 🛰️
+
+> com.codestepfish.vline.core.etcd.EtcdProperties
+
+1. node节点上层必须实现 `com.codestepfish.vline.etcd.handler.EtcdDataHandler` 接口
+
+| key         | 必填 | desc                                                               |
+|:------------|----|--------------------------------------------------------------------|
+| endpoints   | Y  | etcd endpoints 多个节点逗号分隔                                            |
+| dataHandler | Y  | 数据处理具体实现 实现 com.codestepfish.vline.etcd.handler.EtcdDataHandler 接口 |
 
 ### serial port 🛰️
 
