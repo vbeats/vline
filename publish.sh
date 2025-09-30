@@ -1,7 +1,7 @@
 #!/bin/bash
 
-./gradlew clean --task-graph
+./gradlew clean
 
-./gradlew publish --task-graph
+./gradlew publish
 
-./gradlew jreleaserFullRelease --task-graph
+./gradlew jreleaserFullRelease
