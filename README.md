@@ -28,6 +28,7 @@ Not ETL
 ## todo
 
 - [x] init sql 改造, 通过flyway实现版本控制
+- [ ] gradle 9.2+ registerFeature改造
 
 ## Support
 

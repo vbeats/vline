@@ -4,7 +4,6 @@ dependencies {
     api libs.get('caffeine')
     api libs.get('hutool')
     api libs.get('fastjson')
-    api libs.get('fastjson-ext')
     api libs.get('jackson-core')
     api libs.get('jackson-annotations')
     api libs.get('jackson-yaml')
