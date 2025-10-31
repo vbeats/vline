@@ -1,7 +1,7 @@
 ext {
     versions = [
             fastjson          : '2.0.60',
-            jacksonCore       : '3.0.1',
+            jackson           : '2.20.0',
             jacksonAnnotations: '2.20',
             mysql             : '9.5.0',
             postgres          : '42.7.8',
@@ -27,9 +27,9 @@ ext {
 
     libs = [
             'fastjson'                  : "com.alibaba.fastjson2:fastjson2:${versions.fastjson}",
-            'jackson-core'              : "tools.jackson.core:jackson-core:${versions.jacksonCore}",
+            'jackson-core'              : "com.fasterxml.jackson.core:jackson-core:${versions.jackson}",
             'jackson-annotations'       : "com.fasterxml.jackson.core:jackson-annotations:${versions.jacksonAnnotations}",
-            'jackson-yaml'              : "tools.jackson.dataformat:jackson-dataformat-yaml:${versions.jacksonCore}",
+            'jackson-yaml'              : "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:${versions.jackson}",
             'mysql'                     : "com.mysql:mysql-connector-j:${versions.mysql}",
             'postgres'                  : "org.postgresql:postgresql:${versions.postgres}",
             'oracle'                    : "com.oracle.database.jdbc:ojdbc11:${versions.oracle}",
