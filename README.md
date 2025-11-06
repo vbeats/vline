@@ -28,7 +28,7 @@ Not ETL
 ## todo
 
 - [x] init sql 改造, 通过flyway实现版本控制
-- [ ] gradle registerFeature改造
+- [ ] gradle registerFeature改造 || 自定义条件注解
 
 ## Support
 
