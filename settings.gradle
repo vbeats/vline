@@ -19,6 +19,7 @@ include 'vline-etcd'
 include 'vline-sql-server-jtds'
 include 'vline-sql-server-mssql'
 include 'vline-serial-port'
+include 'vline-h2'
 
 
 include 'vline-spring-boot-starter'

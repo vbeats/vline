@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: example-h2
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+vline:
+  nodes:
+    - name: t1
+      h2:
+        mode: read
+        flyway: true
+        data-handler: com.codestepfish.vline.example.h2.H2ReadExampleHandler
+        jdbc-url: jdbc:h2:file:./examples/vline-example-h2/testdb
+        username: sa
+        password: 123456

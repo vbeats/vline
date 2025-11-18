@@ -4,6 +4,7 @@ import com.alibaba.fastjson2.JSONWriter;
 import com.alibaba.fastjson2.annotation.JSONField;
 import com.codestepfish.vline.core.enums.NodeType;
 import com.codestepfish.vline.core.etcd.EtcdProperties;
+import com.codestepfish.vline.core.h2.H2Properties;
 import com.codestepfish.vline.core.http.HttpProperties;
 import com.codestepfish.vline.core.mssql.MssqlProperties;
 import com.codestepfish.vline.core.mysql.MysqlProperties;
@@ -66,6 +67,8 @@ public class Node implements INode, Serializable {
     private EtcdProperties etcd;
 
     private SerialPortProperties serialPort;
+
+    private H2Properties h2;
 
     @Override
     public void init() {
@@ -155,6 +158,13 @@ public class Node implements INode, Serializable {
         this.serialPort = serialPort;
         if (!ObjectUtils.isEmpty(serialPort)) {
             this.type = NodeType.SERIAL_PORT;
+        }
+    }
+
+    public void setH2(H2Properties h2) {
+        this.h2 = h2;
+        if (!ObjectUtils.isEmpty(h2)) {
+            this.type = NodeType.H2;
         }
     }
 }

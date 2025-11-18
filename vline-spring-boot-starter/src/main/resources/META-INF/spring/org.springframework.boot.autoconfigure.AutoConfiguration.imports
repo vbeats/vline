@@ -14,3 +14,4 @@ com.codestepfish.vline.spring.boot.starter.sqlite.SqLiteNodeAutoConfiguration
 com.codestepfish.vline.spring.boot.starter.oracle.OracleNodeAutoConfiguration
 com.codestepfish.vline.spring.boot.starter.etcd.EtcdNodeAutoConfiguration
 com.codestepfish.vline.spring.boot.starter.serialport.SerialPortNodeAutoConfiguration
+com.codestepfish.vline.spring.boot.starter.h2.H2NodeAutoConfiguration

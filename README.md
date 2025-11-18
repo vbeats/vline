@@ -45,6 +45,7 @@ Not ETL
 | oracle          | 11gr2 + | ✅        |
 | etcd            |         | ✅        |
 | serial-port     |         | ✅        |
+| h2              |         | ✅        |
 
 ## desc
 
@@ -67,6 +68,7 @@ Not ETL
 | vline-sql-server          | mssql驱动 2005+                                  |
 | vline-oracle              | oracle 11gr2 +                                 |
 | vline-etcd                | etcd client                                    |
+| vline-h2                  | h2数据库                                          |
 | vline-serial-port         | 串口通信                                           |
 | vline-spring-boot-starter | spring boot starter : yml解析 初始化  event bus事件监听 |
 | examples                  | 示例                                             |
@@ -263,6 +265,23 @@ vline:
 |:------------|----|--------------------------------------------------------------------|
 | endpoints   | Y  | etcd endpoints 多个节点逗号分隔                                            |
 | dataHandler | Y  | 数据处理具体实现 实现 com.codestepfish.vline.etcd.handler.EtcdDataHandler 接口 |
+
+### h2 🛰️
+
+> com.codestepfish.vline.core.h2.H2Properties
+
+1. node节点(read/write mode)上层必须实现 `com.codestepfish.vline.h2.handler.H2ReadHandler/H2WriteHandler` 接口
+2. 模块依赖了 `spring-boot-starter-jdbc` , 如果不需要springboot自动配置数据源 , 上层应用应当排除
+   `DataSourceAutoConfiguration`
+3. flyway文件位置`classpath:h2/{nodeName}`
+
+| key             | 必填 | desc                                                                          |
+|:----------------|----|-------------------------------------------------------------------------------|
+| mode            | N  | read/write/other(仅注入数据源)                                                      |
+| driverClassName | N  | 默认org.h2.Driver                                                               |
+| jdbcUrl         | N  | 完整jdbc url                                                                    |
+| dataHandler     | Y  | 数据处理具体实现 实现 com.codestepfish.vline.h2.handler.H2ReadHandler/H2WriteHandler 接口 |
+| flyway          | N  | 默认false                                                                       |
 
 ### serial port 🛰️
 
