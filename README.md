@@ -29,6 +29,7 @@ Not ETL
 
 - [x] init sql 改造, 通过flyway实现版本控制
 - [ ] gradle registerFeature改造 || 自定义条件注解
+- [ ] add thymeleaf yaml editor & config持久化
 
 ## Support
 
