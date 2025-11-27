@@ -21,7 +21,6 @@ include 'vline-sql-server-mssql'
 include 'vline-serial-port'
 include 'vline-h2'
 
-
 include 'vline-spring-boot-starter'
 
 // include examples 下所有模块

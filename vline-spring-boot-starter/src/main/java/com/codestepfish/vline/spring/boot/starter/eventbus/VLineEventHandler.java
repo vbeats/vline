@@ -1,7 +1,7 @@
 package com.codestepfish.vline.spring.boot.starter.eventbus;
 
 import com.codestepfish.vline.core.eventbus.VLineEvent;
-import com.codestepfish.vline.spring.boot.starter.VLineContext;
+import com.codestepfish.vline.core.VLineContext;
 import com.lmax.disruptor.EventHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

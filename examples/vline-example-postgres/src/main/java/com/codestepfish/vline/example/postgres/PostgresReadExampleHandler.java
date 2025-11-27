@@ -3,7 +3,7 @@ package com.codestepfish.vline.example.postgres;
 import cn.hutool.core.thread.ThreadUtil;
 import com.codestepfish.vline.postgres.PostgresNode;
 import com.codestepfish.vline.postgres.handler.PostgresReadHandler;
-import com.codestepfish.vline.spring.boot.starter.VLineContext;
+import com.codestepfish.vline.core.VLineContext;
 import lombok.extern.slf4j.Slf4j;
 import org.anyline.entity.DataSet;
 import org.anyline.proxy.ServiceProxy;

@@ -2,16 +2,9 @@ package com.codestepfish.vline.spring.boot.starter;
 
 import cn.hutool.core.thread.ThreadUtil;
 import com.codestepfish.vline.core.Node;
+import com.codestepfish.vline.core.VLineProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.ser.FilterProvider;
-import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
-import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
-import com.fasterxml.jackson.databind.type.TypeFactory;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.stats.CacheStats;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +17,10 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.caffeine.CaffeineCache;
 import org.springframework.context.annotation.Configuration;
+import tools.jackson.databind.ser.std.SimpleBeanPropertyFilter;
+import tools.jackson.databind.ser.std.SimpleFilterProvider;
+import tools.jackson.dataformat.yaml.YAMLMapper;
+import tools.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.util.Collection;
 
@@ -32,13 +29,13 @@ import java.util.Collection;
 @RequiredArgsConstructor
 @AutoConfigureBefore({DataSourceAutoConfiguration.class})
 @EnableConfigurationProperties({VLineProperties.class})
-@ConfigurationPropertiesScan(basePackages = "com.codestepfish.vline.spring.boot.starter")
+@ConfigurationPropertiesScan(basePackages = "com.codestepfish.vline")
 public class VLineAutoConfiguration implements InitializingBean, DisposableBean {
 
     private final VLineProperties vLineProperties;
     private final CacheManager cacheManager;
 
-    private final ObjectMapper yamlMapper = createMapper(new YAMLFactory(), null);
+    private final YAMLMapper yamlMapper = getYamlMapper();
 
     @Override
     public void destroy() throws Exception {
@@ -60,7 +57,7 @@ public class VLineAutoConfiguration implements InitializingBean, DisposableBean 
                             cacheNames.forEach(cacheName -> {
                                 CaffeineCache caffeineCache = (CaffeineCache) cacheManager.getCache(cacheName);
                                 if (caffeineCache != null) {
-                                    com.github.benmanes.caffeine.cache.Cache<Object, Object> cache = caffeineCache.getNativeCache();
+                                    Cache<Object, Object> cache = caffeineCache.getNativeCache();
                                     CacheStats stats = cache.stats();
 
                                     log.info("caffeine cache stats : {} ", stats);
@@ -71,21 +68,12 @@ public class VLineAutoConfiguration implements InitializingBean, DisposableBean 
         }
     }
 
-    private ObjectMapper createMapper(JsonFactory mapping, ClassLoader classLoader) {
-        ObjectMapper mapper = new ObjectMapper(mapping);
+    private YAMLMapper getYamlMapper() {
+        return YAMLMapper.builder()
+                .addModule(new JavaTimeModule())
+                .changeDefaultPropertyInclusion(v -> JsonInclude.Value.construct(JsonInclude.Include.NON_NULL, JsonInclude.Include.NON_NULL))
+                .filterProvider(new SimpleFilterProvider().addFilter("classFilter", SimpleBeanPropertyFilter.filterOutAllExcept()))
+                .build();
 
-        mapper.registerModule(new JavaTimeModule());
-
-        FilterProvider filterProvider = new SimpleFilterProvider().addFilter("classFilter", SimpleBeanPropertyFilter.filterOutAllExcept());
-        mapper.setFilterProvider(filterProvider);
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-
-        if (classLoader != null) {
-            TypeFactory tf = TypeFactory.defaultInstance().withClassLoader(classLoader);
-            mapper.setTypeFactory(tf);
-        }
-
-        return mapper;
     }
 }

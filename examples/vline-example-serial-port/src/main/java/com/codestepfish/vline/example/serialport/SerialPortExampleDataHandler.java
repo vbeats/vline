@@ -3,7 +3,7 @@ package com.codestepfish.vline.example.serialport;
 import com.codestepfish.vline.serialport.SerialPortNode;
 import com.codestepfish.vline.serialport.handler.SerialPortDataHandler;
 import com.codestepfish.vline.serialport.handler.SerialPortHandler;
-import com.codestepfish.vline.spring.boot.starter.VLineContext;
+import com.codestepfish.vline.core.VLineContext;
 import com.fazecast.jSerialComm.SerialPort;
 import lombok.extern.slf4j.Slf4j;
 

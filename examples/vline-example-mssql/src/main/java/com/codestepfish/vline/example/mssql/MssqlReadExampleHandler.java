@@ -3,7 +3,7 @@ package com.codestepfish.vline.example.mssql;
 import cn.hutool.core.thread.ThreadUtil;
 import com.codestepfish.vline.jtds.MssqlNode;
 import com.codestepfish.vline.jtds.handler.MssqlReadHandler;
-import com.codestepfish.vline.spring.boot.starter.VLineContext;
+import com.codestepfish.vline.core.VLineContext;
 import lombok.extern.slf4j.Slf4j;
 import org.anyline.entity.DataSet;
 import org.anyline.proxy.ServiceProxy;
