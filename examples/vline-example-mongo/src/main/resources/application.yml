@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: example-mongo
+
+vline:
+  nodes:
+    - name: t1
+      mongo:
+        mode: read
+        data-handler: com.codestepfish.vline.example.mongo.MongoReadExampleHandler
+        uri: mongodb://172.80.0.1:27017

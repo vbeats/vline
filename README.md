@@ -28,24 +28,26 @@ Not ETL
 ## todo
 
 - [x] init sql 改造, 通过flyway实现版本控制
-- [ ] add thymeleaf yaml editor & config持久化
+- [ ] config持久化 / nodejs重构
 
 ## Support
 
-| module          | remark  | progress |
-|-----------------|---------|----------|
-| tcp             |         | ✅        |
-| http            |         | ✅        |
-| redis           |         | ✅        |
-| mysql           |         | ✅        |
-| sqlite          |         | ✅        |
-| postgresql      |         | ✅        |
-| sql-server      | mssql驱动 | ✅        |
-| sql-server-jtds | jtds驱动  | ✅        |
-| oracle          | 11gr2 + | ✅        |
-| etcd            |         | ✅        |
-| serial-port     |         | ✅        |
-| h2              |         | ✅        |
+| module          | remark      | progress |
+|-----------------|-------------|----------|
+| tcp             |             | ✅        |
+| http            |             | ✅        |
+| redis           |             | ✅        |
+| mysql           |             | ✅        |
+| sqlite          |             | ✅        |
+| postgresql      |             | ✅        |
+| sql-server      | mssql驱动     | ✅        |
+| sql-server-jtds | jtds驱动      | ✅        |
+| oracle          | 11gr2 +     | ✅        |
+| etcd            |             | ✅        |
+| serial-port     | 232/485 ... | ✅        |
+| h2              |             | ✅        |
+| mongodb         |             | ✅        |
+| duckdb          |             | ✅        |
 
 ## desc
 
@@ -70,6 +72,8 @@ Not ETL
 | vline-etcd                | etcd client                                    |
 | vline-h2                  | h2数据库                                          |
 | vline-serial-port         | 串口通信                                           |
+| vline-mongo               | mongodb                                        |
+| vline-duckdb              | duckdb                                         |
 | vline-spring-boot-starter | spring boot starter : yml解析 初始化  event bus事件监听 |
 | examples                  | 示例                                             |
 
@@ -299,3 +303,29 @@ vline:
 | useRs485Mode | N  | 是否使用rs485模式        默认 false                                                    |
 | ignored      | N  | 是否忽略其它业务处理  只转发数据                                                              |
 | dataHandler  | Y  | 数据处理具体实现 实现 com.codestepfish.vline.serialport.handler.SerialPortDataHandler 接口 |
+
+### mongo 🛰️
+
+> com.codestepfish.vline.core.mongo.MongoProperties
+
+1. node节点(read/write mode)上层必须实现 `com.codestepfish.vline.mongo.handler.MongoReadHandler/MongoWriteHandler` 接口
+2. 如果不需要springboot自动配置数据源 , 上层应用应当排除 `DataSourceAutoConfiguration` `MongoAutoConfiguration`
+
+| key         | 必填 | desc                                                                                   |
+|:------------|----|----------------------------------------------------------------------------------------|
+| mode        | N  | read/write/other(仅注入数据源)                                                               |
+| uri         | N  | 完整mongodb uri                                                                          |
+| dataHandler | Y  | 数据处理具体实现 实现 com.codestepfish.vline.mongo.handler.MongoReadHandler/MongoWriteHandler 接口 |
+
+### duckdb 🛰️
+
+> com.codestepfish.vline.core.duckdb.DuckProperties
+
+1. 上层通过`com.codestepfish.vline.duckdb.DuckClientHolder`获取节点对应的`Connection`
+
+> com.codestepfish.vline.core.duckdb.DuckProperties
+
+| key         | 必填 | desc                                                                 |
+|:------------|----|----------------------------------------------------------------------|
+| uri         | Y  | 完整duckdb uri                                                         |
+| dataHandler | Y  | 数据处理具体实现 实现 com.codestepfish.vline.duckdb.handler.DuckDataHandler 接口 |

@@ -13,5 +13,7 @@ public enum NodeType {
     ORACLE,
     ETCD,
     SERIAL_PORT,
-    H2;
+    H2,
+    MONGO,
+    DUCKDB;
 }

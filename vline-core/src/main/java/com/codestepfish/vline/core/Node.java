@@ -2,10 +2,12 @@ package com.codestepfish.vline.core;
 
 import com.alibaba.fastjson2.JSONWriter;
 import com.alibaba.fastjson2.annotation.JSONField;
+import com.codestepfish.vline.core.duckdb.DuckProperties;
 import com.codestepfish.vline.core.enums.NodeType;
 import com.codestepfish.vline.core.etcd.EtcdProperties;
 import com.codestepfish.vline.core.h2.H2Properties;
 import com.codestepfish.vline.core.http.HttpProperties;
+import com.codestepfish.vline.core.mongo.MongoProperties;
 import com.codestepfish.vline.core.mssql.MssqlProperties;
 import com.codestepfish.vline.core.mysql.MysqlProperties;
 import com.codestepfish.vline.core.oracle.OracleProperties;
@@ -69,6 +71,10 @@ public class Node implements INode, Serializable {
     private SerialPortProperties serialPort;
 
     private H2Properties h2;
+
+    private MongoProperties mongo;
+
+    private DuckProperties duckdb;
 
     @Override
     public void init() {
@@ -165,6 +171,20 @@ public class Node implements INode, Serializable {
         this.h2 = h2;
         if (!ObjectUtils.isEmpty(h2)) {
             this.type = NodeType.H2;
+        }
+    }
+
+    public void setMongo(MongoProperties mongo) {
+        this.mongo = mongo;
+        if (!ObjectUtils.isEmpty(mongo)) {
+            this.type = NodeType.MONGO;
+        }
+    }
+
+    public void setDuckdb(DuckProperties duckdb) {
+        this.duckdb = duckdb;
+        if (!ObjectUtils.isEmpty(duckdb)) {
+            this.type = NodeType.DUCKDB;
         }
     }
 }

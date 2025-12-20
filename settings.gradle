@@ -20,6 +20,8 @@ include 'vline-sql-server-jtds'
 include 'vline-sql-server-mssql'
 include 'vline-serial-port'
 include 'vline-h2'
+include 'vline-mongo'
+include 'vline-duckdb'
 
 include 'vline-spring-boot-starter'
 

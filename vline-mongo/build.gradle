@@ -1,0 +1,11 @@
+dependencies {
+    api(project(":vline-core"))
+
+    api libs.get('mongo')
+    api libs.get('anyline-mvc')
+    api libs.get('anyline-environment')
+    api libs.get('anyline-data-mongo')
+
+    api 'org.springframework.boot:spring-boot-starter-jdbc'
+    api 'org.springframework.boot:spring-boot-starter-web'
+}
