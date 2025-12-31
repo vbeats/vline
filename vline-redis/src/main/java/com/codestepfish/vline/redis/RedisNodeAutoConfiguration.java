@@ -9,10 +9,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.data.redis.autoconfigure.DataRedisAutoConfiguration;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +24,7 @@ import java.util.concurrent.CountDownLatch;
 @Configuration
 @RequiredArgsConstructor
 @ConditionalOnClass(RedisNode.class)
-@AutoConfigureBefore(value = {RedisAutoConfiguration.class})
+@AutoConfigureBefore(value = {DataRedisAutoConfiguration.class})
 @EnableConfigurationProperties({VLineProperties.class})
 @ConfigurationPropertiesScan(basePackages = "com.codestepfish.vline")
 public class RedisNodeAutoConfiguration implements ApplicationListener {

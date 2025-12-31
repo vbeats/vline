@@ -6,9 +6,12 @@ Not ETL
 
 ![alt text](/images/vline.svg)
 
-## dependency
+## branch
 
-> JDK21 springboot3.x 其它版本未测试
+- 🪶 main ( jdk21 spring boot 3.x)  version: 4.x
+- 🔧 next (  jdk21 spring boot 4.x)  version: 5.x
+
+## dependency
 
 ```gradle
     implementation project("com.codestepfish.vline:vline-spring-boot-starter:${version}")
@@ -28,16 +31,9 @@ Not ETL
 ## todo
 
 - [x] init sql 改造, 通过flyway实现版本控制
-- [ ] springboot 2.x (jdk1.8) 支持
 - [ ] springboot 4 支持
 - [ ] mqtt 支持
 - [ ] config持久化 / nodejs重构
-
-## branch
-
-- 🐧 2.x ( jdk1.8 spring boot 2.x)  version: 3.x
-- 🪶 main ( jdk21 spring boot 3.x)  version: 4.x
-- 🔧 next (  jdk21 spring boot 4.x)  version: 5.x
 
 ## Support
 
