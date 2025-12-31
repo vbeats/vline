@@ -30,7 +30,7 @@ Arrays.asList(rootDir.listFiles()).forEach(e -> {
     if (e.isDirectory()) {
         def dirName = e.getAbsolutePath().substring(e.getAbsolutePath().lastIndexOf("\\") + 1)
         if ("examples" == dirName) {
-            Arrays.asList(e.listFiles()).forEach(ex -> {
+            Arrays.asList(e.listFiles()).stream().filter(File::isDirectory).forEach(ex -> {
                 include 'examples:' + ex.getAbsolutePath().substring(ex.getAbsolutePath().lastIndexOf("\\") + 1)
             })
         }

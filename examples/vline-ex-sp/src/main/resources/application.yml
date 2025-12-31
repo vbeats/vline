@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: vline-ex
+
+server:
+  port: 10086
+
+logging:
+  config: classpath:logback-spring.xml
+
+vline:
+  nodes:
+    - name: c1
+      type: serial_port
+      serial-port:
+        device: /dev/ttyS0
+        baud-rate: 115200
+        ignored: false
+        data-handler: com.codestepfish.vlineex.handler.SpDataHandler
+    - name: c2
+      type: serial_port
+      serial-port:
+        device: /dev/pts/2
+        baud-rate: 115200
+        ignored: false
+        data-handler: com.codestepfish.vlineex.handler.SpDataHandler
+    - name: c3
+      type: serial_port
+      serial-port:
+        device: /dev/ttyS1
+        baud-rate: 115200
+        ignored: false
+        data-handler: com.codestepfish.vlineex.handler.SpDataHandler
+    - name: c4
+      type: serial_port
+      serial-port:
+        device: /dev/pts/4
+        baud-rate: 115200
+        ignored: false
+        data-handler: com.codestepfish.vlineex.handler.SpDataHandler
+
+  struct:
+    c1:
+      - c2
+    c3:
+      - c4

@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: vline-ex
+
+server:
+  port: 10086
+
+logging:
+  config: classpath:logback-spring.xml
+
+vline:
+  nodes:
+    - name: c1
+      type: serial_port
+      serial-port:
+        device: COM1
+        baud-rate: 115200
+        ignored: false
+        data-handler: com.codestepfish.vlineex.handler.SpDataHandler
+    - name: api
+      http:
+        handler: com.codestepfish.vlineex.api.ApiHandler
+  struct:
+    c1:
+      - api
+
+forest:
+  async-mode: platform
+  max-connections: 1000
+  max-route-connections: 500
+  max-request-queue-size: 200
+  max-async-thread-size: 300
+  max-async-queue-size: 200
+  connect-timeout: 3000
+  read-timeout: 5000
+  max-retry-count: 0
+  ssl-protocol: TLS
+  log-enabled: true
+  log-request: true
+  log-response-content: true
+  log-response-status: true

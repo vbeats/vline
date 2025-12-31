@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: vline-ex
+
+server:
+  port: 10086
+
+logging:
+  config: classpath:logback-spring.xml
+
+vline:
+  nodes:
+    - name: db
+      mssql-jtds:
+        mode: read
+        host: 192.168.106.131
+        port: 1433
+        database-name: test
+        username: sa
+        password: 123456
+        flyway: false
+        data-handler: com.codestepfish.vlineex.db.DbDataHandler
+    - name: cache
+      sqlite:
+        mode: other
+        db-path: ./db.sqlite
+        flyway: false
+    - name: api
+      http:
+        handler: com.codestepfish.vlineex.api.ApiHandler
+  struct:
+    db:
+      - api
+
+forest:
+  async-mode: platform
+  max-connections: 1000
+  max-route-connections: 500
+  max-request-queue-size: 200
+  max-async-thread-size: 300
+  max-async-queue-size: 200
+  connect-timeout: 3000
+  read-timeout: 5000
+  max-retry-count: 0
+  ssl-protocol: TLS
+  log-enabled: true
+  log-request: true
+  log-response-content: true
+  log-response-status: true
