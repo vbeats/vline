@@ -6,9 +6,13 @@ Not ETL
 
 ![alt text](/images/vline.svg)
 
-## dependency
+## branch
 
-> JDK21 springboot3.x 其它版本未测试
+- 🐧 2.x ( jdk1.8 spring boot 2.x)  version: 3.x
+- 🪶 main ( jdk21 spring boot 3.x)  version: 4.x
+- 🔧 next (  jdk21 spring boot 4.x)  version: 5.x
+
+## dependency
 
 ```gradle
     implementation project("com.codestepfish.vline:vline-spring-boot-starter:${version}")
@@ -19,25 +23,19 @@ Not ETL
     .....
 ```
 
+## todo
+
+- [x] init sql 改造, 通过flyway实现版本控制
+- [x] ~~springboot 2.x (jdk1.8) 支持~~
+- [x] springboot 4 支持
+- [ ] mqtt 支持
+- [ ] config持久化 / nodejs重构
+
 ## 💻 dev
 
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/vbeats/vline)
 
 [![zread](https://img.shields.io/badge/Ask_Zread-_.svg?style=flat&color=00b0aa&labelColor=000000&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTQuOTYxNTYgMS42MDAxSDIuMjQxNTZDMS44ODgxIDEuNjAwMSAxLjYwMTU2IDEuODg2NjQgMS42MDE1NiAyLjI0MDFWNC45NjAxQzEuNjAxNTYgNS4zMTM1NiAxLjg4ODEgNS42MDAxIDIuMjQxNTYgNS42MDAxSDQuOTYxNTZDNS4zMTUwMiA1LjYwMDEgNS42MDE1NiA1LjMxMzU2IDUuNjAxNTYgNC45NjAxVjIuMjQwMUM1LjYwMTU2IDEuODg2NjQgNS4zMTUwMiAxLjYwMDEgNC45NjE1NiAxLjYwMDFaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik00Ljk2MTU2IDEwLjM5OTlIMi4yNDE1NkMxLjg4ODEgMTAuMzk5OSAxLjYwMTU2IDEwLjY4NjQgMS42MDE1NiAxMS4wMzk5VjEzLjc1OTlDMS42MDE1NiAxNC4xMTM0IDEuODg4MSAxNC4zOTk5IDIuMjQxNTYgMTQuMzk5OUg0Ljk2MTU2QzUuMzE1MDIgMTQuMzk5OSA1LjYwMTU2IDE0LjExMzQgNS42MDE1NiAxMy43NTk5VjExLjAzOTlDNS42MDE1NiAxMC42ODY0IDUuMzE1MDIgMTAuMzk5OSA0Ljk2MTU2IDEwLjM5OTlaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik0xMy43NTg0IDEuNjAwMUgxMS4wMzg0QzEwLjY4NSAxLjYwMDEgMTAuMzk4NCAxLjg4NjY0IDEwLjM5ODQgMi4yNDAxVjQuOTYwMUMxMC4zOTg0IDUuMzEzNTYgMTAuNjg1IDUuNjAwMSAxMS4wMzg0IDUuNjAwMUgxMy43NTg0QzE0LjExMTkgNS42MDAxIDE0LjM5ODQgNS4zMTM1NiAxNC4zOTg0IDQuOTYwMVYyLjI0MDFDMTQuMzk4NCAxLjg4NjY0IDE0LjExMTkgMS42MDAxIDEzLjc1ODQgMS42MDAxWiIgZmlsbD0iI2ZmZiIvPgo8cGF0aCBkPSJNNCAxMkwxMiA0TDQgMTJaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik00IDEyTDEyIDQiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K&logoColor=ffffff)](https://zread.ai/vbeats/vline)
-
-## todo
-
-- [x] init sql 改造, 通过flyway实现版本控制
-- [ ] springboot 2.x (jdk1.8) 支持
-- [ ] springboot 4 支持
-- [ ] mqtt 支持
-- [ ] config持久化 / nodejs重构
-
-## branch
-
-- 🐧 2.x ( jdk1.8 spring boot 2.x)  version: 3.x
-- 🪶 main ( jdk21 spring boot 3.x)  version: 4.x
-- 🔧 next (  jdk21 spring boot 4.x)  version: 5.x
 
 ## Support
 
