@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: vline
+
+server:
+  port: 10086

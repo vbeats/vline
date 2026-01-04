@@ -1,8 +1,0 @@
-dependencies {
-    api(project(":vline-core"))
-
-    api libs.get('duckdb')
-
-    api 'org.springframework.boot:spring-boot-starter-jdbc'
-    api 'org.springframework.boot:spring-boot-starter-web'
-}

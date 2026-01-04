@@ -1,5 +1,0 @@
-dependencies {
-    api(project(":vline-core"))
-
-    api 'org.springframework.boot:spring-boot-starter-web'
-}

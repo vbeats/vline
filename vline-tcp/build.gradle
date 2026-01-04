@@ -1,5 +1,0 @@
-dependencies {
-    api(project(":vline-core"))
-
-    api libs.get('netty')
-}
