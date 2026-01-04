@@ -9,8 +9,8 @@ Not ETL
 ## branch
 
 - 🐧 2.x ( jdk1.8 spring boot 2.x)  version: 3.x
-- 🪶 main ( jdk21 spring boot 3.x)  version: 4.x
-- 🔧 next (  jdk21 spring boot 4.x)  version: 5.x
+- 🔧 3.x (  jdk21 spring boot 3.x)  version: 4.x
+- 🪶 main ( jdk21 spring boot 4.x)  version: 5.x
 
 ## dependency
 
