@@ -26,7 +26,8 @@ ext {
             jetcd             : '0.8.6',
             h2                : '2.4.240',
             mongo             : '5.6.2',
-            duckdb            : '1.4.3.0'
+            duckdb            : '1.4.3.0',
+            paho              : '1.2.5'
     ]
 
     libs = [
@@ -71,6 +72,7 @@ ext {
             'jetcd'                     : "io.etcd:jetcd-core:${versions.jetcd}",
             'h2'                        : "com.h2database:h2:${versions.h2}",
             'mongo'                     : "org.mongodb:mongodb-driver-sync:${versions.mongo}",
-            'duckdb'                    : "org.duckdb:duckdb_jdbc:${versions.duckdb}"
+            'duckdb'                    : "org.duckdb:duckdb_jdbc:${versions.duckdb}",
+            'paho'                      : "org.eclipse.paho:org.eclipse.paho.mqttv5.client:${versions.paho}"
     ]
 }

@@ -1,7 +1,7 @@
 package com.codestepfish.vline.spring.boot.starter.eventbus;
 
-import com.codestepfish.vline.core.eventbus.VLineEvent;
 import com.codestepfish.vline.core.VLineContext;
+import com.codestepfish.vline.core.eventbus.VLineEvent;
 import com.lmax.disruptor.EventHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,7 @@ public class VLineEventHandler implements EventHandler<VLineEvent> {
 
     @Override
     public void onEvent(VLineEvent event, long sequence, boolean endOfBatch) throws Exception {
-        log.info("【{}】 -- {} EventHandler Received Data : {}", event.getKey(), sequence, event.getPayload());
+        log.debug("【{}】 -- {} EventHandler Received Data : {}", event.getKey(), sequence, event.getPayload());
         List<String> nextNodes = vLineContext.nextNodes(event.getKey());
         nextNodes.parallelStream().forEach(node -> VLineContext.NODES.get(node).receiveData(event.getPayload()));
     }

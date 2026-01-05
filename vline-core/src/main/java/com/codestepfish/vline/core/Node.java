@@ -8,6 +8,7 @@ import com.codestepfish.vline.core.etcd.EtcdProperties;
 import com.codestepfish.vline.core.h2.H2Properties;
 import com.codestepfish.vline.core.http.HttpProperties;
 import com.codestepfish.vline.core.mongo.MongoProperties;
+import com.codestepfish.vline.core.mqtt.MqttProperties;
 import com.codestepfish.vline.core.mssql.MssqlProperties;
 import com.codestepfish.vline.core.mysql.MysqlProperties;
 import com.codestepfish.vline.core.oracle.OracleProperties;
@@ -75,6 +76,8 @@ public class Node implements INode, Serializable {
     private MongoProperties mongo;
 
     private DuckProperties duckdb;
+
+    private MqttProperties mqtt;
 
     @Override
     public void init() {
@@ -185,6 +188,13 @@ public class Node implements INode, Serializable {
         this.duckdb = duckdb;
         if (!ObjectUtils.isEmpty(duckdb)) {
             this.type = NodeType.DUCKDB;
+        }
+    }
+
+    public void setMqtt(MqttProperties mqtt) {
+        this.mqtt = mqtt;
+        if (!ObjectUtils.isEmpty(mqtt)) {
+            this.type = NodeType.MQTT;
         }
     }
 }

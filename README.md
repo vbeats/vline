@@ -23,14 +23,6 @@ Not ETL
     .....
 ```
 
-## todo
-
-- [x] init sql 改造, 通过flyway实现版本控制
-- [x] ~~springboot 2.x (jdk1.8) 支持~~
-- [x] springboot 4 支持
-- [ ] mqtt 支持
-- [ ] config持久化 / nodejs重构
-
 ## 💻 dev
 
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/vbeats/vline)
@@ -55,10 +47,7 @@ Not ETL
 | h2              |             | ✅        |
 | mongodb         |             | ✅        |
 | duckdb          |             | ✅        |
-
-## desc
-
-1. ~~msg data持久化 保证数据传递不丢失~~  由上层应用层实现
+| mqtt            | only v5     | ✅        |
 
 ## module
 
@@ -81,6 +70,7 @@ Not ETL
 | vline-serial-port         | 串口通信                                           |
 | vline-mongo               | mongodb                                        |
 | vline-duckdb              | duckdb                                         |
+| vline-mqtt                | mqtt (目前只支持v5)                                 |
 | vline-spring-boot-starter | spring boot starter : yml解析 初始化  event bus事件监听 |
 | examples                  | 示例                                             |
 
@@ -336,3 +326,19 @@ vline:
 |:------------|----|----------------------------------------------------------------------|
 | uri         | Y  | 完整duckdb uri                                                         |
 | dataHandler | Y  | 数据处理具体实现 实现 com.codestepfish.vline.duckdb.handler.DuckDataHandler 接口 |
+
+## mqtt 🛰️
+
+> com.codestepfish.vline.core.mqtt.MqttProperties
+
+1. node节点上层必须实现 `com.codestepfish.vline.mqtt.handler.MqttDataHandler` 接口
+
+| key         | 必填 | desc                                                               |
+|:------------|----|--------------------------------------------------------------------|
+| broker      | Y  | mqtt broker (格式: tcp://host:port)                                  |
+| clientId    | N  | mqtt client id (默认: clientId_<随机数>)                                |
+| topic       | Y  | mqtt topic                                                         |
+| subQos      | N  | mqtt 订阅qos (默认: 0)                                                 |
+| pubQos      | N  | mqtt 发布qos (默认: 0)                                                 |
+| cleanStart  | N  | mqtt clean start (默认: true)                                        |
+| dataHandler | Y  | 数据处理具体实现 实现 com.codestepfish.vline.mqtt.handler.MqttDataHandler 接口 |

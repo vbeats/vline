@@ -15,5 +15,6 @@ public enum NodeType {
     SERIAL_PORT,
     H2,
     MONGO,
-    DUCKDB;
+    DUCKDB,
+    MQTT;
 }

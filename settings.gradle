@@ -22,6 +22,7 @@ include 'vline-serial-port'
 include 'vline-h2'
 include 'vline-mongo'
 include 'vline-duckdb'
+include 'vline-mqtt'
 
 include 'vline-spring-boot-starter'
 
