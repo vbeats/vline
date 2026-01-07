@@ -19,7 +19,7 @@ public class SpDataHandler implements SerialPortDataHandler {
     }
 
     @Override
-    public <T> void receive(SerialPortNode node) {
+    public void receive(SerialPortNode node) {
 
         SerialPort serialPort = SerialPortHandler.SERIAL_PORTS.get(node.getName());
         int bytesAvailable = serialPort.bytesAvailable();
