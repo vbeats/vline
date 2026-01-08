@@ -27,12 +27,14 @@ include 'vline-mqtt'
 include 'vline-spring-boot-starter'
 
 // include examples 下所有模块
+def isWindows = System.getProperty("os.name").toLowerCase().contains("windows")
+
 Arrays.asList(rootDir.listFiles()).forEach(e -> {
     if (e.isDirectory()) {
-        def dirName = e.getAbsolutePath().substring(e.getAbsolutePath().lastIndexOf("\\") + 1)
+        def dirName = e.getAbsolutePath().substring((isWindows ? e.getAbsolutePath().lastIndexOf("\\") : e.getAbsolutePath().lastIndexOf("/")) + 1)
         if ("examples" == dirName) {
             Arrays.asList(e.listFiles()).stream().filter(File::isDirectory).forEach(ex -> {
-                include 'examples:' + ex.getAbsolutePath().substring(ex.getAbsolutePath().lastIndexOf("\\") + 1)
+                include 'examples:' + ex.getAbsolutePath().substring((isWindows ? ex.getAbsolutePath().lastIndexOf("\\") : ex.getAbsolutePath().lastIndexOf("/")) + 1)
             })
         }
     }
