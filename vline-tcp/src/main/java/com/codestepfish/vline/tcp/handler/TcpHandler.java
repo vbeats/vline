@@ -2,6 +2,7 @@ package com.codestepfish.vline.tcp.handler;
 
 import com.codestepfish.vline.core.tcp.TcpProperties;
 import com.codestepfish.vline.tcp.TcpNode;
+import com.codestepfish.vline.tcp.util.TcpHolder;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -14,16 +15,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class TcpHandler {
-
-    // key node name
-    public static final Map<String, ChannelFuture> CHANNEL_FUTURES = new ConcurrentHashMap<>(10);
 
     public static void init(TcpNode node) {
         switch (node.getTcp().getMode()) {
@@ -54,7 +50,7 @@ public class TcpHandler {
             ;
 
             ChannelFuture future = bootstrap.bind(tp.getHost(), tp.getPort()).sync();
-            CHANNEL_FUTURES.put(node.getName(), future);
+            TcpHolder.CHANNEL_FUTURES.put(node.getName(), future);
 
             future.channel().closeFuture().sync();
         } catch (Exception e) {
@@ -85,7 +81,7 @@ public class TcpHandler {
                     .handler(clazz.getDeclaredConstructor().newInstance());
 
             ChannelFuture future = bootstrap.connect(tp.getHost(), tp.getPort());
-            CHANNEL_FUTURES.put(node.getName(), future);
+            TcpHolder.CHANNEL_FUTURES.put(node.getName(), future);
 
 
             future.addListener(f -> {
