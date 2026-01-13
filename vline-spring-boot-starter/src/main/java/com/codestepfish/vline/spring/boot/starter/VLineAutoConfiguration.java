@@ -18,7 +18,6 @@ import org.springframework.context.annotation.Configuration;
 import tools.jackson.databind.ser.std.SimpleBeanPropertyFilter;
 import tools.jackson.databind.ser.std.SimpleFilterProvider;
 import tools.jackson.dataformat.yaml.YAMLMapper;
-import tools.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.util.Collection;
 
@@ -67,7 +66,6 @@ public class VLineAutoConfiguration implements InitializingBean, DisposableBean 
 
     private YAMLMapper getYamlMapper() {
         return YAMLMapper.builder()
-                .addModule(new JavaTimeModule())
                 .changeDefaultPropertyInclusion(v -> JsonInclude.Value.construct(JsonInclude.Include.NON_NULL, JsonInclude.Include.NON_NULL))
                 .filterProvider(new SimpleFilterProvider().addFilter("classFilter", SimpleBeanPropertyFilter.filterOutAllExcept()))
                 .build();

@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: vline-ex
+
+server:
+  port: 10086
+
+logging:
+  config: classpath:logback-spring.xml
+
+vline:
+  nodes:
+    - name: t1
+      type: tcp
+      tcp:
+        mode: server
+        host: 0.0.0.0
+        port: 9999
+        child-handler: com.codestepfish.vlineex.server.T1ServerChannelHandler
+    - name: t2
+      type: tcp
+      tcp:
+        mode: client
+        host: 127.0.0.1
+        port: 8888
+        reconnect-delay: 5s
+        child-handler: com.codestepfish.vlineex.client.T2ClientChannelHandler
+  struct:
+    t1:
+      - t2
+
+# t1 作为tcp server 监听 0.0.0.0:9999
+# t2 作为tcp client 连接 127.0.0.1:8888

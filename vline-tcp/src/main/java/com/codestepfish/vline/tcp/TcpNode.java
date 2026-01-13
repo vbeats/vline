@@ -25,6 +25,16 @@ public class TcpNode extends Node {
     }
 
     @Override
+    public void destroy() {
+        super.destroy();
+        try {
+            TcpHandler.CHANNEL_FUTURES.get(this.getName()).channel().close().sync();
+        } catch (Exception e) {
+            log.error("【{}】 Destroy Failed: ", this.getName(), e);
+        }
+    }
+
+    @Override
     public <T> void receiveData(T data) {
         ChannelFuture future = TcpHandler.CHANNEL_FUTURES.get(this.getName());
         if (ObjectUtils.isEmpty(future)) {
@@ -32,6 +42,7 @@ public class TcpNode extends Node {
             return;
         }
 
+        // todo fix client / server business logic
         future.channel().writeAndFlush(data);  // send 失败不处理...
     }
 }

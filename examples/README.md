@@ -61,3 +61,19 @@ serial port x ---|
 
 # com1 com2 com3 任意com口收发数据 其它com口都可以收到数据
 ```
+
+## [vline-ex-tcp](vline-ex-tcp)
+
+tcp 端口间数据转发
+
+```bash
+
+t1 : 0.0.0.0:9999 tcp server
+
+t2 : tcp client  ===> 127.0.0.1:8888 (tcp server)
+
+# tcp client连接t1 收发数据
+
+# t2 / t2 对应的tcp server 收发数据测试
+
+```
