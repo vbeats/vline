@@ -7,6 +7,7 @@ dependencies {
     api libs.get('jackson-core')
     api libs.get('jackson-databind')
     api libs.get('jackson-yaml')
+    api libs.get('jackson-jsr310')
     api libs.get('jackson-annotations')
     api libs.get('commons-io')
     api libs.get('ttl')
