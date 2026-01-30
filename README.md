@@ -8,9 +8,9 @@ Not ETL
 
 ## branch
 
-- 🐧 2.x ( jdk1.8 spring boot 2.x)  vline_version: 3.x
-- 🔧 3.x (  jdk21 spring boot 3.x)  vline_version: 4.x
-- 🪶 main ( jdk21 spring boot 4.x)  vline_version: 5.x
+- 🐧 ~~2.x~~ ( jdk1.8 spring boot 2.x)  vline_version: 3.x (deprecated)
+- 🔧 ~~3.x~~ (  jdk21 spring boot 3.x)  vline_version: 4.x (deprecated)
+- 🪶 main ( jdk21+ spring boot 4.x)  vline_version: 5.x
 
 ## dependency
 
