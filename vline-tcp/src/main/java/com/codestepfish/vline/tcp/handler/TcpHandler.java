@@ -21,6 +21,8 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class TcpHandler {
 
+    private static final EventLoopGroup CLIENT_WORKER = new NioEventLoopGroup();
+
     public static void init(TcpNode node) {
         switch (node.getTcp().getMode()) {
             case SERVER -> startServer(node);
@@ -70,13 +72,12 @@ public class TcpHandler {
             return;
         }
 
-        EventLoopGroup worker = new NioEventLoopGroup();
         Bootstrap bootstrap = new Bootstrap();
 
         try {
             Class<? extends ChannelHandler> clazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(tp.getChildHandler()).asSubclass(ChannelHandler.class);
 
-            bootstrap.group(worker)
+            bootstrap.group(CLIENT_WORKER)
                     .channel(NioSocketChannel.class)
                     .handler(clazz.getDeclaredConstructor().newInstance());
 
@@ -91,16 +92,16 @@ public class TcpHandler {
                     // 成功建立连接的channel future add 断开连接监听
                     future.channel().closeFuture().addListener(f2 -> {
                         log.warn("【{}】 Disconnect With {}:{} Reconnect After {} S...", node.getName(), tp.getHost(), tp.getPort(), tp.getReconnectDelay().toSeconds());
-                        future.channel().eventLoop().schedule(() -> startClient(node), tp.getReconnectDelay().getSeconds(), TimeUnit.SECONDS);
+                        CLIENT_WORKER.schedule(() -> startClient(node), tp.getReconnectDelay().getSeconds(), TimeUnit.SECONDS);
                     });
                 } else {
                     log.warn("【{}】 Disconnect With {}:{} Reconnect After {} S...", node.getName(), tp.getHost(), tp.getPort(), tp.getReconnectDelay().toSeconds());
-                    future.channel().eventLoop().schedule(() -> startClient(node), tp.getReconnectDelay().getSeconds(), TimeUnit.SECONDS);
+                    CLIENT_WORKER.schedule(() -> startClient(node), tp.getReconnectDelay().getSeconds(), TimeUnit.SECONDS);
                 }
             });
         } catch (Exception e) {
             log.error("【{}】 Connect Failed : ", node.getName(), e);
-            throw new RuntimeException(e);
+            CLIENT_WORKER.schedule(() -> startClient(node), tp.getReconnectDelay().getSeconds(), TimeUnit.SECONDS);
         }
     }
 
