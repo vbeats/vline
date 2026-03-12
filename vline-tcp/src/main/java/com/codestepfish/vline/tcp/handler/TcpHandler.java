@@ -7,6 +7,7 @@ import io.netty.bootstrap.Bootstrap;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandler;
+import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -78,6 +79,9 @@ public class TcpHandler {
             Class<? extends ChannelHandler> clazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(tp.getChildHandler()).asSubclass(ChannelHandler.class);
 
             bootstrap.group(CLIENT_WORKER)
+                    .option(ChannelOption.SO_KEEPALIVE, true)
+                    .option(ChannelOption.SO_REUSEADDR, true)
+                    .option(ChannelOption.SO_LINGER, 0)
                     .channel(NioSocketChannel.class)
                     .handler(clazz.getDeclaredConstructor().newInstance());
 
