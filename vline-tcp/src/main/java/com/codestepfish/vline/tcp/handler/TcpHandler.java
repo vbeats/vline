@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class TcpHandler {
 
-    private static final EventLoopGroup CLIENT_WORKER = new NioEventLoopGroup();
+    public static final EventLoopGroup CLIENT_WORKER = new NioEventLoopGroup();
 
     public static void init(TcpNode node) {
         switch (node.getTcp().getMode()) {

@@ -28,6 +28,7 @@ public class TcpNode extends Node {
     @Override
     public void destroy() {
         super.destroy();
+        Thread.ofVirtual().start(TcpHandler.CLIENT_WORKER::shutdownGracefully);
         Thread.ofVirtual().start(() -> {
             try {
                 TcpHolder.CHANNEL_FUTURES.get(this.getName()).channel().close().sync();
