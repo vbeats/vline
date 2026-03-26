@@ -88,9 +88,6 @@ vline:
       type: tcp
       extra:
         - xx: oo
-        # protocol:
-        #  - property:
-        #  - property:
   struct:
     t1:
       - t2

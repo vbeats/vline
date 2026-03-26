@@ -34,6 +34,7 @@ public class SerialPortHandler {
             boolean opened = serialPort.openPort();
             if (!opened) {
                 reOpenPort(node, dataHandler);
+                return;
             }
 
             log.info("【{}】 Open Success... Data Listening...", properties.getDevice());
