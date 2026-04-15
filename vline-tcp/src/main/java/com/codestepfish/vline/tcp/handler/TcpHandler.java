@@ -49,6 +49,8 @@ public class TcpHandler {
 
             bootstrap.group(boss, worker)
                     .channel(NioServerSocketChannel.class)
+                    .option(ChannelOption.SO_REUSEADDR, true)
+                    .option(ChannelOption.SO_LINGER, 0)
                     .childHandler(clazz.getDeclaredConstructor().newInstance())
             ;
 
