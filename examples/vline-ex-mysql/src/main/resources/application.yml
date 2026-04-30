@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: vline-ex
+
+server:
+  port: 10086
+
+logging:
+  config: classpath:logback-spring.xml
+
+vline:
+  nodes:
+    - name: db
+      mysql:
+        mode: read
+        host: 10.88.0.1
+        port: 3306
+        database-name: test
+        username: root
+        password: root
+        flyway: false
+        data-handler: com.codestepfish.vlineex.db.DbDataHandler
+  struct:
+    db:
