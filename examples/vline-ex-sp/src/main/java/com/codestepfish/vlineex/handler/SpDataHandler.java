@@ -32,7 +32,7 @@ public class SpDataHandler implements SerialPortDataHandler {
         String data = bytesToHex(readBuffer);
         log.info("=======> {}【{}】 receive data: {}", node.getName(), node.getSerialPort().getDevice(), data);
 
-        VLineContext.posMsg(node.getName(), readBuffer);
+        VLineContext.pushMsg(node.getName(), readBuffer);
     }
 
     @Override

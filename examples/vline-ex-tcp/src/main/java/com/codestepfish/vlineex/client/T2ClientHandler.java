@@ -17,7 +17,7 @@ public class T2ClientHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         log.info("t2 receive: {}", msg);
 
-        VLineContext.posMsg("t2", msg);
+        VLineContext.pushMsg("t2", msg);
 
         TcpHolder.CLIENT_CHANNELS.get("t1").writeAndFlush(msg);
 

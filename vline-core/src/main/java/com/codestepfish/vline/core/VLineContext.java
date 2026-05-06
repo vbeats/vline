@@ -35,7 +35,7 @@ public class VLineContext {
     private final VLineProperties vLineProperties;
 
     // 推送消息 --> event bus
-    public static void posMsg(String nodeName, Object payload) {
+    public static void pushMsg(String nodeName, Object payload) {
         if (eventBus == null) {
             synchronized (VLineContext.class) {
                 eventBus = SpringUtil.getBean(new TypeReference<>() {

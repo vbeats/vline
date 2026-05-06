@@ -39,7 +39,7 @@ public class MqttMsgHandler implements MqttDataHandler {
         log.info("messageArrived: {} {}", topic, message);
 
 
-        VLineContext.posMsg(mqttNode.getName(), message.getPayload());
+        VLineContext.pushMsg(mqttNode.getName(), message.getPayload());
     }
 
     @Override

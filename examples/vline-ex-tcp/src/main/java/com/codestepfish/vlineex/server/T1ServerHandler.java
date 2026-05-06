@@ -20,7 +20,7 @@ public class T1ServerHandler extends ChannelInboundHandlerAdapter {
         log.info("t1 server reveive data: {}", msg);
 
         // data --> vline event bus
-        VLineContext.posMsg("t1", msg);
+        VLineContext.pushMsg("t1", msg);
 
         // other business code
     }
