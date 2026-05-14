@@ -39,7 +39,7 @@ public class DbDataHandler implements MssqlReadHandler {
     private void dataHandle(MssqlNode node) {
         // db raed data
 
-        DataSet dataSet = dbService.querys("x_test", "order by id desc");
+        DataSet dataSet = dbService.selects("x_test", "order by id desc");
 
         log.info("=====> db read data : {}", dataSet);
 

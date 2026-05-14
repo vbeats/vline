@@ -35,7 +35,7 @@ public class DbDataHandler implements MysqlReadHandler {
     private void dataHandle(MysqlNode node) {
         // db raed data
 
-        DataSet dataSet = dbService.querys("x_test", "order by id desc");
+        DataSet dataSet = dbService.selects("x_test", "order by id desc");
 
         log.info("=====> db read data : {}", dataSet);
     }
