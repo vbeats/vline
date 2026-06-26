@@ -11,6 +11,7 @@ dependencies {
     api libs.get('jackson-annotations')
     api libs.get('commons-io')
     api libs.get('ttl')
+    api libs.get('netty')
 
     api 'org.springframework.boot:spring-boot-starter'
     api 'org.springframework.boot:spring-boot-starter-cache'

@@ -6,8 +6,10 @@ import com.codestepfish.vline.serialport.handler.SerialPortDataHandler;
 import com.codestepfish.vline.serialport.handler.SerialPortHandler;
 import com.fazecast.jSerialComm.SerialPort;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 @Slf4j
+@Service
 public class SpDataHandler implements SerialPortDataHandler {
 
     private static String bytesToHex(byte[] bytes) {
@@ -36,7 +38,7 @@ public class SpDataHandler implements SerialPortDataHandler {
     }
 
     @Override
-    public <T> void send(SerialPortNode node, T data) {
+    public void send(SerialPortNode node, Object data) {
 
         // data ===> send to node
         byte[] datas = (byte[]) data;

@@ -1,9 +1,8 @@
 package com.codestepfish.vline.oracle;
 
+import cn.hutool.extra.spring.SpringUtil;
 import com.codestepfish.vline.core.Node;
-import com.codestepfish.vline.core.oracle.OracleProperties;
-import com.codestepfish.vline.oracle.handler.OracleReadHandler;
-import com.codestepfish.vline.oracle.handler.OracleWriteHandler;
+import com.codestepfish.vline.oracle.handler.OracleDataHandler;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,10 +10,6 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 import org.anyline.data.datasource.DataSourceHolder;
-import org.springframework.util.Assert;
-import org.springframework.util.ClassUtils;
-
-import java.util.Objects;
 
 @Getter
 @Setter
@@ -24,8 +19,7 @@ import java.util.Objects;
 @Accessors(chain = true)
 public class OracleNode extends Node {
 
-    private OracleReadHandler oracleReadHandler;
-    private OracleWriteHandler oracleWriteHandler;
+    private OracleDataHandler oracleDataHandler;
 
     @Override
     public void init() {
@@ -33,25 +27,7 @@ public class OracleNode extends Node {
         try {
             OracleDataSourceInitializer.initDataSource(this);  // 数据源初始化
 
-            OracleProperties properties = this.getOracle();
-
-            switch (properties.getMode()) {
-                case READ -> {
-                    Assert.hasText(properties.getDataHandler(), "【" + this.getName() + "】 Require Config DataHandler");
-                    Class<? extends OracleReadHandler> readHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(OracleReadHandler.class);
-                    oracleReadHandler = readHandlerClazz.getDeclaredConstructor().newInstance();
-                    Thread.ofVirtual().start(() -> oracleReadHandler.read(this));
-                }
-                case WRITE -> {
-                    Assert.hasText(properties.getDataHandler(), "【" + this.getName() + "】 Require Config DataHandler");
-                    Class<? extends OracleWriteHandler> writeHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(OracleWriteHandler.class);
-                    oracleWriteHandler = writeHandlerClazz.getDeclaredConstructor().newInstance();
-                }
-                case OTHER -> {
-                    // do nothing
-                }
-            }
-
+            oracleDataHandler = SpringUtil.getBean(OracleDataHandler.class);
         } catch (Exception e) {
             log.error("【{}】 Init Failed : ", this.getName(), e);
             throw new RuntimeException(e);
@@ -69,7 +45,7 @@ public class OracleNode extends Node {
     }
 
     @Override
-    public <T> void receiveData(T data) {
-        Thread.ofVirtual().start(() -> oracleWriteHandler.write(this, data));
+    public void receiveData(Object data) {
+        oracleDataHandler.handle(this, data);
     }
 }

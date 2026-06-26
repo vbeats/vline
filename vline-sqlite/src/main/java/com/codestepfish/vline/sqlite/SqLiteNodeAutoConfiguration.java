@@ -5,7 +5,6 @@ import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.core.VLineContext;
 import com.codestepfish.vline.core.VLineProperties;
 import com.codestepfish.vline.core.enums.NodeType;
-import com.codestepfish.vline.core.sqlite.SqliteProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -40,10 +39,7 @@ public class SqLiteNodeAutoConfiguration implements ApplicationListener {
             SqLiteNode sqLiteNode = BeanUtil.copyProperties(node, SqLiteNode.class);
             sqLiteNode.init();
 
-            // other mode 不处理消息
-            if (!SqliteProperties.Mode.OTHER.equals(sqLiteNode.getSqlite().getMode())) {
-                VLineContext.NODES.put(node.getName(), sqLiteNode);
-            }
+            VLineContext.NODES.put(node.getName(), sqLiteNode);
 
             countDownLatch.countDown();
         });

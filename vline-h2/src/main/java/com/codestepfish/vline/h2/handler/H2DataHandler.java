@@ -3,7 +3,7 @@ package com.codestepfish.vline.h2.handler;
 
 import com.codestepfish.vline.h2.H2Node;
 
-public interface H2WriteHandler {
+public interface H2DataHandler {
 
-    <T> void write(H2Node node, T data); // write mode
+    void handle(H2Node node, Object data);
 }

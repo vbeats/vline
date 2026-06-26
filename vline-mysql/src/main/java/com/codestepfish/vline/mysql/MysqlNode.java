@@ -1,9 +1,8 @@
 package com.codestepfish.vline.mysql;
 
+import cn.hutool.extra.spring.SpringUtil;
 import com.codestepfish.vline.core.Node;
-import com.codestepfish.vline.core.mysql.MysqlProperties;
-import com.codestepfish.vline.mysql.handler.MysqlReadHandler;
-import com.codestepfish.vline.mysql.handler.MysqlWriteHandler;
+import com.codestepfish.vline.mysql.handler.MysqlDataHandler;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,10 +10,6 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 import org.anyline.data.datasource.DataSourceHolder;
-import org.springframework.util.Assert;
-import org.springframework.util.ClassUtils;
-
-import java.util.Objects;
 
 @Getter
 @Setter
@@ -24,8 +19,7 @@ import java.util.Objects;
 @Accessors(chain = true)
 public class MysqlNode extends Node {
 
-    private MysqlReadHandler mysqlReadHandler;
-    private MysqlWriteHandler mysqlWriteHandler;
+    private MysqlDataHandler mysqlDataHandler;
 
     @Override
     public void init() {
@@ -33,24 +27,7 @@ public class MysqlNode extends Node {
         try {
             DataSourceInitializer.initDataSource(this);  // 数据源初始化
 
-            MysqlProperties properties = this.getMysql();
-
-            switch (properties.getMode()) {
-                case READ -> {
-                    Assert.hasText(properties.getDataHandler(), "【" + this.getName() + "】 Require Config DataHandler");
-                    Class<? extends MysqlReadHandler> readHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(MysqlReadHandler.class);
-                    mysqlReadHandler = readHandlerClazz.getDeclaredConstructor().newInstance();
-                    Thread.ofVirtual().start(() -> mysqlReadHandler.read(this));
-                }
-                case WRITE -> {
-                    Assert.hasText(properties.getDataHandler(), "【" + this.getName() + "】 Require Config DataHandler");
-                    Class<? extends MysqlWriteHandler> writeHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(MysqlWriteHandler.class);
-                    mysqlWriteHandler = writeHandlerClazz.getDeclaredConstructor().newInstance();
-                }
-                case OTHER -> {
-                    // do nothing
-                }
-            }
+            mysqlDataHandler = SpringUtil.getBean(MysqlDataHandler.class);
 
         } catch (Exception e) {
             log.error("【{}】 Init Failed : ", this.getName(), e);
@@ -69,7 +46,7 @@ public class MysqlNode extends Node {
     }
 
     @Override
-    public <T> void receiveData(T data) {
-        Thread.ofVirtual().start(() -> mysqlWriteHandler.write(this, data));
+    public void receiveData(Object data) {
+        mysqlDataHandler.handle(this, data);
     }
 }

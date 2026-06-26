@@ -1,9 +1,8 @@
 package com.codestepfish.vline.sqlite;
 
+import cn.hutool.extra.spring.SpringUtil;
 import com.codestepfish.vline.core.Node;
-import com.codestepfish.vline.core.sqlite.SqliteProperties;
-import com.codestepfish.vline.sqlite.handler.SqLiteReadHandler;
-import com.codestepfish.vline.sqlite.handler.SqLiteWriteHandler;
+import com.codestepfish.vline.sqlite.handler.SqLiteDataHandler;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,10 +10,6 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 import org.anyline.data.datasource.DataSourceHolder;
-import org.springframework.util.Assert;
-import org.springframework.util.ClassUtils;
-
-import java.util.Objects;
 
 @Getter
 @Setter
@@ -24,8 +19,7 @@ import java.util.Objects;
 @Accessors(chain = true)
 public class SqLiteNode extends Node {
 
-    private SqLiteReadHandler sqliteReadHandler;
-    private SqLiteWriteHandler sqliteWriteHandler;
+    private SqLiteDataHandler sqLiteDataHandler;
 
     @Override
     public void init() {
@@ -33,25 +27,7 @@ public class SqLiteNode extends Node {
         try {
             DataSourceInitializer.initDataSource(this);  // 数据源初始化
 
-            SqliteProperties properties = this.getSqlite();
-
-            switch (properties.getMode()) {
-                case READ -> {
-                    Assert.hasText(properties.getDataHandler(), "【" + this.getName() + "】 Require Config DataHandler");
-                    Class<? extends SqLiteReadHandler> readHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(SqLiteReadHandler.class);
-                    sqliteReadHandler = readHandlerClazz.getDeclaredConstructor().newInstance();
-                    Thread.ofVirtual().start(() -> sqliteReadHandler.read(this));
-                }
-                case WRITE -> {
-                    Assert.hasText(properties.getDataHandler(), "【" + this.getName() + "】 Require Config DataHandler");
-                    Class<? extends SqLiteWriteHandler> writeHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(SqLiteWriteHandler.class);
-                    sqliteWriteHandler = writeHandlerClazz.getDeclaredConstructor().newInstance();
-                }
-                case OTHER -> {
-                    // do nothing
-                }
-            }
-
+            sqLiteDataHandler = SpringUtil.getBean(SqLiteDataHandler.class);
         } catch (Exception e) {
             log.error("【{}】 Init Failed : ", this.getName(), e);
             throw new RuntimeException(e);
@@ -69,7 +45,7 @@ public class SqLiteNode extends Node {
     }
 
     @Override
-    public <T> void receiveData(T data) {
-        Thread.ofVirtual().start(() -> sqliteWriteHandler.write(this, data));
+    public void receiveData(Object data) {
+        sqLiteDataHandler.handle(this, data);
     }
 }

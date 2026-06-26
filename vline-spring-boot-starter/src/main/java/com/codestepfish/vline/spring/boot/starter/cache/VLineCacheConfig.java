@@ -13,11 +13,11 @@ import org.springframework.context.annotation.Configuration;
 public class VLineCacheConfig {
 
     @Bean
-    public CacheManager cacheManager() {
+    public CacheManager vlineCacheManager() {
         CaffeineCacheManager cacheManager = new CaffeineCacheManager();
         cacheManager.setAllowNullValues(false);
         cacheManager.setCacheSpecification("""
-                initialCapacity=20,maximumSize=1000,recordStats
+                initialCapacity=20,maximumSize=50,recordStats
                 """);
 
         return cacheManager;

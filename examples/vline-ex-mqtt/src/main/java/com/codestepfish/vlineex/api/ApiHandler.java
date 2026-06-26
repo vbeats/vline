@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ApiHandler implements HttpHandler<Object> {
+public class ApiHandler implements HttpHandler {
 
     @Override
     public void handle(HttpNode node, Object data) {

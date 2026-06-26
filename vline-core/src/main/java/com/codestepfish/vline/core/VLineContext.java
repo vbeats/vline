@@ -60,7 +60,7 @@ public class VLineContext {
      * @param nodeName
      * @return
      */
-    @Cacheable(value = "vline:nodes", key = "#nodeName", unless = "#result == null || #result.size()==0")
+    @Cacheable(value = "vline:nodes", key = "#nodeName", unless = "#result == null || #result.size()==0", cacheManager = "vlineCacheManager")
     public List<String> nextNodes(String nodeName) {
 
         Map<String, List<String>> struct = vLineProperties.getStruct();

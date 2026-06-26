@@ -15,5 +15,5 @@ public interface INode {
     /**
      * 当前节点 接收data
      */
-    <T> void receiveData(T data);
+    void receiveData(Object data);
 }

@@ -1,7 +1,5 @@
 package com.codestepfish.vline.core.sqlite;
 
-import com.alibaba.fastjson2.JSONWriter;
-import com.alibaba.fastjson2.annotation.JSONField;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -10,9 +8,6 @@ import lombok.ToString;
 @Setter
 @ToString
 public class SqliteProperties {
-
-    @JSONField(serializeFeatures = JSONWriter.Feature.WriteEnumsUsingName)
-    private Mode mode = Mode.OTHER;  // read or write
 
     private String dbPath; // db 文件路径
 
@@ -23,10 +18,4 @@ public class SqliteProperties {
     private String dataHandler;  // 数据处理器
 
     private Boolean flyway = false;  // 是否开启flyway
-
-    public enum Mode {
-        READ,
-        WRITE,
-        OTHER  // other 不处理任何业务, 仅注入数据源
-    }
 }

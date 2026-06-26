@@ -1,9 +1,9 @@
 package com.codestepfish.vline.mongo;
 
+import cn.hutool.extra.spring.SpringUtil;
 import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.core.mongo.MongoProperties;
-import com.codestepfish.vline.mongo.handler.MongoReadHandler;
-import com.codestepfish.vline.mongo.handler.MongoWriteHandler;
+import com.codestepfish.vline.mongo.handler.MongoDataHandler;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.mongodb.client.MongoClients;
 import lombok.Getter;
@@ -12,10 +12,6 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 import org.anyline.data.datasource.DataSourceHolder;
-import org.springframework.util.Assert;
-import org.springframework.util.ClassUtils;
-
-import java.util.Objects;
 
 @Getter
 @Setter
@@ -25,8 +21,7 @@ import java.util.Objects;
 @Accessors(chain = true)
 public class MongoNode extends Node {
 
-    private MongoReadHandler mongoReadHandler;
-    private MongoWriteHandler mongoWriteHandler;
+    private MongoDataHandler mongoDataHandler;
 
     @Override
     public void init() {
@@ -37,22 +32,7 @@ public class MongoNode extends Node {
             // init mongo client
             MongoClientHolder.MONGO_CLIENTS.put(this.getName(), MongoClients.create(properties.getUri()));
 
-            switch (properties.getMode()) {
-                case READ -> {
-                    Assert.hasText(properties.getDataHandler(), "【" + this.getName() + "】 Require Config DataHandler");
-                    Class<? extends MongoReadHandler> readHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(MongoReadHandler.class);
-                    mongoReadHandler = readHandlerClazz.getDeclaredConstructor().newInstance();
-                    Thread.ofVirtual().start(() -> mongoReadHandler.read(this));
-                }
-                case WRITE -> {
-                    Assert.hasText(properties.getDataHandler(), "【" + this.getName() + "】 Require Config DataHandler");
-                    Class<? extends MongoWriteHandler> writeHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(MongoWriteHandler.class);
-                    mongoWriteHandler = writeHandlerClazz.getDeclaredConstructor().newInstance();
-                }
-                case OTHER -> {
-                    // do nothing
-                }
-            }
+            mongoDataHandler = SpringUtil.getBean(MongoDataHandler.class);
 
         } catch (Exception e) {
             log.error("【{}】 Init Failed : ", this.getName(), e);
@@ -71,7 +51,7 @@ public class MongoNode extends Node {
     }
 
     @Override
-    public <T> void receiveData(T data) {
-        Thread.ofVirtual().start(() -> mongoWriteHandler.write(this, data));
+    public void receiveData(Object data) {
+        mongoDataHandler.handle(this, data);
     }
 }

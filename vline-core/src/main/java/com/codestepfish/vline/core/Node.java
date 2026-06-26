@@ -89,7 +89,7 @@ public class Node implements INode, Serializable {
     }
 
     @Override
-    public <T> void receiveData(T data) {
+    public void receiveData(Object data) {
     }
 
     public void setTcp(TcpProperties tcp) {

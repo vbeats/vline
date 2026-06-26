@@ -10,9 +10,6 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
-import org.springframework.util.ClassUtils;
-
-import java.util.Objects;
 
 @Getter
 @Setter
@@ -34,8 +31,7 @@ public class HttpNode extends Node {
             try {
                 Assert.hasText(hp.getHandler(), "【" + this.getName() + "】 Require Config HttpHandler");
 
-                Class<? extends HttpHandler> clazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(hp.getHandler()).asSubclass(HttpHandler.class);
-                this.httpHandler = SpringUtil.getBean(clazz);
+                httpHandler = SpringUtil.getBean(HttpHandler.class);
 
             } catch (Exception e) {
                 log.error("【{}】 Init Failed : ", this.getName(), e);
@@ -45,7 +41,7 @@ public class HttpNode extends Node {
     }
 
     @Override
-    public <T> void receiveData(T data) {
-        this.httpHandler.handle(this, data);
+    public void receiveData(Object data) {
+        httpHandler.handle(this, data);
     }
 }

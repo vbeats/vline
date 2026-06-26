@@ -1,6 +1,6 @@
 package com.codestepfish.vline.mqtt;
 
-import cn.hutool.core.util.RandomUtil;
+import cn.hutool.extra.spring.SpringUtil;
 import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.core.mqtt.MqttProperties;
 import com.codestepfish.vline.mqtt.handler.MqttDataHandler;
@@ -13,10 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.eclipse.paho.mqttv5.client.MqttClient;
 import org.eclipse.paho.mqttv5.client.MqttConnectionOptions;
 import org.eclipse.paho.mqttv5.client.persist.MemoryPersistence;
-import org.springframework.util.Assert;
-import org.springframework.util.ClassUtils;
-
-import java.util.Objects;
 
 @Getter
 @Setter
@@ -35,14 +31,10 @@ public class MqttNode extends Node {
         try {
             MqttProperties properties = this.getMqtt();
 
-            Assert.hasText(properties.getDataHandler(), "【" + this.getName() + "】 Require Config DataHandler");
-            Class<? extends MqttDataHandler> dataHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(MqttDataHandler.class);
-            mqttDataHandler = dataHandlerClazz.getDeclaredConstructor(MqttNode.class).newInstance(this);
+            mqttDataHandler = SpringUtil.getBean(MqttDataHandler.class);
 
             // mqtt client 初始化
-            // 生成clientId
-            String clientId = properties.getClientId() + "_" + RandomUtil.randomNumbers(8);
-            MqttClient client = new MqttClient(properties.getBroker(), clientId, new MemoryPersistence());
+            MqttClient client = new MqttClient(properties.getBroker(), properties.getClientId(), new MemoryPersistence());
             MqttConnectionOptions options = new MqttConnectionOptions();
 
             options.setCleanStart(properties.getCleanStart());
@@ -82,7 +74,7 @@ public class MqttNode extends Node {
     }
 
     @Override
-    public <T> void receiveData(T data) {
-        Thread.ofVirtual().start(() -> mqttDataHandler.pub(this, data));
+    public void receiveData(Object data) {
+        mqttDataHandler.handle(this, data);
     }
 }

@@ -1,5 +1,6 @@
 package com.codestepfish.vline.duckdb;
 
+import cn.hutool.extra.spring.SpringUtil;
 import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.core.duckdb.DuckProperties;
 import com.codestepfish.vline.duckdb.handler.DuckDataHandler;
@@ -10,11 +11,8 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 import org.duckdb.DuckDBConnection;
-import org.springframework.util.Assert;
-import org.springframework.util.ClassUtils;
 
 import java.sql.DriverManager;
-import java.util.Objects;
 
 @Getter
 @Setter
@@ -35,9 +33,7 @@ public class DuckNode extends Node {
             Class.forName("org.duckdb.DuckDBDriver");
             DuckClientHolder.DUCK_CLIENTS.put(this.getName(), (DuckDBConnection) DriverManager.getConnection(properties.getUri()));
 
-            Assert.hasText(properties.getDataHandler(), "【" + this.getName() + "】 Require Config DataHandler");
-            Class<? extends DuckDataHandler> readHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(DuckDataHandler.class);
-            duckDataHandler = readHandlerClazz.getDeclaredConstructor().newInstance();
+            duckDataHandler = SpringUtil.getBean(DuckDataHandler.class);
 
             log.info("【{}】 Duck Node Init Success ...", this.getName());
         } catch (Exception e) {
@@ -52,7 +48,7 @@ public class DuckNode extends Node {
     }
 
     @Override
-    public <T> void receiveData(T data) {
-        Thread.ofVirtual().start(() -> duckDataHandler.handle(this, data));
+    public void receiveData(Object data) {
+        duckDataHandler.handle(this, data);
     }
 }

@@ -6,5 +6,5 @@ public interface SerialPortDataHandler {
 
     void receive(SerialPortNode node);
 
-    <T> void send(SerialPortNode node, T data);
+    void send(SerialPortNode node, Object data);
 }

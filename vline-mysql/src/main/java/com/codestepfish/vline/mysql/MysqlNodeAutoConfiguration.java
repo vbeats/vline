@@ -5,7 +5,6 @@ import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.core.VLineContext;
 import com.codestepfish.vline.core.VLineProperties;
 import com.codestepfish.vline.core.enums.NodeType;
-import com.codestepfish.vline.core.mysql.MysqlProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -40,10 +39,7 @@ public class MysqlNodeAutoConfiguration implements ApplicationListener {
             MysqlNode mysqlNode = BeanUtil.copyProperties(node, MysqlNode.class);
             mysqlNode.init();
 
-            // other mode 不处理消息
-            if (!MysqlProperties.Mode.OTHER.equals(mysqlNode.getMysql().getMode())) {
-                VLineContext.NODES.put(node.getName(), mysqlNode);
-            }
+            VLineContext.NODES.put(node.getName(), mysqlNode);
 
             countDownLatch.countDown();
         });

@@ -24,15 +24,6 @@ public class DisruptorConfig {
 
         int ringBufferSize = 1024;  // adjust (producer/consumer speed)
 
-       /* ThreadFactory threadFactory = r -> {
-            thread.setName("disruptor-" + new AtomicInteger().incrementAndGet());
-            thread.setDaemon(true);
-            return thread;
-        };*/
-
-        /*ThreadFactory threadFactory = Thread.ofPlatform().name("disruptor-" + new AtomicInteger().incrementAndGet())
-                .daemon(true).factory();*/
-
         // virtual thread 👍
         ThreadFactory threadFactory = Thread.ofVirtual().name("disruptor-" + new AtomicInteger().incrementAndGet()).factory();
 

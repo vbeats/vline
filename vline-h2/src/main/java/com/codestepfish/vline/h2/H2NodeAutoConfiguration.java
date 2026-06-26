@@ -5,7 +5,6 @@ import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.core.VLineContext;
 import com.codestepfish.vline.core.VLineProperties;
 import com.codestepfish.vline.core.enums.NodeType;
-import com.codestepfish.vline.core.h2.H2Properties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -40,10 +39,7 @@ public class H2NodeAutoConfiguration implements ApplicationListener {
             H2Node h2Node = BeanUtil.copyProperties(node, H2Node.class);
             h2Node.init();
 
-            // other mode 不处理消息
-            if (!H2Properties.Mode.OTHER.equals(h2Node.getH2().getMode())) {
-                VLineContext.NODES.put(node.getName(), h2Node);
-            }
+            VLineContext.NODES.put(node.getName(), h2Node);
 
             countDownLatch.countDown();
         });

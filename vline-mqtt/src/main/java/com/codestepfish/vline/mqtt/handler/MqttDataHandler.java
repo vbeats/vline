@@ -4,6 +4,7 @@ import com.codestepfish.vline.mqtt.MqttNode;
 import org.eclipse.paho.mqttv5.client.MqttCallback;
 
 public interface MqttDataHandler extends MqttCallback {
-    // publish data to mqtt broker
-    <T> void pub(MqttNode mqttNode, T data);
+
+    // handle mqtt data
+    void handle(MqttNode node, Object data);
 }

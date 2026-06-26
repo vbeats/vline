@@ -5,7 +5,6 @@ import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.core.VLineContext;
 import com.codestepfish.vline.core.VLineProperties;
 import com.codestepfish.vline.core.enums.NodeType;
-import com.codestepfish.vline.core.postgres.PostgresProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -40,10 +39,7 @@ public class PostgresNodeAutoConfiguration implements ApplicationListener {
             PostgresNode postgresNode = BeanUtil.copyProperties(node, PostgresNode.class);
             postgresNode.init();
 
-            // other mode 不处理消息
-            if (!PostgresProperties.Mode.OTHER.equals(postgresNode.getPostgres().getMode())) {
-                VLineContext.NODES.put(node.getName(), postgresNode);
-            }
+            VLineContext.NODES.put(node.getName(), postgresNode);
 
             countDownLatch.countDown();
         });

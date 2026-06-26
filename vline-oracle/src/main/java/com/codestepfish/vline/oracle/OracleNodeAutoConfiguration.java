@@ -5,7 +5,6 @@ import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.core.VLineContext;
 import com.codestepfish.vline.core.VLineProperties;
 import com.codestepfish.vline.core.enums.NodeType;
-import com.codestepfish.vline.core.oracle.OracleProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -40,10 +39,7 @@ public class OracleNodeAutoConfiguration implements ApplicationListener {
             OracleNode oracleNode = BeanUtil.copyProperties(node, OracleNode.class);
             oracleNode.init();
 
-            // other mode 不处理消息
-            if (!OracleProperties.Mode.OTHER.equals(oracleNode.getOracle().getMode())) {
-                VLineContext.NODES.put(node.getName(), oracleNode);
-            }
+            VLineContext.NODES.put(node.getName(), oracleNode);
 
             countDownLatch.countDown();
         });

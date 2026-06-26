@@ -5,7 +5,6 @@ import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.core.VLineContext;
 import com.codestepfish.vline.core.VLineProperties;
 import com.codestepfish.vline.core.enums.NodeType;
-import com.codestepfish.vline.core.mssql.MssqlProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -40,10 +39,7 @@ public class MssqlNodeAutoConfiguration implements ApplicationListener {
             MssqlNode mssqlNode = BeanUtil.copyProperties(node, MssqlNode.class);
             mssqlNode.init();
 
-            // other mode 不处理消息
-            if (!MssqlProperties.Mode.OTHER.equals(mssqlNode.getMssql().getMode())) {
-                VLineContext.NODES.put(node.getName(), mssqlNode);
-            }
+            VLineContext.NODES.put(node.getName(), mssqlNode);
 
             countDownLatch.countDown();
         });

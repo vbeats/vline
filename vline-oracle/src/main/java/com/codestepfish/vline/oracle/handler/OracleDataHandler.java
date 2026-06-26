@@ -2,7 +2,7 @@ package com.codestepfish.vline.oracle.handler;
 
 import com.codestepfish.vline.oracle.OracleNode;
 
-public interface OracleReadHandler {
+public interface OracleDataHandler {
 
-    void read(OracleNode node); // read mode
+    void handle(OracleNode node, Object data);
 }

@@ -1,5 +1,6 @@
 package com.codestepfish.vline.serialport;
 
+import cn.hutool.extra.spring.SpringUtil;
 import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.serialport.handler.SerialPortDataHandler;
 import com.codestepfish.vline.serialport.handler.SerialPortHandler;
@@ -10,11 +11,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.Assert;
-import org.springframework.util.ClassUtils;
 
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
@@ -33,10 +31,7 @@ public class SerialPortNode extends Node {
     public void init() {
         super.init();
         try {
-            Assert.hasText(this.getSerialPort().getDataHandler(), "【" + this.getName() + "】 Require Config DataHandler");
-
-            Class<? extends SerialPortDataHandler> dataHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(this.getSerialPort().getDataHandler()).asSubclass(SerialPortDataHandler.class);
-            serialPortDataHandler = dataHandlerClazz.getDeclaredConstructor().newInstance();
+            serialPortDataHandler = SpringUtil.getBean(SerialPortDataHandler.class);
 
             RATE_LIMITERS.put(this.getName(), RateLimiter.create(1, 2L, TimeUnit.SECONDS));
 
@@ -56,7 +51,7 @@ public class SerialPortNode extends Node {
     }
 
     @Override
-    public <T> void receiveData(T data) {
-        Thread.ofVirtual().start(() -> serialPortDataHandler.send(this, data));
+    public void receiveData(Object data) {
+        serialPortDataHandler.send(this, data);
     }
 }

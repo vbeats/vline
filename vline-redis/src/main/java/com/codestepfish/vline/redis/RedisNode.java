@@ -1,5 +1,6 @@
 package com.codestepfish.vline.redis;
 
+import cn.hutool.extra.spring.SpringUtil;
 import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.core.redis.RedisProperties;
 import com.codestepfish.vline.redis.handler.RedisDataHandler;
@@ -11,11 +12,7 @@ import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.Redisson;
 import org.redisson.config.Config;
-import org.springframework.util.Assert;
-import org.springframework.util.ClassUtils;
 import org.springframework.util.ResourceUtils;
-
-import java.util.Objects;
 
 @Getter
 @Setter
@@ -33,9 +30,7 @@ public class RedisNode extends Node {
 
         RedisProperties properties = this.getRedis();
         try {
-            Assert.hasText(properties.getDataHandler(), "【" + this.getName() + "】 Require Config DataHandler");
-            Class<? extends RedisDataHandler> readHandlerClazz = Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).loadClass(properties.getDataHandler()).asSubclass(RedisDataHandler.class);
-            redisDataHandler = readHandlerClazz.getDeclaredConstructor().newInstance();
+            redisDataHandler = SpringUtil.getBean(RedisDataHandler.class);
 
             RedisClientHolder.REDIS_CLIENTS.put(this.getName(), Redisson.create(Config.fromYAML(ResourceUtils.getFile(String.format("classpath:redis/%s.yml", this.getName())))));
             log.info("【{}】 Redis Node Init Success , Client Mode: {}", this.getName(), properties.getMode());
@@ -52,7 +47,7 @@ public class RedisNode extends Node {
     }
 
     @Override
-    public <T> void receiveData(T data) {
-        Thread.ofVirtual().start(() -> redisDataHandler.handle(this, data));
+    public void receiveData(Object data) {
+        redisDataHandler.handle(this, data);
     }
 }

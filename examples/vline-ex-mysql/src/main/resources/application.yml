@@ -12,7 +12,6 @@ vline:
   nodes:
     - name: db
       mysql:
-        mode: read
         host: 10.88.0.1
         port: 3306
         database-name: test

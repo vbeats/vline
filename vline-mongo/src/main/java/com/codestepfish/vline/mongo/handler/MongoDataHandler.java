@@ -1,9 +1,8 @@
 package com.codestepfish.vline.mongo.handler;
 
-
 import com.codestepfish.vline.mongo.MongoNode;
 
-public interface MongoReadHandler {
+public interface MongoDataHandler {
 
-    void read(MongoNode node); // read mode
+    void handle(MongoNode node, Object data);
 }

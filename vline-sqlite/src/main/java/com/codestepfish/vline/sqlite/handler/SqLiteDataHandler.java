@@ -3,7 +3,7 @@ package com.codestepfish.vline.sqlite.handler;
 
 import com.codestepfish.vline.sqlite.SqLiteNode;
 
-public interface SqLiteReadHandler {
+public interface SqLiteDataHandler {
 
-    void read(SqLiteNode node); // read mode
+    void handle(SqLiteNode node, Object data);
 }

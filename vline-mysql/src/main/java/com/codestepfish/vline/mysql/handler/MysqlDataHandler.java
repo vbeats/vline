@@ -1,9 +1,8 @@
 package com.codestepfish.vline.mysql.handler;
 
-
 import com.codestepfish.vline.mysql.MysqlNode;
 
-public interface MysqlReadHandler {
+public interface MysqlDataHandler {
 
-    void read(MysqlNode node); // read mode
+    void handle(MysqlNode node, Object data);
 }

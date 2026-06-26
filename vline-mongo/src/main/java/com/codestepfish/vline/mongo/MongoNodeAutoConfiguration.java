@@ -5,7 +5,6 @@ import com.codestepfish.vline.core.Node;
 import com.codestepfish.vline.core.VLineContext;
 import com.codestepfish.vline.core.VLineProperties;
 import com.codestepfish.vline.core.enums.NodeType;
-import com.codestepfish.vline.core.mongo.MongoProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -41,9 +40,7 @@ public class MongoNodeAutoConfiguration implements ApplicationListener {
             mongoNode.init();
 
             // other mode 不处理消息
-            if (!MongoProperties.Mode.OTHER.equals(mongoNode.getMongo().getMode())) {
-                VLineContext.NODES.put(node.getName(), mongoNode);
-            }
+            VLineContext.NODES.put(node.getName(), mongoNode);
 
             countDownLatch.countDown();
         });
