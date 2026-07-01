@@ -23,7 +23,5 @@ public class OracleProperties {
 
     private String jdbcUrl;  // 完整jdbc url jdbc:oracle:thin:@host:port:serviceName
 
-    private String dataHandler;  // 数据处理器
-
     private Boolean flyway = false;  // 是否开启flyway
 }

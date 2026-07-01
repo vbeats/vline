@@ -8,5 +8,4 @@ import lombok.ToString;
 @Setter
 @ToString
 public class HttpProperties {
-    private String handler; // http请求处理器  实现com.codestepfish.vline.http.HttpHandler
 }

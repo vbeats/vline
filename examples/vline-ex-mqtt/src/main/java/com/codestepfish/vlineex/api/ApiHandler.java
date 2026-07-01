@@ -12,9 +12,12 @@ import org.springframework.stereotype.Service;
 public class ApiHandler implements HttpHandler {
 
     @Override
-    public void handle(HttpNode node, Object data) {
+    public void init(HttpNode node) {
 
-        log.info("=========> 【Request】 数据推送请求: {}", new String((byte[]) data));
+    }
+
+    @Override
+    public void rec(HttpNode node, Object data) {
 
     }
 }

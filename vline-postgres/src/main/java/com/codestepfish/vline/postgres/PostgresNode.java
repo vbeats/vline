@@ -28,6 +28,8 @@ public class PostgresNode extends Node {
             DataSourceInitializer.initDataSource(this);  // 数据源初始化
 
             postgresDataHandler = SpringUtil.getBean(PostgresDataHandler.class);
+
+            postgresDataHandler.init(this);
         } catch (Exception e) {
             log.error("【{}】 Init Failed : ", this.getName(), e);
             throw new RuntimeException(e);
@@ -46,6 +48,6 @@ public class PostgresNode extends Node {
 
     @Override
     public void receiveData(Object data) {
-        postgresDataHandler.handle(this, data);
+        postgresDataHandler.rec(this, data);
     }
 }

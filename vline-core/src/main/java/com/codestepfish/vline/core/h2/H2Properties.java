@@ -17,7 +17,5 @@ public class H2Properties {
 
     private String password;
 
-    private String dataHandler;  // 数据处理器
-
     private Boolean flyway = false;  // 是否开启flyway
 }

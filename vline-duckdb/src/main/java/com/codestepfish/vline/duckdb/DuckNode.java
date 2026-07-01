@@ -36,6 +36,8 @@ public class DuckNode extends Node {
             duckDataHandler = SpringUtil.getBean(DuckDataHandler.class);
 
             log.info("【{}】 Duck Node Init Success ...", this.getName());
+
+            duckDataHandler.init(this);
         } catch (Exception e) {
             log.error("【{}】 Init Failed : ", this.getName(), e);
             throw new RuntimeException(e);
@@ -49,6 +51,6 @@ public class DuckNode extends Node {
 
     @Override
     public void receiveData(Object data) {
-        duckDataHandler.handle(this, data);
+        duckDataHandler.rec(this, data);
     }
 }

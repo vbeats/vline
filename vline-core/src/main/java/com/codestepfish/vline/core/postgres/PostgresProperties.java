@@ -23,7 +23,5 @@ public class PostgresProperties {
 
     private String jdbcUrl;  // 完整jdbc url jdbc:postgresql://host:port/database
 
-    private String dataHandler;  // 数据处理器
-
     private Boolean flyway = false;  // 是否开启flyway
 }

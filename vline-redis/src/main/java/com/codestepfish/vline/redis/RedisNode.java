@@ -34,6 +34,8 @@ public class RedisNode extends Node {
 
             RedisClientHolder.REDIS_CLIENTS.put(this.getName(), Redisson.create(Config.fromYAML(ResourceUtils.getFile(String.format("classpath:redis/%s.yml", this.getName())))));
             log.info("【{}】 Redis Node Init Success , Client Mode: {}", this.getName(), properties.getMode());
+
+            redisDataHandler.init(this);
         } catch (Exception e) {
             log.error("【{}】 Redis Node Init Error", this.getName(), e);
             throw new RuntimeException(e);
@@ -48,6 +50,6 @@ public class RedisNode extends Node {
 
     @Override
     public void receiveData(Object data) {
-        redisDataHandler.handle(this, data);
+        redisDataHandler.rec(this, data);
     }
 }

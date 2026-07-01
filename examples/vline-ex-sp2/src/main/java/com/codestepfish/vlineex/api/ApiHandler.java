@@ -14,9 +14,12 @@ public class ApiHandler implements HttpHandler {
     private final ApiClient apiClient;
 
     @Override
-    public void handle(HttpNode node, Object data) {
+    public void init(HttpNode node) {
 
-        log.info("=========> 【Request】 数据推送请求: {}", data);
+    }
+
+    @Override
+    public void rec(HttpNode node, Object data) {
 
     }
 }

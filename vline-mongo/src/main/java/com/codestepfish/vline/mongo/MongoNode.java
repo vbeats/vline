@@ -34,6 +34,7 @@ public class MongoNode extends Node {
 
             mongoDataHandler = SpringUtil.getBean(MongoDataHandler.class);
 
+            mongoDataHandler.init(this);
         } catch (Exception e) {
             log.error("【{}】 Init Failed : ", this.getName(), e);
             throw new RuntimeException(e);
@@ -52,6 +53,6 @@ public class MongoNode extends Node {
 
     @Override
     public void receiveData(Object data) {
-        mongoDataHandler.handle(this, data);
+        mongoDataHandler.rec(this, data);
     }
 }

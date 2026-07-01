@@ -29,6 +29,9 @@ public class H2Node extends Node {
 
             h2DataHandler = SpringUtil.getBean(H2DataHandler.class);
 
+            log.info("【{}】 H2 Node Init Success ...", this.getName());
+
+            h2DataHandler.init(this);
         } catch (Exception e) {
             log.error("【{}】 Init Failed : ", this.getName(), e);
             throw new RuntimeException(e);
@@ -47,6 +50,6 @@ public class H2Node extends Node {
 
     @Override
     public void receiveData(Object data) {
-        h2DataHandler.handle(this, data);
+        h2DataHandler.rec(this, data);
     }
 }

@@ -52,6 +52,7 @@ public class MqttNode extends Node {
 
             MqttClientHolder.MQTT_CLIENTS.put(this.getName(), client);
 
+            mqttDataHandler.init(this);
         } catch (Exception e) {
             log.error("【{}】 Init Failed : ", this.getName(), e);
             throw new RuntimeException(e);
@@ -75,6 +76,6 @@ public class MqttNode extends Node {
 
     @Override
     public void receiveData(Object data) {
-        mqttDataHandler.handle(this, data);
+        mqttDataHandler.rec(this, data);
     }
 }

@@ -15,7 +15,5 @@ public class SqliteProperties {
 
     private String jdbcUrl;  // 完整jdbc url jdbc:sqlite:xx.db
 
-    private String dataHandler;  // 数据处理器
-
     private Boolean flyway = false;  // 是否开启flyway
 }

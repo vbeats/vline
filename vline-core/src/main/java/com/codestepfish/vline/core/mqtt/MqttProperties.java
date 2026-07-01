@@ -23,8 +23,6 @@ public class MqttProperties {
 
     private Boolean cleanStart = true;
 
-    private String dataHandler;
-
     public enum ClientVersion {
         V3,
         V5

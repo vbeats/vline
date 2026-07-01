@@ -18,8 +18,6 @@ public class RedisProperties {
     @JSONField(serializeFeatures = JSONWriter.Feature.WriteEnumsUsingName)
     private Mode mode = Mode.SINGLE;
 
-    private String dataHandler;
-
     public enum Mode {
         SINGLE,
         CLUSTER,

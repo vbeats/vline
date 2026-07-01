@@ -4,5 +4,7 @@ import com.codestepfish.vline.postgres.PostgresNode;
 
 public interface PostgresDataHandler {
 
-    void handle(PostgresNode node, Object data);
+    void init(PostgresNode node);
+
+    void rec(PostgresNode node, Object data);
 }

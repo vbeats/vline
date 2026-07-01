@@ -15,6 +15,4 @@ public class EtcdProperties {
 
     private String endpoints;  // 多个逗号分隔  http://127.0.0.1:2379,http://127.0.0.1:2380
 
-    private String dataHandler;
-
 }

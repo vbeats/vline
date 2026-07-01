@@ -11,6 +11,4 @@ public class MongoProperties {
 
     private String uri;  // 连接uri mongodb://localhost:27017
 
-    private String dataHandler;  // 数据处理器
-
 }

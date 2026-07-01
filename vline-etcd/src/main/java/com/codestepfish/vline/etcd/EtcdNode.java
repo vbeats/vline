@@ -33,6 +33,8 @@ public class EtcdNode extends Node {
             etcdDataHandler = SpringUtil.getBean(EtcdDataHandler.class);
 
             log.info("【{}】 Etcd Node Init Success , Endpoints: {}", this.getName(), properties.getEndpoints());
+
+            etcdDataHandler.init(this);
         } catch (Exception e) {
             log.error("【{}】 Etcd Node Init Error", this.getName(), e);
             throw new RuntimeException(e);
@@ -47,6 +49,6 @@ public class EtcdNode extends Node {
 
     @Override
     public void receiveData(Object data) {
-        etcdDataHandler.handle(this, data);
+        etcdDataHandler.rec(this, data);
     }
 }

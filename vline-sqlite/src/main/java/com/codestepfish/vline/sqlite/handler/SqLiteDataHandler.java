@@ -5,5 +5,7 @@ import com.codestepfish.vline.sqlite.SqLiteNode;
 
 public interface SqLiteDataHandler {
 
-    void handle(SqLiteNode node, Object data);
+    void init(SqLiteNode node);
+
+    void rec(SqLiteNode node, Object data);
 }

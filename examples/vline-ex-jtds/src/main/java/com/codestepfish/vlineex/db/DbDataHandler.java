@@ -12,8 +12,14 @@ public class DbDataHandler implements MssqlDataHandler {
 
     private AnylineService anylineService;
 
-    public void handle(MssqlNode node, Object data) {
+
+    @Override
+    public void init(MssqlNode node) {
 
     }
 
+    @Override
+    public void rec(MssqlNode node, Object data) {
+
+    }
 }

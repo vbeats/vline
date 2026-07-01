@@ -5,5 +5,7 @@ import com.codestepfish.vline.jtds.MssqlNode;
 
 public interface MssqlDataHandler {
 
-    void handle(MssqlNode node, Object data);
+    void init(MssqlNode node);
+
+    void rec(MssqlNode node, Object data);
 }

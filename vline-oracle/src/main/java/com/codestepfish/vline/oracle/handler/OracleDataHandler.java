@@ -4,5 +4,7 @@ import com.codestepfish.vline.oracle.OracleNode;
 
 public interface OracleDataHandler {
 
-    void handle(OracleNode node, Object data);
+    void init(OracleNode node);
+
+    void rec(OracleNode node, Object data);
 }

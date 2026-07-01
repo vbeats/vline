@@ -23,7 +23,5 @@ public class MysqlProperties {
 
     private String jdbcUrl;  // 完整jdbc url jdbc:mysql://localhost:3306/test?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&tinyInt1isBit=false&allowMultiQueries=true&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
 
-    private String dataHandler;  // 数据处理器
-
     private Boolean flyway = false;  // 是否开启flyway
 }

@@ -29,6 +29,7 @@ public class MysqlNode extends Node {
 
             mysqlDataHandler = SpringUtil.getBean(MysqlDataHandler.class);
 
+            mysqlDataHandler.init(this);
         } catch (Exception e) {
             log.error("【{}】 Init Failed : ", this.getName(), e);
             throw new RuntimeException(e);
@@ -47,6 +48,6 @@ public class MysqlNode extends Node {
 
     @Override
     public void receiveData(Object data) {
-        mysqlDataHandler.handle(this, data);
+        mysqlDataHandler.rec(this, data);
     }
 }

@@ -5,6 +5,7 @@ import org.eclipse.paho.mqttv5.client.MqttCallback;
 
 public interface MqttDataHandler extends MqttCallback {
 
-    // handle mqtt data
-    void handle(MqttNode node, Object data);
+    void init(MqttNode node);
+
+    void rec(MqttNode node, Object data);
 }

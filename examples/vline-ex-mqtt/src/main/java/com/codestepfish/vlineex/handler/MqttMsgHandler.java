@@ -16,11 +16,6 @@ public class MqttMsgHandler implements MqttDataHandler {
 
 
     @Override
-    public void handle(MqttNode mqttNode, Object data) {
-        log.info("handle data: {}", data);
-    }
-
-    @Override
     public void disconnected(MqttDisconnectResponse disconnectResponse) {
 
     }
@@ -47,6 +42,16 @@ public class MqttMsgHandler implements MqttDataHandler {
 
     @Override
     public void authPacketArrived(int reasonCode, MqttProperties properties) {
+
+    }
+
+    @Override
+    public void init(MqttNode node) {
+
+    }
+
+    @Override
+    public void rec(MqttNode node, Object data) {
 
     }
 }

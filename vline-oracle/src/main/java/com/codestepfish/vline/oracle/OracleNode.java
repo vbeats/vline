@@ -28,6 +28,8 @@ public class OracleNode extends Node {
             OracleDataSourceInitializer.initDataSource(this);  // 数据源初始化
 
             oracleDataHandler = SpringUtil.getBean(OracleDataHandler.class);
+
+            oracleDataHandler.init(this);
         } catch (Exception e) {
             log.error("【{}】 Init Failed : ", this.getName(), e);
             throw new RuntimeException(e);
@@ -46,6 +48,6 @@ public class OracleNode extends Node {
 
     @Override
     public void receiveData(Object data) {
-        oracleDataHandler.handle(this, data);
+        oracleDataHandler.rec(this, data);
     }
 }

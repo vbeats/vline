@@ -1,5 +1,8 @@
 package com.codestepfish.vline.http;
 
 public interface HttpHandler {
-    void handle(HttpNode node, Object data);
+
+    void init(HttpNode node);
+
+    void rec(HttpNode node, Object data);
 }

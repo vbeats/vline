@@ -4,5 +4,7 @@ import com.codestepfish.vline.mongo.MongoNode;
 
 public interface MongoDataHandler {
 
-    void handle(MongoNode node, Object data);
+    void init(MongoNode node);
+
+    void rec(MongoNode node, Object data);
 }

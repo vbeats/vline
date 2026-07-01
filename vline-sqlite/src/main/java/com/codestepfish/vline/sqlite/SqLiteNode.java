@@ -28,6 +28,8 @@ public class SqLiteNode extends Node {
             DataSourceInitializer.initDataSource(this);  // 数据源初始化
 
             sqLiteDataHandler = SpringUtil.getBean(SqLiteDataHandler.class);
+
+            sqLiteDataHandler.init(this);
         } catch (Exception e) {
             log.error("【{}】 Init Failed : ", this.getName(), e);
             throw new RuntimeException(e);
@@ -46,6 +48,6 @@ public class SqLiteNode extends Node {
 
     @Override
     public void receiveData(Object data) {
-        sqLiteDataHandler.handle(this, data);
+        sqLiteDataHandler.rec(this, data);
     }
 }

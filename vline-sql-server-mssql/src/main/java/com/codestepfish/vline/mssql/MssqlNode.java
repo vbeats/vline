@@ -28,6 +28,8 @@ public class MssqlNode extends Node {
             DataSourceInitializer.initDataSource(this);  // 数据源初始化
 
             mssqlDataHandler = SpringUtil.getBean(MssqlDataHandler.class);
+
+            mssqlDataHandler.init(this);
         } catch (Exception e) {
             log.error("【{}】 Init Failed : ", this.getName(), e);
             throw new RuntimeException(e);
@@ -46,6 +48,6 @@ public class MssqlNode extends Node {
 
     @Override
     public void receiveData(Object data) {
-        mssqlDataHandler.handle(this, data);
+        mssqlDataHandler.rec(this, data);
     }
 }

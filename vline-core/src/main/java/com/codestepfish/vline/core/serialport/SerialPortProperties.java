@@ -24,5 +24,4 @@ public class SerialPortProperties {
 
     private Boolean ignored = true; // 忽略其它业务处理  只转发数据
 
-    private String dataHandler;  // 业务数据处理
 }

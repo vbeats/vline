@@ -9,8 +9,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class DbDataHandler implements MysqlDataHandler {
 
+
     @Override
-    public void handle(MysqlNode node, Object data) {
+    public void init(MysqlNode node) {
+
+    }
+
+    @Override
+    public void rec(MysqlNode node, Object data) {
 
     }
 }
