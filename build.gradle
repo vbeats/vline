@@ -17,6 +17,8 @@ allprojects {
 }
 
 subprojects {
+    ext.libs = rootProject.ext.libs
+
     apply plugin: 'java-library'
     apply plugin: 'io.spring.dependency-management'
 
@@ -113,43 +115,52 @@ subprojects {
         }
     }
 
-    jreleaser {
-        project {
-            inceptionYear = "2025"
-            description = "lightweight edge data acquisition"
-            copyright = "vbeats"
-            license = "MIT"
-        }
+}
 
-        signing {
-            active = 'ALWAYS'
-            armored = true
-        }
+jreleaser {
+    project {
+        inceptionYear = "2025"
+        description = "lightweight edge data acquisition"
+        copyright = "vbeats"
+        license = "MIT"
+    }
 
-        release {
-            github {
-                skipRelease = true
-                skipTag = true
-            }
-        }
+    signing {
+        active = 'ALWAYS'
+        armored = true
+    }
 
-        deploy {
-            maven {
-                mavenCentral {
-                    sonatype {
-                        active = 'ALWAYS'
-                        sign = true
-                        sourceJar = true
-                        javadocJar = true
-                        verifyPom = true
-                        applyMavenCentralRules = false
-                        url = 'https://central.sonatype.com/api/v1/publisher'
-                        stagingRepository('build/publish')
-                    }
+    release {
+        github {
+            skipRelease = true
+            skipTag = true
+        }
+    }
+
+    deploy {
+        maven {
+            mavenCentral {
+                sonatype {
+                    active = 'ALWAYS'
+                    sign = true
+                    sourceJar = true
+                    javadocJar = true
+                    verifyPom = true
+                    applyMavenCentralRules = false
+                    url = 'https://central.sonatype.com/api/v1/publisher'
+                    stagingRepository('build/publish')
                 }
             }
         }
     }
+}
+
+tasks.matching {
+    it.name.startsWith('jreleaser') &&
+            it.hasProperty('outputDirectory') &&
+            !['jreleaserInit', 'jreleaserTemplateGenerate'].contains(it.name)
+}.configureEach {
+    outputDirectory.set(layout.buildDirectory.dir("jreleaser/${name}"))
 }
 
 publish {
