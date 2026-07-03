@@ -54,4 +54,9 @@ public class MqttMsgHandler implements MqttDataHandler {
     public void rec(MqttNode node, Object data) {
 
     }
+
+    @Override
+    public void destroy(MqttNode node) {
+
+    }
 }

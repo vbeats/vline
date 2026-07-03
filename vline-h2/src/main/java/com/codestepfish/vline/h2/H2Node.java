@@ -42,6 +42,7 @@ public class H2Node extends Node {
     public void destroy() {
         super.destroy();
         try {
+            h2DataHandler.destroy(this);
             DataSourceHolder.destroy(this.getName());
         } catch (Exception e) {
             log.error("【{}】 Destroy Exception : ", this.getName(), e);

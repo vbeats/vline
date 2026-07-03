@@ -40,6 +40,7 @@ public class PostgresNode extends Node {
     public void destroy() {
         super.destroy();
         try {
+            postgresDataHandler.destroy(this);
             DataSourceHolder.destroy(this.getName());
         } catch (Exception e) {
             log.error("【{}】 Destroy Exception : ", this.getName(), e);

@@ -44,6 +44,7 @@ public class EtcdNode extends Node {
     @Override
     public void destroy() {
         super.destroy();
+        etcdDataHandler.destroy(this);
         EtcdClientHolder.ETCD_CLIENTS.forEach((key, value) -> value.close());
     }
 

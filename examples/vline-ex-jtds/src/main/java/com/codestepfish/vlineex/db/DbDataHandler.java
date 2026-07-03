@@ -22,4 +22,9 @@ public class DbDataHandler implements MssqlDataHandler {
     public void rec(MssqlNode node, Object data) {
 
     }
+
+    @Override
+    public void destroy(MssqlNode node) {
+
+    }
 }

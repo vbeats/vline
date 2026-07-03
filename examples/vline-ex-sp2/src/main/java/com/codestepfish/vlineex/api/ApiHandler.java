@@ -22,4 +22,9 @@ public class ApiHandler implements HttpHandler {
     public void rec(HttpNode node, Object data) {
 
     }
+
+    @Override
+    public void destroy(HttpNode node) {
+
+    }
 }

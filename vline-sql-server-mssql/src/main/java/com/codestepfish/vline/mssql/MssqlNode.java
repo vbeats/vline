@@ -40,6 +40,7 @@ public class MssqlNode extends Node {
     public void destroy() {
         super.destroy();
         try {
+            mssqlDataHandler.destroy(this);
             DataSourceHolder.destroy(this.getName());
         } catch (Exception e) {
             log.error("【{}】 Destroy Exception : ", this.getName(), e);

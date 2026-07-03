@@ -32,17 +32,16 @@ public class SpDataHandler implements SerialPortDataHandler {
         serialPort.readBytes(readBuffer, readBuffer.length);
 
         String data = bytesToHex(readBuffer);
-        log.info("=======> {}【{}】 receive data: {}", node.getName(), node.getSerialPort().getDevice(), data);
+        log.info("=======> {}【{}】 receive data: {} {}", node.getName(), node.getSerialPort().getDevice(), data, new String(readBuffer));
 
         VLineContext.pushMsg(node.getName(), readBuffer);
     }
 
     @Override
     public void send(SerialPortNode node, Object data) {
+    }
 
-        // data ===> send to node
-        byte[] datas = (byte[]) data;
-        SerialPort serialPort = SerialPortHandler.SERIAL_PORTS.get(node.getName());
-        serialPort.writeBytes(datas, datas.length);
+    @Override
+    public void destroy(SerialPortNode node) {
     }
 }

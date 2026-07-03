@@ -64,6 +64,7 @@ public class MqttNode extends Node {
     public void destroy() {
         super.destroy();
 
+        mqttDataHandler.destroy(this);
         MqttClientHolder.MQTT_CLIENTS.forEach((K, v) -> {
             try {
                 v.disconnect();

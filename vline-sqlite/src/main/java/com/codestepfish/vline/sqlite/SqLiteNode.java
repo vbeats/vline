@@ -40,6 +40,7 @@ public class SqLiteNode extends Node {
     public void destroy() {
         super.destroy();
         try {
+            sqLiteDataHandler.destroy(this);
             DataSourceHolder.destroy(this.getName());
         } catch (Exception e) {
             log.error("【{}】 Destroy Exception : ", this.getName(), e);

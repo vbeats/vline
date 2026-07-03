@@ -1,11 +1,9 @@
 package com.codestepfish.vlineex.handler;
 
-import cn.hutool.core.util.RandomUtil;
 import com.codestepfish.vline.core.VLineContext;
 import com.codestepfish.vline.serialport.SerialPortNode;
 import com.codestepfish.vline.serialport.handler.SerialPortDataHandler;
 import com.codestepfish.vline.serialport.handler.SerialPortHandler;
-import com.codestepfish.vlineex.model.DataItem;
 import com.fazecast.jSerialComm.SerialPort;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -34,12 +32,21 @@ public class SpDataHandler implements SerialPortDataHandler {
         serialPort.readBytes(readBuffer, readBuffer.length);
 
         String data = bytesToHex(readBuffer);
-        log.info("=======> {}【{}】 receive data: {} {}", node.getName(), node.getSerialPort().getDevice(), data, new String(readBuffer));
+        log.info("=======> {}【{}】 receive data: {}", node.getName(), node.getSerialPort().getDevice(), data);
 
-        VLineContext.pushMsg(node.getName(), DataItem.builder().id(RandomUtil.randomLong()).build());
+        VLineContext.pushMsg(node.getName(), readBuffer);
     }
 
     @Override
     public void send(SerialPortNode node, Object data) {
+
+        // data ===> send to node
+        byte[] datas = (byte[]) data;
+        SerialPort serialPort = SerialPortHandler.SERIAL_PORTS.get(node.getName());
+        serialPort.writeBytes(datas, datas.length);
+    }
+
+    @Override
+    public void destroy(SerialPortNode node) {
     }
 }

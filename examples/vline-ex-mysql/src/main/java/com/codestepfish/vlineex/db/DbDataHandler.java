@@ -19,4 +19,9 @@ public class DbDataHandler implements MysqlDataHandler {
     public void rec(MysqlNode node, Object data) {
 
     }
+
+    @Override
+    public void destroy(MysqlNode node) {
+
+    }
 }

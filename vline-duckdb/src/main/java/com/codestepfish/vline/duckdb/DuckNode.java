@@ -47,6 +47,7 @@ public class DuckNode extends Node {
     @Override
     public void destroy() {
         super.destroy();
+        duckDataHandler.destroy(this);
     }
 
     @Override

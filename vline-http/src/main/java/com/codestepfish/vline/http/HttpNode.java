@@ -33,6 +33,12 @@ public class HttpNode extends Node {
     }
 
     @Override
+    public void destroy() {
+        super.destroy();
+        httpHandler.destroy(this);
+    }
+
+    @Override
     public void receiveData(Object data) {
         httpHandler.rec(this, data);
     }

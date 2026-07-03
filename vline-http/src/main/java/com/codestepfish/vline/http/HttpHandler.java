@@ -1,8 +1,6 @@
 package com.codestepfish.vline.http;
 
-public interface HttpHandler {
+import com.codestepfish.vline.core.handler.DataHandler;
 
-    void init(HttpNode node);
-
-    void rec(HttpNode node, Object data);
+public interface HttpHandler extends DataHandler<HttpNode> {
 }

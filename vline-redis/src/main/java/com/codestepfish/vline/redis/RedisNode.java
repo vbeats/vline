@@ -45,6 +45,7 @@ public class RedisNode extends Node {
     @Override
     public void destroy() {
         super.destroy();
+        redisDataHandler.destroy(this);
         RedisClientHolder.REDIS_CLIENTS.forEach((key, value) -> value.shutdown());
     }
 

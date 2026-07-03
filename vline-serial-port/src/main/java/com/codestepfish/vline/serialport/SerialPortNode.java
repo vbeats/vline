@@ -46,6 +46,7 @@ public class SerialPortNode extends Node {
     @Override
     public void destroy() {
         super.destroy();
+        serialPortDataHandler.destroy(this);
         SerialPortHandler.SERIAL_PORTS.entrySet().parallelStream()
                 .forEach(entry -> entry.getValue().closePort());
     }

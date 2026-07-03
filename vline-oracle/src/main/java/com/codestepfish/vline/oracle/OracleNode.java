@@ -40,6 +40,7 @@ public class OracleNode extends Node {
     public void destroy() {
         super.destroy();
         try {
+            oracleDataHandler.destroy(this);
             DataSourceHolder.destroy(this.getName());
         } catch (Exception e) {
             log.error("【{}】 Destroy Exception : ", this.getName(), e);
