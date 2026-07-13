@@ -17,11 +17,8 @@ vline:
         client-id: vline_iot_xxoo
         topic: "testtopic/#"
         client-version: v5
-        data-handler: com.codestepfish.vlineex.handler.MqttMsgHandler
     - name: api
-      http:
-        handler: com.codestepfish.vlineex.api.ApiHandler
-
+      type: http
   struct:
     iot1:
       - api

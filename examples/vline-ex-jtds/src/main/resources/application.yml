@@ -18,10 +18,8 @@ vline:
         username: sa
         password: 123456
         flyway: false
-        data-handler: com.codestepfish.vlineex.db.DbDataHandler
     - name: api
-      http:
-        handler: com.codestepfish.vlineex.api.ApiHandler
+      type: http
   struct:
     db:
       - api

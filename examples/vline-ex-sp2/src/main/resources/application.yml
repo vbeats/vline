@@ -16,10 +16,8 @@ vline:
         device: COM1
         baud-rate: 115200
         ignored: false
-        data-handler: com.codestepfish.vlineex.handler.SpDataHandler
     - name: api
-      http:
-        handler: com.codestepfish.vlineex.api.ApiHandler
+      type: http
   struct:
     c1:
       - api

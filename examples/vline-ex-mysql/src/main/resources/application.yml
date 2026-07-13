@@ -18,6 +18,5 @@ vline:
         username: root
         password: root
         flyway: false
-        data-handler: com.codestepfish.vlineex.db.DbDataHandler
   struct:
     db:
