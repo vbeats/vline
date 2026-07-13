@@ -123,29 +123,24 @@ vline:
 
 1. 目前http只支持作为 `out node`
 
-| key     | 必填 | desc                                                    |
-|:--------|----|---------------------------------------------------------|
-| handler | Y  | 自定义http请求处理逻辑 实现com.codestepfish.vline.http.HttpHandler |
-
 ### redis 🛰️
 
 1. 上层通过`com.codestepfish.vline.redis.RedisClientHolder`获取节点对应的`RedissonClient`
 2. `redisson`配置文件位置: `classpath:redisson/{nodeName}.yml`
 3. 上层应用应当排除`RedisAutoConfiguration`
+4. 上层实现`com.codestepfish.vline.redis.handler.RedisDataHandler`接口
 
 > com.codestepfish.vline.core.redis.RedisProperties
 
-| key         | 必填 | desc                                                      |
-|:------------|----|-----------------------------------------------------------|
-| mode        | N  | SINGLE, CLUSTER, SENTINEL, REPLICATED, MASTER_SLAVE       |
-| dataHandler | Y  | 实现com.codestepfish.vline.redis.handler.RedisDataHandler接口 |
+| key  | 必填 | desc                                                |
+|:-----|----|-----------------------------------------------------|
+| mode | N  | SINGLE, CLUSTER, SENTINEL, REPLICATED, MASTER_SLAVE |
 
 ### mssql 🛰️
 
 > com.codestepfish.vline.core.mssql.MssqlProperties
 
-1. node节点 dataHandler必须实现 `com.codestepfish.vline.mssql.handler.MssqlDataHandler`
-   接口
+1. node节点 上层实现 `com.codestepfish.vline.mssql.handler.MssqlDataHandler`接口
 2. 模块依赖了 `spring-boot-starter-jdbc` , 如果不需要springboot自动配置数据源 , 上层应用应当排除
    `DataSourceAutoConfiguration`
 3. flyway文件位置`classpath:sqlserver/{nodeName}`  (< 2008 版本不一定支持)
@@ -161,174 +156,160 @@ vline:
 | trustServerCertificate | N  | 默认true                                                                                 |
 | driverClassName        | N  | 默认com.microsoft.sqlserver.jdbc.SQLServerDriver(jtds默认net.sourceforge.jtds.jdbc.Driver) |
 | jdbcUrl                | N  | 完整jdbc url                                                                             |
-| dataHandler            | Y  | 数据处理具体实现 实现 com.codestepfish.vline.mssql.handler.MssqlDataHandler 接口                   |
 | flyway                 | N  | 默认false                                                                                |
 
 ### mysql 🛰️
 
 > com.codestepfish.vline.core.mysql.MysqlProperties
 
-1. node节点 dataHandler必须实现 `com.codestepfish.vline.mysql.handler.MysqlDataHandler` 接口
+1. node节点 上层实现 `com.codestepfish.vline.mysql.handler.MysqlDataHandler` 接口
 2. 模块依赖了 `spring-boot-starter-jdbc` , 如果不需要springboot自动配置数据源 , 上层应用应当排除
    `DataSourceAutoConfiguration`
 3. flyway文件位置`classpath:mysql/{nodeName}`
 
-| key             | 必填 | desc                                                                 |
-|:----------------|----|----------------------------------------------------------------------|
-| host            | N  | 默认127.0.0.1                                                          |
-| port            | N  | 默认3306                                                               |
-| databaseName    | Y  | 数据库                                                                  |
-| username        | Y  | 账号                                                                   |
-| password        | Y  | 密码                                                                   |
-| driverClassName | N  | 默认com.mysql.cj.jdbc.Driver                                           |
-| jdbcUrl         | N  | 完整jdbc url                                                           |
-| dataHandler     | Y  | 数据处理具体实现 实现 com.codestepfish.vline.mysql.handler.MysqlDataHandler 接口 |
-| flyway          | N  | 默认false                                                              |
+| key             | 必填 | desc                       |
+|:----------------|----|----------------------------|
+| host            | N  | 默认127.0.0.1                |
+| port            | N  | 默认3306                     |
+| databaseName    | Y  | 数据库                        |
+| username        | Y  | 账号                         |
+| password        | Y  | 密码                         |
+| driverClassName | N  | 默认com.mysql.cj.jdbc.Driver |
+| jdbcUrl         | N  | 完整jdbc url                 |
+| flyway          | N  | 默认false                    |
 
 ### postgresql 🛰️
 
 > com.codestepfish.vline.core.postgres.PostgresProperties
 
-1. node节点 dataHandler必须实现
-   `com.codestepfish.vline.postgres.handler.PostgresDataHandler`
-   接口
+1. node节点 上层实现`com.codestepfish.vline.postgres.handler.PostgresDataHandler`接口
 2. 模块依赖了 `spring-boot-starter-jdbc` , 如果不需要springboot自动配置数据源 , 上层应用应当排除
    `DataSourceAutoConfiguration`
 3. flyway文件位置`classpath:postgres/{nodeName}`
 
-| key             | 必填 | desc                                                                       |
-|:----------------|----|----------------------------------------------------------------------------|
-| host            | N  | 默认127.0.0.1                                                                |
-| port            | N  | 默认5432                                                                     |
-| databaseName    | Y  | 数据库                                                                        |
-| username        | Y  | 账号                                                                         |
-| password        | Y  | 密码                                                                         |
-| driverClassName | N  | 默认org.postgresql.Driver                                                    |
-| jdbcUrl         | N  | 完整jdbc url                                                                 |
-| dataHandler     | Y  | 数据处理具体实现 实现 com.codestepfish.vline.postgres.handler.PostgresDataHandler 接口 |
-| flyway          | N  | 默认false                                                                    |
+| key             | 必填 | desc                    |
+|:----------------|----|-------------------------|
+| host            | N  | 默认127.0.0.1             |
+| port            | N  | 默认5432                  |
+| databaseName    | Y  | 数据库                     |
+| username        | Y  | 账号                      |
+| password        | Y  | 密码                      |
+| driverClassName | N  | 默认org.postgresql.Driver |
+| jdbcUrl         | N  | 完整jdbc url              |
+| flyway          | N  | 默认false                 |
 
 ### sqlite 🛰️
 
 > com.codestepfish.vline.core.sqlite.SqliteProperties
 
-1. node节点 dataHandler必须实现 `com.codestepfish.vline.sqlite.handler.SqLiteDataHandler` 接口
+1. node节点 上层实现 `com.codestepfish.vline.sqlite.handler.SqLiteDataHandler` 接口
 2. 模块依赖了 `spring-boot-starter-jdbc` , 如果不需要springboot自动配置数据源 , 上层应用应当排除
    `DataSourceAutoConfiguration`
 3. flyway文件位置`classpath:sqlite/{nodeName}`
 
-| key             | 必填 | desc                                                                   |
-|:----------------|----|------------------------------------------------------------------------|
-| dbPath          | Y  | 数据库文件路径                                                                |
-| driverClassName | N  | 默认org.sqlite.JDBC                                                      |
-| jdbcUrl         | N  | 完整jdbc url                                                             |
-| dataHandler     | Y  | 数据处理具体实现 实现 com.codestepfish.vline.sqlite.handler.SqLiteDataHandler 接口 |
-| flyway          | N  | 默认false                                                                |
+| key             | 必填 | desc              |
+|:----------------|----|-------------------|
+| dbPath          | Y  | 数据库文件路径           |
+| driverClassName | N  | 默认org.sqlite.JDBC |
+| jdbcUrl         | N  | 完整jdbc url        |
+| flyway          | N  | 默认false           |
 
 ### oracle 🛰️
 
 > com.codestepfish.vline.core.oracle.OracleProperties
 
-1. node节点 dataHandler必须实现
-   `com.codestepfish.vline.oracle.handler.OracleDataHandler`
-   接口
+1. node节点上层实现`com.codestepfish.vline.oracle.handler.OracleDataHandler`接口
 2. 模块依赖了 `spring-boot-starter-jdbc` , 如果不需要springboot自动配置数据源 , 上层应用应当排除
    `DataSourceAutoConfiguration`
 3. flyway文件位置`classpath:oracle/{nodeName}`
 
-| key             | 必填 | desc                                                                   |
-|:----------------|----|------------------------------------------------------------------------|
-| host            | N  | 默认127.0.0.1                                                            |
-| port            | N  | 默认1521                                                                 |
-| serviceName     | Y  | 服务名称                                                                   |
-| username        | Y  | 账号                                                                     |
-| password        | Y  | 密码                                                                     |
-| driverClassName | N  | 默认oracle.jdbc.driver.OracleDriver                                      |
-| jdbcUrl         | N  | 完整jdbc url  jdbc:oracle:thin:@host:port:serviceName                    |
-| dataHandler     | Y  | 数据处理具体实现 实现 com.codestepfish.vline.oracle.handler.OracleDataHandler 接口 |
-| flyway          | N  | 默认false                                                                |
+| key             | 必填 | desc                                                |
+|:----------------|----|-----------------------------------------------------|
+| host            | N  | 默认127.0.0.1                                         |
+| port            | N  | 默认1521                                              |
+| serviceName     | Y  | 服务名称                                                |
+| username        | Y  | 账号                                                  |
+| password        | Y  | 密码                                                  |
+| driverClassName | N  | 默认oracle.jdbc.driver.OracleDriver                   |
+| jdbcUrl         | N  | 完整jdbc url  jdbc:oracle:thin:@host:port:serviceName |
+| flyway          | N  | 默认false                                             |
 
 ### etcd 🛰️
 
 > com.codestepfish.vline.core.etcd.EtcdProperties
 
-1. node节点上层必须实现 `com.codestepfish.vline.etcd.handler.EtcdDataHandler` 接口
+1. node节点 上层实现 `com.codestepfish.vline.etcd.handler.EtcdDataHandler` 接口
 
-| key         | 必填 | desc                                                               |
-|:------------|----|--------------------------------------------------------------------|
-| endpoints   | Y  | etcd endpoints 多个节点逗号分隔                                            |
-| dataHandler | Y  | 数据处理具体实现 实现 com.codestepfish.vline.etcd.handler.EtcdDataHandler 接口 |
+| key       | 必填 | desc                    |
+|:----------|----|-------------------------|
+| endpoints | Y  | etcd endpoints 多个节点逗号分隔 |
 
 ### h2 🛰️
 
 > com.codestepfish.vline.core.h2.H2Properties
 
-1. node节点 dataHandler必须实现 `com.codestepfish.vline.h2.handler.H2DataHandler` 接口
+1. node节点 上层实现 `com.codestepfish.vline.h2.handler.H2DataHandler` 接口
 2. 模块依赖了 `spring-boot-starter-jdbc` , 如果不需要springboot自动配置数据源 , 上层应用应当排除
    `DataSourceAutoConfiguration`
 3. flyway文件位置`classpath:h2/{nodeName}`
 
-| key             | 必填 | desc                                                           |
-|:----------------|----|----------------------------------------------------------------|
-| driverClassName | N  | 默认org.h2.Driver                                                |
-| jdbcUrl         | N  | 完整jdbc url                                                     |
-| dataHandler     | Y  | 数据处理具体实现 实现 com.codestepfish.vline.h2.handler.H2DataHandler 接口 |
-| flyway          | N  | 默认false                                                        |
+| key             | 必填 | desc            |
+|:----------------|----|-----------------|
+| driverClassName | N  | 默认org.h2.Driver |
+| jdbcUrl         | N  | 完整jdbc url      |
+| flyway          | N  | 默认false         |
 
 ### serial port 🛰️
 
 > com.codestepfish.vline.core.serialport.SerialPortProperties
 
-1. node节点上层必须实现 `com.codestepfish.vline.serialport.handler.SerialPortDataHandler` 接口
+1. node节点 上层实现 `com.codestepfish.vline.serialport.handler.SerialPortDataHandler` 接口
 
-| key          | 必填 | desc                                                                           |
-|:-------------|----|--------------------------------------------------------------------------------|
-| device       | Y  | 串口设备                                                                           |
-| baudRate     | N  | 串口波特率     默认115200                                                             |
-| dataBits     | N  | 数据位         默认8                                                                |
-| stopBits     | N  | 停止位         默认 1                                                               |
-| parity       | N  | 奇偶校验        默认 0                                                               |
-| useRs485Mode | N  | 是否使用rs485模式        默认 false                                                    |
-| ignored      | N  | 是否忽略其它业务处理  只转发数据                                                              |
-| dataHandler  | Y  | 数据处理具体实现 实现 com.codestepfish.vline.serialport.handler.SerialPortDataHandler 接口 |
+| key          | 必填 | desc                        |
+|:-------------|----|-----------------------------|
+| device       | Y  | 串口设备                        |
+| baudRate     | N  | 串口波特率     默认115200          |
+| dataBits     | N  | 数据位         默认8             |
+| stopBits     | N  | 停止位         默认 1            |
+| parity       | N  | 奇偶校验        默认 0            |
+| useRs485Mode | N  | 是否使用rs485模式        默认 false |
+| ignored      | N  | 是否忽略其它业务处理  只转发数据           |
 
 ### mongo 🛰️
 
 > com.codestepfish.vline.core.mongo.MongoProperties
 
-1. node节点 dataHandler必须实现 `com.codestepfish.vline.mongo.handler.MongoDataHandler` 接口
+1. node节点 上层实现 `com.codestepfish.vline.mongo.handler.MongoDataHandler` 接口
 2. 如果不需要springboot自动配置数据源 , 上层应用应当排除 `DataSourceAutoConfiguration` `MongoAutoConfiguration`
 
-| key         | 必填 | desc                                                                 |
-|:------------|----|----------------------------------------------------------------------|
-| uri         | N  | 完整mongodb uri                                                        |
-| dataHandler | Y  | 数据处理具体实现 实现 com.codestepfish.vline.mongo.handler.MongoDataHandler 接口 |
+| key | 必填 | desc          |
+|:----|----|---------------|
+| uri | N  | 完整mongodb uri |
 
 ### duckdb 🛰️
 
 > com.codestepfish.vline.core.duckdb.DuckProperties
 
 1. 上层通过`com.codestepfish.vline.duckdb.DuckClientHolder`获取节点对应的`Connection`
+2. 上层实现`com.codestepfish.vline.duckdb.handler.DuckDataHandler`接口
 
 > com.codestepfish.vline.core.duckdb.DuckProperties
 
-| key         | 必填 | desc                                                                 |
-|:------------|----|----------------------------------------------------------------------|
-| uri         | Y  | 完整duckdb uri                                                         |
-| dataHandler | Y  | 数据处理具体实现 实现 com.codestepfish.vline.duckdb.handler.DuckDataHandler 接口 |
+| key | 必填 | desc         |
+|:----|----|--------------|
+| uri | Y  | 完整duckdb uri |
 
 ## mqtt 🛰️
 
 > com.codestepfish.vline.core.mqtt.MqttProperties
 
-1. node节点上层必须实现 `com.codestepfish.vline.mqtt.handler.MqttDataHandler` 接口
+1. node节点 上层实现 `com.codestepfish.vline.mqtt.handler.MqttDataHandler` 接口
 
-| key         | 必填 | desc                                                               |
-|:------------|----|--------------------------------------------------------------------|
-| broker      | Y  | mqtt broker (格式: tcp://host:port)                                  |
-| clientId    | N  | mqtt client id (默认: clientId_<随机数>)                                |
-| topic       | Y  | mqtt topic                                                         |
-| subQos      | N  | mqtt 订阅qos (默认: 0)                                                 |
-| pubQos      | N  | mqtt 发布qos (默认: 0)                                                 |
-| cleanStart  | N  | mqtt clean start (默认: true)                                        |
-| dataHandler | Y  | 数据处理具体实现 实现 com.codestepfish.vline.mqtt.handler.MqttDataHandler 接口 |
+| key        | 必填 | desc                                |
+|:-----------|----|-------------------------------------|
+| broker     | Y  | mqtt broker (格式: tcp://host:port)   |
+| clientId   | N  | mqtt client id (默认: clientId_<随机数>) |
+| topic      | Y  | mqtt topic                          |
+| subQos     | N  | mqtt 订阅qos (默认: 0)                  |
+| pubQos     | N  | mqtt 发布qos (默认: 0)                  |
+| cleanStart | N  | mqtt clean start (默认: true)         |
