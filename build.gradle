@@ -156,15 +156,14 @@ jreleaser {
 }
 
 tasks.matching {
-    it.name.startsWith('jreleaser') &&
-            it.hasProperty('outputDirectory') &&
-            !['jreleaserInit', 'jreleaserTemplateGenerate'].contains(it.name)
+    it.name.startsWith('jreleaser') && it.hasProperty('outputDirectory') && !['jreleaserInit', 'jreleaserTemplateGenerate'].contains(it.name)
 }.configureEach {
     outputDirectory.set(layout.buildDirectory.dir("jreleaser/${name}"))
 }
 
 publish {
     doFirst {
+        delete 'build'
         mkdir 'build/publish'
         mkdir 'build/jreleaser'
     }
