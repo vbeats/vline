@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "vline 多源数据采集与转发架构",
+    "locale": "zh-CN",
+    "output": "vline-architecture.html",
+    "quality_profile": "showcase",
+    "viewBox": [1360, 540],
+    "views": [
+      {
+        "id": "collect-forward",
+        "label": "采集 → 转发主链",
+        "focus": ["devices", "innode", "bus", "dispatch", "outnode"],
+        "note": "一条 Disruptor 管道把任意入口节点的数据扇出到 struct 声明的下游节点。"
+      },
+      {
+        "id": "boot-wiring",
+        "label": "启动装配与注册",
+        "focus": ["app", "config", "starter", "autocfg", "innode"],
+        "note": "yml 绑定后，各数据源模块的 AutoConfiguration 按 NodeType 初始化节点并注册进 VLineContext.NODES。"
+      },
+      {
+        "id": "landing",
+        "label": "落地与持久化",
+        "focus": ["outnode", "handler", "stores"],
+        "note": "数据最终交给上层实现的 DataHandler，由 anyline / 原生客户端写出到目标数据源。"
+      }
+    ]
+  },
+  "components": [
+    { "id": "app", "type": "external", "label": "上层 Spring Boot 应用", "sublabel": "提供 yml 与 DataHandler", "pos": [40, 48], "size": [220, 66] },
+    { "id": "config", "type": "cloud", "label": "vline.nodes / struct", "sublabel": "application.yml 拓扑声明", "pos": [393, 48], "size": [220, 66] },
+    { "id": "starter", "type": "backend", "label": "vline-spring-boot-starter", "sublabel": "VLineAutoConfiguration", "pos": [746, 48], "size": [220, 66] },
+    { "id": "autocfg", "type": "cloud", "label": "数据源模块 ×14", "sublabel": "XxxNodeAutoConfiguration", "pos": [1099, 48], "size": [220, 66] },
+
+    { "id": "devices", "type": "external", "label": "边缘设备与源系统", "sublabel": "TCP · 串口 · MQTT Broker", "pos": [40, 210], "size": [220, 80] },
+    { "id": "innode", "type": "backend", "label": "入口 Node 实例", "sublabel": "init() 建连接并收数据", "pos": [393, 210], "size": [220, 80] },
+    { "id": "bus", "type": "messagebus", "label": "Disruptor RingBuffer", "sublabel": "pushMsg 入总线 · 1024 槽", "pos": [746, 210], "size": [220, 80] },
+    { "id": "dispatch", "type": "backend", "label": "VLineEventHandler", "sublabel": "nextNodes 按 struct 扇出", "pos": [1099, 210], "size": [220, 80] },
+
+    { "id": "core", "type": "backend", "label": "vline-core 契约层", "sublabel": "Node · NodeType · DataHandler", "pos": [40, 396], "size": [220, 76] },
+    { "id": "stores", "type": "database", "label": "目标数据源", "sublabel": "MySQL · PG · Oracle · Mongo", "pos": [393, 396], "size": [220, 76] },
+    { "id": "handler", "type": "backend", "label": "业务 DataHandler", "sublabel": "@Service 实现", "pos": [746, 396], "size": [220, 76] },
+    { "id": "outnode", "type": "backend", "label": "出口 Node 实例", "sublabel": "receiveData 写出", "pos": [1099, 396], "size": [220, 76] }
+  ],
+  "connections": [
+    { "id": "provide-config", "from": "app", "to": "config", "label": "提供配置" },
+    { "id": "bind-properties", "from": "config", "to": "starter", "label": "绑定 Properties" },
+    { "id": "wire-autoconfig", "from": "starter", "to": "autocfg", "label": "装配节点" },
+    { "id": "init-node", "from": "autocfg", "to": "innode", "label": "初始化并注册", "fromSide": "bottom", "toSide": "top" },
+    { "id": "ingest", "from": "devices", "to": "innode", "label": "协议报文" },
+    { "id": "push-msg", "from": "innode", "to": "bus", "label": "pushMsg", "variant": "emphasis" },
+    { "id": "consume", "from": "bus", "to": "dispatch", "label": "消费事件" },
+    { "id": "fanout", "from": "dispatch", "to": "outnode", "label": "receiveData", "variant": "emphasis", "fromSide": "bottom", "toSide": "top", "labelDy": 40 },
+    { "id": "delegate", "from": "outnode", "to": "handler", "label": "调用 Handler" },
+    { "id": "persist", "from": "handler", "to": "stores", "label": "落库写出" },
+    { "id": "contract", "from": "core", "to": "innode", "label": "Node 基类", "variant": "dashed" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "定位与技术栈", "items": ["多数据源采集与转发中间件，面向轻量边缘场景（Not ETL）", "JDK 21 + Spring Boot BOM，main 分支对应 vline 5.x", "16 个 Gradle 模块：core + starter + 14 个数据源 / 协议模块"] },
+    { "dot": "emerald", "title": "运行时主链", "items": ["starter 装配 Disruptor RingBuffer（1024 槽、BlockingWaitStrategy、虚拟线程消费者）", "VLineContext.nextNodes 按 struct 双向匹配，并用 Caffeine 缓存；cache-stats 可每 60s 打印一次", "扇出为 parallelStream 调用下游 Node 的 receiveData"] },
+    { "dot": "amber", "title": "扩展约定", "items": ["每个数据源模块以 AutoConfiguration.imports 注册自己的 XxxNodeAutoConfiguration", "上层以 @Service 实现 XxxDataHandler 即完成数据落地", "Node 类型由 yml 配置节推断：配 tcp 节即 NodeType.TCP"] }
+  ]
+}

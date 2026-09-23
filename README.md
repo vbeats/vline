@@ -4,7 +4,7 @@
 
 Not ETL
 
-![alt text](/images/vline.svg)
+![alt text](/docs/vline-architecture.visual-check.1440x900.light.png)
 
 ## branch
 
