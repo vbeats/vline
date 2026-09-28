@@ -45,7 +45,7 @@ public class OracleDataSourceInitializer {
         ds.setTimeBetweenConnectErrorMillis(5000L);
         ds.setConnectionErrorRetryAttempts(Integer.MAX_VALUE);
 
-        DataRuntime dataRuntime = DataSourceHolder.reg(node.getName(), ds, DatabaseType.ORACLE);
+        DataRuntime dataRuntime = DataSourceHolder.reg(node.getName(), ds, DatabaseType.Oracle);
 
         Assert.notNull(dataRuntime, String.format("【%s】 DataSource Init Failed", node.getName()));
 

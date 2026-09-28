@@ -5,11 +5,8 @@ import com.codestepfish.vline.tcp.TcpNode;
 import com.codestepfish.vline.tcp.util.TcpHolder;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelHandler;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.EventLoopGroup;
-import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.*;
+import io.netty.channel.nio.NioIoHandler;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class TcpHandler {
 
-    public static final EventLoopGroup CLIENT_WORKER = new NioEventLoopGroup();
+    public static final EventLoopGroup CLIENT_WORKER = new MultiThreadIoEventLoopGroup(NioIoHandler.newFactory());
 
     public static void init(TcpNode node) {
         switch (node.getTcp().getMode()) {
@@ -40,8 +37,8 @@ public class TcpHandler {
             return;
         }
 
-        EventLoopGroup boss = new NioEventLoopGroup();
-        EventLoopGroup worker = new NioEventLoopGroup();
+        EventLoopGroup boss = new MultiThreadIoEventLoopGroup(1, NioIoHandler.newFactory());
+        EventLoopGroup worker = new MultiThreadIoEventLoopGroup(NioIoHandler.newFactory());
 
         ServerBootstrap bootstrap = new ServerBootstrap();
 
